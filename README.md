@@ -1,7 +1,23 @@
 # SmartHome web application which is actually quite dumb
 
+## OS
+
 I am going to use Raspberry PI v3 as home server for that so, [there is an instuction
 how to run Ubuntu server on this kind of hardware](/docs/Ubuntu.md).
+
+## Software
+
+[This is an instruction how to prepare softwarte we need.](/docs/Preparation.md)
+
+## Run meteor-react-js application
+
+```bash
+cd bundle
+cd programs/server && npm install)
+export MONGO_URL='mongodb://meteor:password@localhost:27017/DumbHome'
+export ROOT_URL='http://example.com'
+node main.js
+```
 
 Dependecies:
 

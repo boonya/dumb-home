@@ -1,0 +1,74 @@
+{
+  "name": "dumb-home",
+  "version": "1.0.0",
+  "description": "SmartHome web application which is actually quite dumb",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boonya/dumb-home.git"
+  },
+  "keywords": [
+    "SmartHome",
+    "home",
+    "IoT",
+    "WebCAM",
+    "video",
+    "node",
+    "meteor",
+    "reactjs",
+    "control",
+    "raspberry",
+    "pi",
+    "raspi"
+  ],
+  "author": "Serhii [boonya] Buinytskyi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boonya/dumb-home/issues"
+  },
+  "homepage": "https://github.com/boonya/dumb-home#readme",
+  "scripts": {
+    "start": "meteor run --settings ./settings/development.json",
+    "test": "meteor test --once --driver-package meteortesting:mocha",
+    "lint": "eslint client imports server tests -c .eslintrc.json --ext js,jsx",
+    "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+    "visualize": "meteor --production --extra-packages bundle-visualizer"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.jsx",
+      "server": "server/main.jsx"
+    },
+    "testModule": "tests/main.js"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.1.5",
+    "@material-ui/core": "^3.9.2",
+    "@material-ui/icons": "^3.0.2",
+    "bcrypt": "^3.0.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "lodash": "^4.17.11",
+    "meteor-node-stubs": "^0.4.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0",
+    "react-helmet": "^5.2.0",
+    "react-jss": "^8.6.1",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^4.3.1",
+    "reduce-reducers": "^0.4.3",
+    "redux-auth-wrapper": "^2.1.0",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^1.0.2",
+    "reselect": "^4.0.0",
+    "typeface-roboto": "0.0.54"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.15.0",
+    "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4"
+  }
+}

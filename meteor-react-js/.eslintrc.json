@@ -1,0 +1,57 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "meteor": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "settings": {
+    "import/resolver": {
+      "meteor": true
+    },
+    "react": {
+      "pragma": "React",
+      "version": "detect"
+    }
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "max-len": ["warn", 120, 2, {
+      "ignoreComments": true
+    }],
+    "array-bracket-newline": [
+      "error",
+      "consistent"
+    ],
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "no-unexpected-multiline": "warn",
+    "react/prop-types": ["warn"],
+    "react/no-deprecated": ["warn"],
+    "react/no-unsafe": ["warn"],
+    "react/prefer-stateless-function": ["warn"],
+    "react/react-in-jsx-scope": ["warn"],
+    "react/no-access-state-in-setstate": ["error"]
+  }
+}
