@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { Typography, List, ListItem, ListItemText, Avatar } from "@material-ui/core";
+import { Typography, Avatar } from "@material-ui/core";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 
@@ -46,30 +46,19 @@ class DeviceList extends Component {
     );
   }
 
-  // renderList = list => <List>{list.map(this.renderItem)}</List>;
   renderList = list => <GridList cols={3}>{list.map(this.renderItem)}</GridList>;
 
-  // renderItem = ({ _id, title, type }) => {
-  //   const Icon = DEVICES[type].icon;
-  //   return (
-  //     <Link key={`device-key-${_id}`} to={ROUTES.DeviceDetails.replace(":id", _id)}>
-  //       <ListItem dense>
-  //         <Avatar>
-  //           <Icon />
-  //         </Avatar>
-  //         <ListItemText primary={title} />
-  //       </ListItem>
-  //     </Link>
-  //   );
-  // };
   renderItem = ({ _id, title, type }) => {
-    const {classes} = this.props;
+    const { classes } = this.props;
     const Icon = DEVICES[type].icon;
     return (
-      <GridListTile className={classes.tile}>
-        <Avatar>
-          <Icon />
-        </Avatar>
+      <GridListTile key={`grid-list-item-${_id}`} className={classes.tile}>
+        <Link to={ROUTES.DeviceDetails.replace(":id", _id)}>
+          <Avatar>
+            <Icon />
+          </Avatar>
+          <Typography>{title}</Typography>
+        </Link>
       </GridListTile>
     );
   };
