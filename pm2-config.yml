@@ -1,6 +1,6 @@
 apps:
   - name: "DumbHome"
-    script: ./main.js
+    script: ./bundle/main.js
     watch: true
     env:
       NODE_ENV: development
