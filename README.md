@@ -26,8 +26,14 @@ So, to have it installed and running [follow the instruction](/docs/MongoDB.md).
 
 ## Install application dependencies
 
+First you'll need to unpack your bundle:
+
+`tar -xzvf meteor-react-js.tar.gz`
+
+As result you got a directory called `./bundle`
+
 To install all dependencies web application needs you have to run as usual `npm install`
-from `bundle/programs/server` directory. But some of dependecies will build from source code and
+from `./bundle/programs/server` directory. But some of dependecies will build from source code and
 for that purpose you'll have to install packages below:
 
 ```bash
