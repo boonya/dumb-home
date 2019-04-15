@@ -37,6 +37,17 @@ function* create({ payload }) {
   }
 }
 
+function* deleteDevice({ payload }) {
+  try {
+    const remove = async (data) => Devices.remove(data);
+    yield call(remove, payload);
+    yield put(actions.deviceDeleteSuccess());
+    yield getList();
+  } catch (err) {
+    yield put(actions.deviceDeleteFailure(err));
+  }
+}
+
 function* showListScreen() {
   yield put(actions.showScreenList());
 }
@@ -46,4 +57,5 @@ export default function* watch() {
   yield takeEvery(types.DEVICE_DETAILS, getDetails);
   yield takeEvery(types.DEVICE_CREATE, create);
   yield takeEvery(types.DEVICE_CREATE_SUCCESS, showListScreen);
+  yield takeEvery(types.DEVICE_DELETE, deleteDevice);
 }

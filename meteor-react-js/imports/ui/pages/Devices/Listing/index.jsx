@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { Typography, Avatar } from "@material-ui/core";
+import { Typography, Avatar, Button } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/delete";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 
@@ -22,6 +23,7 @@ class DeviceList extends Component {
     error: PropTypes.object,
     list: PropTypes.array,
     fetchList: PropTypes.func.isRequired,
+    delete: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -59,17 +61,21 @@ class DeviceList extends Component {
           </Avatar>
           <Typography>{title}</Typography>
         </Link>
+        <Button size="small" onClick={this.handleDelete(_id)}><DeleteIcon/></Button>
       </GridListTile>
     );
   };
 
   renderNothing = () => <Typography variant="body1">There is no device to display</Typography>;
+
+  handleDelete = (id) => () => confirm('Delete?') && this.props.delete(id);
 }
 
 const mapStateToProps = ({ device }) => ({ ...device.list });
 
 const mapDispatchToProps = dispatch => ({
   fetchList: () => dispatch(actions.deviceList()),
+  delete: (id) => dispatch(actions.deviceDelete(id)),
 });
 
 export default connect(

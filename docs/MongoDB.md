@@ -88,14 +88,7 @@ We will now create a new MongoDB admin user to rectify the situation. If not alr
 
 ```js
 use admin
-db.createUser({
-  user: "username",
-  pwd: "password",
-  roles: [{
-    role: "dbAdminAnyDatabase",
-    db: "admin"
-  }]
-})
+db.createUser({user: "username", pwd: "password", roles: [{role: "dbAdminAnyDatabase", db: "admin"}]})
 ```
 
 This switches to the admin database and creates a new user with dbAdminAnyDatabase role there in. Find out more about this role in the [official MongoDB documentation](https://docs.mongodb.com/v3.0/reference/built-in-roles/#dbAdminAnyDatabase).
@@ -137,12 +130,5 @@ I have it tested on *Ubuntu server 18.04.02 arm64* running on *Raspberry PI 3*.
 
 ```js
 use DumbHome
-db.createUser({
-  user: "meteor",
-  pwd: "password",
-  roles: [{
-    role: "readWrite",
-    db: "DumbHome"
-  }]
-})
+db.createUser({user: "meteor", pwd: "password", roles: [{role: "readWrite", db: "DumbHome"}]})
 ```

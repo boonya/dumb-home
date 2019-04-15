@@ -6,16 +6,10 @@ export function createErrorAction(action) {
         error: new Error('Invalid error instance passed'),
       };
     }
-    return {
-      type: action,
-      error,
-    };
+    return {type: action, error};
   };
 }
 
 export function createSuccessAction(action) {
-  return (payload) => ({
-    type: action,
-    payload,
-  });
+  return (payload) => ({type: action, payload});
 }
