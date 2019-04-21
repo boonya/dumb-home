@@ -6,9 +6,8 @@ import handleCamStream from "./camera";
 
 import "../imports/collections/devices";
 
-Markup.render();
-
 Meteor.startup(() => {
+  Markup.render();
   Accounts.createSuperUser();
   Accounts.onCreateHook();
 
