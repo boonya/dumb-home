@@ -1,8 +1,29 @@
-import Devices from '../imports/collections/devices';
 import ffmpeg from "fluent-ffmpeg";
 
-const pipeStream = (readableStream, writableStream) => {
-  return ffmpeg(readableStream)
+import { Meteor } from "meteor/meteor";
+import { Accounts as MeteorAccounts } from "meteor/accounts-base";
+import Devices from "../imports/collections/devices";
+
+const Logger = prefix => ({
+  error: (...data) => console.error(`${prefix} -> `, ...data),
+  warn: (...data) => console.warn(`${prefix} -> `, ...data),
+  info: (...data) => console.info(`${prefix} -> `, ...data),
+  debug: (...data) => console.debug(`${prefix} ->`, ...data),
+});
+
+const getSource = id => {
+  try {
+    const { dsn } = Devices.findOne({ _id: id });
+    return dsn;
+  } catch (err) {
+    throw new Error(`Can't determine source by ID "${id}".`);
+  }
+};
+
+const getStream = source => {
+  const logger = Logger(`FFMPEG ${source}`);
+
+  return ffmpeg(source, { logger })
     .noAudio()
     .videoCodec("copy")
     .toFormat("mp4")
@@ -24,64 +45,32 @@ const pipeStream = (readableStream, writableStream) => {
 
       "-bsf:v",
       "dump_extra",
-
-      // "-y",
-      // "-",
     ])
-    .on("start", commandLine => {
-      console.log("Spawned FFMPEG with command: " + commandLine);
-    })
-    .on("progress", progress => {
-      console.log("FFMPEG processing : ", progress);
-    })
-    .on("stderr", stderrLine => {
-      console.log("FFMPEG stderr output: " + stderrLine);
-    })
-    .on("error", (err, stdout, stderr) => {
-      console.log("FFMPEG Cannot process video: ", err);
-    })
-    // .on("end", function(stdout, stderr) {
-    //   console.log("Transcoding succeeded !");
-    // })
-
-    // .output(chunk => res.write(chunk))
-    .stream(writableStream);
-  // .run()
-
-  // .pipe()
-  // .on("data", (chunk) => {
-  //   const wrote = res.write(chunk);
-  //   console.log("ffmpeg just wrote " + chunk.length + " bytes", wrote);
-  // });
+    .on("start", cmd => logger.info(`Spawned with command: "${cmd}".`))
+    .on("progress", progress => logger.debug("Processing : ", progress))
+    .on("stderr", output => logger.error(output))
+    .on("error", err => logger.error(err))
+    .on("end", (stdout, stderr) => logger.info("Transcoding succeeded!", { stdout, stderr }));
 };
 
-const getSource = (_id) => {
-  const {
-    dsn
-  } = Devices.findOne({
-    _id
-  });
-  return dsn;
-};
-
-const handleRequest = (request, response, next) => {
+const handleRequest = (request, response) => {
   // TODO: Need auth here!!!
   try {
-    const source = getSource(request.url.replace('/', ''));
-    if (!source) {
-      throw new Error(`Can't determine source.`);
-    }
+    const logger = Logger(`REQEST ${request.url}`);
+    const source = getSource(request.url.replace("/", ""));
 
-    response.writeHead(200, {
-      "Content-Type": "video/mp4",
-    });
+    logger.info(`Process "${source}" source.`);
 
-    const command = pipeStream(source, response);
+    const stream = getStream(source);
 
-    // response.on('close', () => {
-    //   command.end();
-    // });
+    stream.on("start", () => response.writeHead(200, { "Content-Type": "video/mp4" }));
+    stream.on("end", () => response.end());
+    stream.pipe(response);
 
+    response.on("pipe", () => logger.info("Start piping to response stream."));
+    response.on("unpipe", () => logger.info("Stop piping to response stream."));
+    response.on("close", () => logger.info("Response stream closed."));
+    response.on("end", () => logger.info("Response stream ended."));
   } catch (err) {
     response.end(err.message);
   }

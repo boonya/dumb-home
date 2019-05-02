@@ -37,7 +37,7 @@ class DeviceList extends Component {
   }
 
   render() {
-    const { classes, loading, details } = this.props;
+    const { loading, details } = this.props;
     return (
       <>
         {loading && <Preloader />}
@@ -55,6 +55,7 @@ class DeviceList extends Component {
       <video
         className={classes.video}
         width="100%"
+        preload="none"
         autoPlay={true}
         controls={false}
         src={`/camera/${_id}`}
