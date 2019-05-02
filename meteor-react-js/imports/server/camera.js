@@ -2,7 +2,7 @@ import ffmpeg from "fluent-ffmpeg";
 
 import { Meteor } from "meteor/meteor";
 import { Accounts as MeteorAccounts } from "meteor/accounts-base";
-import Devices from "../imports/collections/devices";
+import Devices from "../collections/devices";
 
 const Logger = prefix => ({
   error: (...data) => console.error(`${prefix} -> `, ...data),

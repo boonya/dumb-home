@@ -5,8 +5,8 @@ import { SheetsRegistry } from "jss";
 import JssProvider from "react-jss/lib/JssProvider";
 import { MuiThemeProvider, createGenerateClassName } from "@material-ui/core/styles";
 
-import theme from "../imports/ui/Theme";
-import Preloader from "../imports/ui/common/Preloader";
+import theme from "../ui/Theme";
+import Preloader from "../ui/common/Preloader";
 
 export default class MarkupRenderer {
   static render() {

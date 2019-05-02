@@ -1,8 +1,8 @@
 import { Meteor } from "meteor/meteor";
 
-import Markup from "./markup";
-import Accounts from "./accounts";
-import handleCamStream from "./camera";
+import Markup from "../imports/server/markup";
+import Accounts from "../imports/server/accounts";
+import handleCamStream from "../imports/server/camera";
 
 import "../imports/collections/devices";
 

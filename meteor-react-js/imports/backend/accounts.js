@@ -1,11 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts as MeteorAccounts } from 'meteor/accounts-base';
-import { Roles } from 'meteor/alanning:roles';
+import { Roles } from './node_modules/meteor/alanning:roles';
 import {
   SUPERUSER_USERNAME,
   SUPERUSER_EMAIL,
   SUPERUSER_PASSWORD,
-} from '../imports/env';
+} from '../env';
 
 export default {
   onCreateHook() {
