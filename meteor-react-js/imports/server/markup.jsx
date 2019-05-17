@@ -27,19 +27,20 @@ export default class MarkupRenderer {
   }
 
   _renderBody() {
+    this._sink.appendToBody(renderToString(<div id="viewport-root">{this._getBodyContent()}</div>));
+  }
+
+  _getBodyContent() {
+    // TODO: Resolve issue that spinner effect afects on application layout
+    return <h1>Loading...</h1>;
     const sheetsManager = new Map();
     const generateClassName = createGenerateClassName();
-
-    this._sink.appendToBody(
-      renderToString(
-        <div id="viewport-root">
-          <JssProvider registry={this._sheetsRegistry} generateClassName={generateClassName}>
-            <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
-              <Preloader />
-            </MuiThemeProvider>
-          </JssProvider>
-        </div>
-      )
+    return (
+      <JssProvider registry={this._sheetsRegistry} generateClassName={generateClassName}>
+        <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>
+          <Preloader />
+        </MuiThemeProvider>
+      </JssProvider>
     );
   }
 
