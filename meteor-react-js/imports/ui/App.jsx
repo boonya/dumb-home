@@ -4,6 +4,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import loadableComponents from "loadable-components";
 
 import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
 import { CssBaseline, Grid } from "@material-ui/core";
@@ -15,10 +16,19 @@ import { authOnly, noAuthOnly } from "./common/auth";
 import Theme from "./Theme";
 import Header from "./Header";
 
-import Login from "./pages/Login";
-import Devices from "./pages/Devices";
-import DeviceDetails from "./pages/Devices/Details";
-import NotFound404 from "./pages/NotFound404";
+import LoadingComponent from "./common/Preloader";
+// import ErrorComponent from "./common/Error";
+
+const loadable = loader =>
+  loadableComponents(loader, {
+    LoadingComponent,
+    // ErrorComponent
+  });
+
+const Login = loadable(() => import(/* webpackChunkName: "Login"*/ "./pages/Login"));
+const Devices = loadable(() => import(/* webpackChunkName: "Devices"*/ "./pages/Devices"));
+const DeviceDetails = loadable(() => import(/* webpackChunkName: "DeviceDetails"*/ "./pages/Devices/Details"));
+const NotFound404 = loadable(() => import(/* webpackChunkName: "NotFound404"*/ "./pages/NotFound404"));
 
 const App = ({ classes }) => (
   <MuiThemeProvider theme={Theme}>
