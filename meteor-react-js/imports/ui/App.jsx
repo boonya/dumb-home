@@ -4,7 +4,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import loadableComponents from "loadable-components";
+import Loadable from "react-loadable";
 
 import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
 import { CssBaseline, Grid } from "@material-ui/core";
@@ -17,12 +17,11 @@ import Theme from "./Theme";
 import Header from "./Header";
 
 import LoadingComponent from "./common/Preloader";
-// import ErrorComponent from "./common/Error";
 
 const loadable = loader =>
-  loadableComponents(loader, {
-    LoadingComponent,
-    // ErrorComponent
+  Loadable({
+    loader,
+    loading: LoadingComponent,
   });
 
 const Login = loadable(() => import(/* webpackChunkName: "Login"*/ "./pages/Login"));
