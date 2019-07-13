@@ -31,10 +31,11 @@ export default class MarkupRenderer {
   }
 
   _getBodyContent() {
-    // TODO: Resolve issue that spinner effect afects on application layout
-    return <h1>Loading...</h1>;
     const sheetsManager = new Map();
-    const generateClassName = createGenerateClassName();
+    const generateClassName = createGenerateClassName({
+      productionPrefix: "_",
+      seed: "ss_",
+    });
     return (
       <JssProvider registry={this._sheetsRegistry} generateClassName={generateClassName}>
         <MuiThemeProvider theme={theme} sheetsManager={sheetsManager}>

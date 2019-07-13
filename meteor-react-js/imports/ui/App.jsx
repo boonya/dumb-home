@@ -32,6 +32,9 @@ const NotFound404 = loadable(() => import(/* webpackChunkName: "NotFound404"*/ "
 const App = ({ classes }) => (
   <MuiThemeProvider theme={Theme}>
     <Helmet>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta name="theme-color" content="#1B267C" />
       <title>{Config.APP_TITLE}</title>
     </Helmet>
     <CssBaseline />

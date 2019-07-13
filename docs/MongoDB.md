@@ -84,7 +84,7 @@ Server has startup warnings:
 >
 ```
 
-We will now create a new MongoDB admin user to rectify the situation. If not already done, connect to your MongoDB again using the `mongo` command and after the `>` sign, add these queries (replace the _user_ and _pwd_ values with your own):
+We will now create a new MongoDB admin user to rectify the situation. If not already done, connect to your MongoDB again using the `mongo` command and after the `>` sign, add these queries (replace the _user_ and _password_ values with your own):
 
 ```js
 use admin
