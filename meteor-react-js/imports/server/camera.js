@@ -1,29 +1,60 @@
 import ffmpeg from "fluent-ffmpeg";
+import { Discovery, Cam } from "onvif";
+import { Recorder } from "node-rtsp-recorder";
 
-import { Meteor } from "meteor/meteor";
-import { Accounts as MeteorAccounts } from "meteor/accounts-base";
-import Devices from "../collections/devices";
+import Devices from "../api/devices";
 
-const Logger = prefix => ({
-  error: (...data) => console.error(`${prefix} -> `, ...data),
-  warn: (...data) => console.warn(`${prefix} -> `, ...data),
-  info: (...data) => console.info(`${prefix} -> `, ...data),
-  debug: (...data) => console.debug(`${prefix} ->`, ...data),
-});
+export const discover = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      Discovery.probe((err, cams) => {
+        if (err) throw new Error(err);
+        resolve(cams);
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
-const getSource = id => {
-  try {
-    const { dsn } = Devices.findOne({ _id: id });
-    return dsn;
-  } catch (err) {
-    throw new Error(`Can't determine source by ID "${id}".`);
-  }
+export const getStreamUri = ({ hostname, port, username, password = "" }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      new Cam({ hostname, port, username, password }, function(err) {
+        if (err) throw new Error(err);
+        this.getStreamUri({ protocol: "RTSP" }, (err, stream) => {
+          if (err) throw new Error(err);
+          resolve(stream.uri);
+        });
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+const record = url => {
+  console.log("Recorder: ", { name: "cam1", url });
+  var rec = new Recorder({
+    name: "cam1",
+    url,
+    // timeLimit: 60, // time in seconds for each segmented video file
+    folder: "/Users/boonya/Documents/SmartHome/dumb-home/"
+    // folder: "./media"
+  });
+  // Starts Recording
+  console.log("Starts Recording");
+  rec.startRecording();
+
+  setTimeout(() => {
+    console.log("Stopping Recording");
+    rec.stopRecording();
+    rec = null;
+  }, 30000);
 };
 
 const getStream = source => {
-  const logger = Logger(`FFMPEG ${source}`);
-
-  return ffmpeg(source, { logger })
+  return ffmpeg(source, { logger: console })
     .noAudio()
     .videoCodec("copy")
     .toFormat("mp4")
@@ -44,36 +75,13 @@ const getStream = source => {
       "global_header",
 
       "-bsf:v",
-      "dump_extra",
-    ])
-    .on("start", cmd => logger.info(`Spawned with command: "${cmd}".`))
-    .on("progress", progress => logger.debug("Processing : ", progress))
-    .on("stderr", output => logger.error(output))
-    .on("error", err => logger.error(err))
-    .on("end", (stdout, stderr) => logger.info("Transcoding succeeded!", { stdout, stderr }));
+      "dump_extra"
+    ]);
 };
 
-const handleRequest = (request, response) => {
-  // TODO: Need auth here!!!
-  try {
-    const logger = Logger(`REQEST ${request.url}`);
-    const source = getSource(request.url.replace("/", ""));
-
-    logger.info(`Process "${source}" source.`);
-
-    const stream = getStream(source);
-
-    stream.on("start", () => response.writeHead(200, { "Content-Type": "video/mp4" }));
-    stream.on("end", () => response.end());
-    stream.pipe(response);
-
-    response.on("pipe", () => logger.info("Start piping to response stream."));
-    response.on("unpipe", () => logger.info("Stop piping to response stream."));
-    response.on("close", () => logger.info("Response stream closed."));
-    response.on("end", () => logger.info("Response stream ended."));
-  } catch (err) {
-    response.end(err.message);
-  }
+export default async _id => {
+  const { details, username, password } = await Devices.findOne({ _id });
+  const { hostname, port } = details;
+  const streamUri = await getStreamUri({ hostname, port, username, password });
+  return getStream(streamUri);
 };
-
-export default handleRequest;

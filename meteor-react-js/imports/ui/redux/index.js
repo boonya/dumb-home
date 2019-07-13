@@ -1,27 +1,36 @@
-import { combineReducers } from 'redux';
-import reduceReducers from 'reduce-reducers';
-import { all } from 'redux-saga/effects';
+import { combineReducers } from "redux";
+import { all } from "redux-saga/effects";
+import { connectRouter } from "connected-react-router";
 
-import loginReducer from './reducers/login';
-import logoutReducer from './reducers/logout';
-import meReducer from './reducers/me';
-import deviceReducer from './reducers/device';
+import config from "./reducers/config";
+import locale from "./reducers/locale";
+import notification from "./reducers/notification";
+import meReducer from "./reducers/me";
+import deviceListReducer from "./reducers/deviceList";
+import deviceReducer from "./reducers/device";
+import cameraReducer from "./reducers/camera";
 
-import loginSaga from './sagas/login';
-import logoutSaga from './sagas/logout';
-import meSaga from './sagas/me';
-import devicesSaga from './sagas/device';
+import meSaga from "./sagas/me";
+import deviceListSaga from "./sagas/deviceList";
+import deviceSaga from "./sagas/device";
+import cameraSaga from "./sagas/camera";
 
-export const rootReducer = combineReducers({
-  me: reduceReducers(loginReducer, logoutReducer, meReducer),
-  device: deviceReducer,
-});
+export const createRootReducer = ({ history }) =>
+  combineReducers({
+    config,
+    locale,
+    notification,
+    router: connectRouter(history),
+    me: meReducer,
+    deviceList: deviceListReducer,
+    device: deviceReducer,
+    camera: cameraReducer
+  });
 
-export function* rootSaga() {
-  yield all([
-    loginSaga(),
-    logoutSaga(),
-    meSaga(),
-    devicesSaga(),
-  ]);
+export function createRootSaga() {
+  const sagas = [meSaga(), deviceListSaga(), deviceSaga(), cameraSaga()];
+
+  return function* rootSaga() {
+    yield all(sagas);
+  };
 }

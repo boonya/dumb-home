@@ -23,3 +23,5 @@ accounts-base
 alanning:roles
 accounts-password
 server-render
+tracker
+meteorhacks:picker

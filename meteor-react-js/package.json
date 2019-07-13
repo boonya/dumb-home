@@ -27,16 +27,21 @@
   },
   "homepage": "https://github.com/boonya/dumb-home#readme",
   "scripts": {
+    "install": "meteor npm install",
     "start": "meteor run --settings ./settings/development.json",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "lint": "eslint client imports server tests -c .eslintrc.json --ext js,jsx",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
-    "visualize": "meteor --production --extra-packages bundle-visualizer"
+    "visualize": "meteor --production --extra-packages bundle-visualizer",
+    "storybook": "start-storybook -p 6006",
+    "build": "meteor build ../build",
+    "mongo": "meteor mongo",
+    "shell": "meteor shell"
   },
   "meteor": {
     "mainModule": {
       "client": "client/main.jsx",
-      "server": "server/main.jsx"
+      "server": "server/main.js"
     },
     "testModule": "tests/main.js"
   },
@@ -45,9 +50,13 @@
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
     "bcrypt": "^3.0.4",
+    "connected-react-router": "^6.5.0",
     "fluent-ffmpeg": "^2.1.2",
     "lodash": "^4.17.11",
     "meteor-node-stubs": "^0.4.1",
+    "meteor-rxjs": "^0.4.14",
+    "node-rtsp-recorder": "^1.0.3",
+    "onvif": "^0.6.0",
     "prop-types": "^15.7.2",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
@@ -56,7 +65,9 @@
     "react-loadable": "^5.5.0",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
+    "react-select": "^3.0.4",
     "reduce-reducers": "^0.4.3",
+    "redux-actions": "^2.6.5",
     "redux-auth-wrapper": "^2.1.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
@@ -65,7 +76,16 @@
     "typeface-roboto": "0.0.54"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@clarketm/saga-monitor": "^2.0.1",
+    "@storybook/addon-actions": "^5.1.11",
+    "@storybook/addon-knobs": "^5.1.11",
+    "@storybook/addon-notes": "^5.1.11",
+    "@storybook/addons": "^5.1.11",
+    "@storybook/react": "^5.1.11",
     "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.6",
+    "chance": "^1.0.18",
     "eslint": "^5.15.0",
     "eslint-import-resolver-meteor": "^0.4.0",
     "eslint-plugin-import": "^2.16.0",

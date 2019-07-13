@@ -1,61 +1,35 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery } from "redux-saga/effects";
+import actions from "../actions";
 
-import Devices from '../../../collections/devices';
-import { types, actions } from '../actions/device';
+import api from "../../../api/devices";
 
-function* getList() {
+import { notifyFailure } from "./notification";
+
+function* fetcDeviceDetails({ payload }) {
   try {
-    const find = async () => Devices.find().fetch();
-    const list = yield call(find);
-    yield put(actions.deviceListSuccess(list));
+    const response = yield call(api.findOne, payload);
+    yield put(actions.device.fetchSuccess(response));
   } catch (err) {
-    yield put(actions.deviceListFailure(err));
-  }
-}
-
-function* getDetails({ payload }) {
-  try {
-    const findOne = async (_id) => Devices.findOne({ _id });
-    const item = yield call(findOne, payload);
-    if (item) {
-      yield put(actions.deviceDetailsSuccess(item));
-    } else {
-      yield put(actions.deviceDetailFailure(new Error("Device not found")));
-    }
-  } catch (err) {
-    yield put(actions.deviceDetailFailure(err));
-  }
-}
-
-function* create({ payload }) {
-  try {
-    const insert = async (data) => Devices.insert(data);
-    const deviceId = yield call(insert, payload);
-    yield put(actions.deviceCreateSuccess(deviceId));
-  } catch (err) {
-    yield put(actions.deviceCreateFailure(err));
+    yield put(actions.device.fetchFailure(err));
   }
 }
 
 function* deleteDevice({ payload }) {
   try {
-    const remove = async (data) => Devices.remove(data);
-    yield call(remove, payload);
-    yield put(actions.deviceDeleteSuccess());
-    yield getList();
+    yield call(api.remove, payload);
+    yield put(actions.device.deleteSuccess());
   } catch (err) {
-    yield put(actions.deviceDeleteFailure(err));
+    yield put(actions.device.deleteFailure(err));
   }
 }
 
-function* showListScreen() {
-  yield put(actions.showScreenList());
-}
-
 export default function* watch() {
-  yield takeEvery(types.DEVICE_LIST, getList);
-  yield takeEvery(types.DEVICE_DETAILS, getDetails);
-  yield takeEvery(types.DEVICE_CREATE, create);
-  yield takeEvery(types.DEVICE_CREATE_SUCCESS, showListScreen);
-  yield takeEvery(types.DEVICE_DELETE, deleteDevice);
+  yield takeEvery(actions.device.fetch.toString(), fetcDeviceDetails);
+  yield takeEvery(actions.device.fetchFailure.toString(), notifyFailure("Failed to fetch device details"));
+
+  yield takeEvery(actions.device.delete.toString(), deleteDevice);
+  yield takeEvery(actions.device.deleteSuccess.toString(), function*() {
+    yield put(actions.deviceList.fetch());
+  });
+  yield takeEvery(actions.device.deleteFailure.toString(), notifyFailure("Failed to delete device"));
 }

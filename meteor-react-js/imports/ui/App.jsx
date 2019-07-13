@@ -1,67 +1,71 @@
 import "typeface-roboto";
 
 import React from "react";
-import PropTypes from "prop-types";
-import { Helmet } from "react-helmet";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Loadable from "react-loadable";
+import { Provider } from "react-redux";
 
-import { MuiThemeProvider, withStyles } from "@material-ui/core/styles";
-import { CssBaseline, Grid } from "@material-ui/core";
+import createHistory from "history/createBrowserHistory";
+import { ConnectedRouter } from "connected-react-router";
+import { Switch, Route } from "react-router-dom";
+
+import { Helmet } from "react-helmet";
+
+import { CssBaseline } from "@material-ui/core";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 
 import Config from "../config";
-import ROUTES from "../routes";
-import { authOnly, noAuthOnly } from "./common/auth";
+import theme from "./theme";
+import ROUTES from "./routes";
+import loadable from "./loadable";
+import { authOnly, noAuthOnly } from "./auth";
+import { createRootSaga } from "./redux";
+import configureStore from "./configureStore";
 
-import Theme from "./Theme";
-import Header from "./Header";
+import Notifications from "./containers/Notifications";
 
-import LoadingComponent from "./common/Preloader";
+const title = Config.APP_TITLE;
+const config = { appPrefix: "", title };
+const locale = "en";
+const initialState = { config, locale };
 
-const loadable = loader =>
-  Loadable({
-    loader,
-    loading: LoadingComponent,
-  });
+const history = createHistory({ basename: config.appPrefix.slice(0, -1) });
+const rootSaga = createRootSaga();
+const store = configureStore(initialState, rootSaga, history);
 
 const Login = loadable(() => import(/* webpackChunkName: "Login"*/ "./pages/Login"));
-const Devices = loadable(() => import(/* webpackChunkName: "Devices"*/ "./pages/Devices"));
-const DeviceDetails = loadable(() => import(/* webpackChunkName: "DeviceDetails"*/ "./pages/Devices/Details"));
+const Dashboard = loadable(() => import(/* webpackChunkName: "Dashboard"*/ "./pages/Dashboard"));
+const CreateDevice = loadable(() => import(/* webpackChunkName: "CreateDevice"*/ "./pages/CreateDevice"));
+const DeviceDetails = loadable(() => import(/* webpackChunkName: "DeviceDetails"*/ "./pages/DeviceDetails"));
+const EditDevice = loadable(() => import(/* webpackChunkName: "EditDevice"*/ "./pages/EditDevice"));
 const NotFound404 = loadable(() => import(/* webpackChunkName: "NotFound404"*/ "./pages/NotFound404"));
 
-const App = ({ classes }) => (
-  <MuiThemeProvider theme={Theme}>
-    <Helmet>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-      <meta name="theme-color" content="#1B267C" />
-      <title>{Config.APP_TITLE}</title>
-    </Helmet>
-    <CssBaseline />
-    <BrowserRouter>
-      <Grid container direction="column">
-        <Header>{Config.APP_TITLE}</Header>
-        <Grid className={classes.container}>
-          <Switch>
-            <Route exact path={ROUTES.Login} component={noAuthOnly(Login)} />
-            <Route exact path={ROUTES.Landing} component={authOnly(Devices)} />
-            <Route exact path={ROUTES.DeviceDetails} component={authOnly(DeviceDetails)} />
-            <Route component={NotFound404} />
-          </Switch>
-        </Grid>
-      </Grid>
-    </BrowserRouter>
-  </MuiThemeProvider>
+const App = () => (
+  <Provider store={store}>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <Helmet>
+        <meta charSet="utf-8" />
+        <html lang={locale} />
+        <title>{title}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="theme-color" content="#1B267C" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png" />
+        <link rel="shortcut icon" href="/assets/favicon/favicon.ico" />
+      </Helmet>
+      <ConnectedRouter history={history}>
+        <Switch>
+          <Route exact path={ROUTES.Login} component={noAuthOnly(Login)} />
+          <Route exact path={ROUTES.Landing} component={authOnly(Dashboard)} />
+          <Route exact path={ROUTES.CreateDevice} component={authOnly(CreateDevice)} />
+          <Route exact path={ROUTES.DeviceDetails} component={authOnly(DeviceDetails)} />
+          <Route exact path={ROUTES.EditDevice} component={authOnly(EditDevice)} />
+          <Route component={NotFound404} />
+        </Switch>
+      </ConnectedRouter>
+      <Notifications />
+    </MuiThemeProvider>
+  </Provider>
 );
 
-App.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-const styles = ({ spacing }) => ({
-  container: {
-    padding: spacing.unit,
-  },
-});
-
-export default withStyles(styles)(App);
+export default App;

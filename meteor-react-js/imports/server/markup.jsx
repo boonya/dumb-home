@@ -5,11 +5,12 @@ import { SheetsRegistry } from "jss";
 import JssProvider from "react-jss/lib/JssProvider";
 import { MuiThemeProvider, createGenerateClassName } from "@material-ui/core/styles";
 
-import theme from "../ui/Theme";
-import Preloader from "../ui/common/Preloader";
+import theme from "../ui/theme";
+import Preloader from "../ui/components/Preloader";
 
 export default class MarkupRenderer {
-  static render() {
+  static render(elementId) {
+    this._elementId = elementId;
     const renderer = new MarkupRenderer();
     renderer.onPageLoad();
   }
@@ -27,14 +28,14 @@ export default class MarkupRenderer {
   }
 
   _renderBody() {
-    this._sink.appendToBody(renderToString(<div id="viewport-root">{this._getBodyContent()}</div>));
+    this._sink.renderIntoElementById(this._elementId, renderToString(this._getBodyContent()));
   }
 
   _getBodyContent() {
     const sheetsManager = new Map();
     const generateClassName = createGenerateClassName({
       productionPrefix: "_",
-      seed: "ss_",
+      seed: "ss_"
     });
     return (
       <JssProvider registry={this._sheetsRegistry} generateClassName={generateClassName}>
