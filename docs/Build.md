@@ -6,7 +6,7 @@ To run meteor application at your appliance you have to bundle it. For that purp
 
 and wait for a while.
 
-As a result you'll get `meteor-react-js.tar.gz` file placed in `./bundle` directory.
+As a result you'll get `meteor-react-js.tar.gz` file placed in `./build` directory.
 Copy this file to your appliance using:
 
-```scp ./bundle/meteor-react-js.tar.gz your-appliance:```
+```scp ./build/meteor-react-js.tar.gz your-appliance:```

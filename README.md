@@ -65,16 +65,10 @@ sudo apt-get install -y ffmpeg
 
 No configuration needed
 
-## Haproxy to forward web requests from specific port to standart one
+## Nginx to forward web requests from specific port to standart one
 
-To install latest haproxy LTS use:
-
-```bash
-sudo apt-get update
-sudo apt-get install -y haproxy=1.8.\*
-```
-
-To configure it, visit this page later. This work in progress.
+You'll need a proxy server to forward requests from the standard web port to specific one.
+So, I recommend to install NGINX [follow the instruction](/docs/Nginx.md).
 
 ## Firewall
 
@@ -84,7 +78,7 @@ When you have haproxy configured, you need to disable ports except of standarts 
 
 ## Dependecies
 
-- [haproxy](https://haproxy.debian.net/#?distribution=Ubuntu&release=bionic&version=1.8)
+- [nginx](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04-quickstart)
 - [nodejs](https://github.com/nodesource/distributions/blob/master/README.md#debinstall)
 - [pm2 (optional)](https://pm2.io/doc/en/runtime/quick-start/#installation)
 - [mongodb](https://medium.com/@mhagemann/how-to-install-mongodb-3-6-on-ubuntu-17-10-ac0bc225e648)
