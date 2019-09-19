@@ -76,6 +76,10 @@ When you have haproxy configured, you need to disable ports except of standarts 
 
 `sudo ufw enable`
 
+Also you need to add firewall rule below to allow onvif discovery process (finding of ip cameras on the local network).
+
+`sudo ufw allow proto udp from 192.168.0.0/16`
+
 ## Dependecies
 
 - [nginx](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04-quickstart)
