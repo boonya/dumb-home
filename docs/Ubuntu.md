@@ -23,22 +23,16 @@ Execute next to set new hostname:
 Run to recheck:
 ```hostnamectl```
 
-Reboot:
-```sudo reboot```
-
 SRC:
 - https://www.cyberciti.biz/faq/ubuntu-18-04-lts-change-hostname-permanently/
-
-## Change Prompt (optional)
-
-Open:
-```vim ~/.bashrc```
-
-Replace all occurrences of `\h` to `\H`
 
 ## Locale (optional)
 
 ```sudo dpkg-reconfigure locales```
+
+## Timezone
+
+```sudo timedatectl set-timezone Europe/Kiev```
 
 ## Create your own sudo user
 
@@ -61,6 +55,17 @@ chmod 600 ~/.ssh/authorized_keys
 
 SRC:
 - https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart
+
+## Change Prompt (optional)
+
+Open:
+```vim ~/.bashrc```
+
+Replace all occurrences of `\h` to `\H`
+
+## Reboot
+
+```sudo reboot```
 
 ## Delete default ubuntu user
 
