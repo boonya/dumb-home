@@ -13,7 +13,7 @@ export default class CameraForm extends PureComponent {
     details: PropTypes.shape({ hostname: PropTypes.string.isRequired }).isRequired,
     readOnly: PropTypes.bool,
     handleSubmit: PropTypes.func,
-    handleCancel: PropTypes.func
+    handleCancel: PropTypes.func,
   };
 
   static defaultProps = {
@@ -22,7 +22,7 @@ export default class CameraForm extends PureComponent {
     password: "",
     readOnly: false,
     handleSubmit: () => null,
-    handleCancel: undefined
+    handleCancel: undefined,
   };
 
   constructor(props) {
@@ -34,7 +34,7 @@ export default class CameraForm extends PureComponent {
     this.state = {
       label: label || hostname,
       username,
-      password
+      password,
     };
   }
 
@@ -45,7 +45,7 @@ export default class CameraForm extends PureComponent {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <Grid container spacing={8}>
+        <Grid container spacing={1}>
           <Grid item xs={12} container justify="center">
             <Grid item xs={12} sm={10} md={8} lg={6}>
               <TextField name="hostname" label="hostname" value={hostname} disabled fullWidth />

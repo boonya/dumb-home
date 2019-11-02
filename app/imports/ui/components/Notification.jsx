@@ -113,7 +113,7 @@ export default withStyles(({ palette, spacing }) => ({
   },
   iconVariant: {
     opacity: 0.9,
-    marginRight: spacing.unit,
+    marginRight: spacing(1),
   },
   message: {
     display: "flex",

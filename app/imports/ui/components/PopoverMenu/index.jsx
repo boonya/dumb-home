@@ -10,13 +10,13 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 const ITEM_TYPE = PropTypes.shape({
   key: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  Icon: PropTypes.func
+  Icon: PropTypes.elementType,
 });
 
 export default class PopoverMenu extends PureComponent {
   static propTypes = {
     items: PropTypes.arrayOf(ITEM_TYPE).isRequired,
-    onSelect: PropTypes.func.isRequired
+    onSelect: PropTypes.func.isRequired,
   };
 
   render() {

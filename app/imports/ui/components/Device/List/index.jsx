@@ -19,7 +19,7 @@ import Preloader from "../../Preloader";
 const ITEM_TYPE = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
 });
 
 class DeviceList extends Component {
@@ -27,11 +27,11 @@ class DeviceList extends Component {
     loading: PropTypes.bool,
     list: PropTypes.arrayOf(ITEM_TYPE).isRequired,
     onDelete: PropTypes.func.isRequired,
-    onSelect: PropTypes.func.isRequired
+    onSelect: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    loading: false
+    loading: false,
   };
 
   render() {
@@ -49,7 +49,7 @@ class DeviceList extends Component {
   renderList = list => (
     <List>
       {list.map(item => (
-        <Fragment key={`grid-list-item-${item.id}`}>{this.renderItem(item)}</Fragment>
+        <Fragment key={`grid-list-item-${item._id}`}>{this.renderItem(item)}</Fragment>
       ))}
     </List>
   );

@@ -14,7 +14,7 @@ export const CAMERA_TYPE = PropTypes.shape({
   hostname: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired
+  password: PropTypes.string.isRequired,
 });
 
 export default {
@@ -23,6 +23,6 @@ export default {
     Icon: CameraIcon,
     CreateFlow: CameraDiscovery,
     DetailsFlow: CameraDetails,
-    EditFlow: CameraEdit
-  }
+    EditFlow: CameraEdit,
+  },
 };

@@ -80,8 +80,8 @@ export const styles = ({ spacing }) => ({
     width: 400,
   },
   textField: {
-    marginLeft: spacing.unit,
-    marginRight: spacing.unit,
+    marginLeft: spacing(1),
+    marginRight: spacing(1),
   },
 });
 

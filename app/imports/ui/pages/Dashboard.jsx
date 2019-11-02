@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React, { PureComponent } from "react";
 import { createSelector } from "reselect";
 import { connect } from "react-redux";
+import uniqueId from "lodash/uniqueId";
 
 import { isReady, isLoading } from "../redux/utils/state";
 import actions from "../redux/actions";
@@ -19,7 +20,7 @@ const mapStateToProps = createSelector(
   [getDeviceList],
   devices => ({
     devices: isReady(devices) ? devices : [],
-    loading: isLoading(devices)
+    loading: isLoading(devices),
   })
 );
 
@@ -27,7 +28,7 @@ const mapDispatchToProps = dispatch => ({
   fetch: () => dispatch(actions.deviceList.fetch()),
   handleDelete: id => dispatch(actions.device.delete(id)),
   handleCreate: type => dispatch(goTo(ROUTES.CreateDevice, { type })),
-  handleSelect: id => dispatch(goTo(ROUTES.DeviceDetails, { id }))
+  handleSelect: id => dispatch(goTo(ROUTES.DeviceDetails, { id })),
 });
 
 class DashboardPage extends PureComponent {
@@ -36,7 +37,8 @@ class DashboardPage extends PureComponent {
     devices: PropTypes.array.isRequired,
     fetch: PropTypes.func.isRequired,
     handleCreate: PropTypes.func.isRequired,
-    handleDelete: PropTypes.func.isRequired
+    handleDelete: PropTypes.func.isRequired,
+    handleSelect: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -54,7 +56,7 @@ class DashboardPage extends PureComponent {
           onSelect={this.props.handleSelect}
           onDelete={this.props.handleDelete}
         />
-        <CreateButton>
+        <CreateButton id={uniqueId()}>
           <PopoverMenu items={this.getDevices()} onSelect={this.props.handleCreate} />
         </CreateButton>
       </Layout>

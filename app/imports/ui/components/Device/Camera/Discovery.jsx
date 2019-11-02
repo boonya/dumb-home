@@ -11,14 +11,14 @@ class Discovery extends PureComponent {
     loading: PropTypes.bool.isRequired,
     ready: PropTypes.bool.isRequired,
     List: PropTypes.node.isRequired,
-    handleDiscovery: PropTypes.func.isRequired
+    handleDiscovery: PropTypes.func.isRequired,
   };
 
   render() {
     const { loading, ready, List } = this.props;
 
     return (
-      <Grid container direction="column" alignItems="center" spacing={8}>
+      <Grid container direction="column" alignItems="center" spacing={1}>
         {loading && <Preloader />}
         <Grid item>
           <Button variant="contained" color="primary" onClick={this.handleDiscovery} disabled={loading}>

@@ -11,7 +11,6 @@ const theme = createMuiTheme({
     type: 'dark',
   },
   typography: {
-    useNextVariants: true,
     fontFamily: "Roboto",
     fontSize: 14,
     fontWeight: 300,
