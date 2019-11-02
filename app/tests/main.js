@@ -1,8 +1,8 @@
 import assert from 'assert';
 
-describe('meteor-react-js', () => {
+describe('app', () => {
   it('package.json has correct name', async () => {
-    const { name } = await import('../package.json');
+    const { name } = await import('../package.json.js');
     assert.strictEqual(name, 'home');
   });
 

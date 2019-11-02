@@ -30,11 +30,11 @@
   },
   "homepage": "https://github.com/boonya/dumb-home#readme",
   "scripts": {
-    "install": "(cd ./meteor-react-js/ && npm run install)",
-    "start": "(cd ./meteor-react-js/ && npm start)",
-    "build": "(cd ./meteor-react-js/ && npm run build)",
-    "mongo": "(cd ./meteor-react-js/ && npm run mongo)",
-    "shell": "(cd ./meteor-react-js/ && npm run shell)",
-    "storybook": "(cd ./meteor-react-js/ && npm run storybook)"
+    "install": "(cd ./app/ && npm run install)",
+    "start": "(cd ./app/ && npm start)",
+    "build": "(cd ./app/ && npm run build)",
+    "mongo": "(cd ./app/ && npm run mongo)",
+    "shell": "(cd ./app/ && npm run shell)",
+    "storybook": "(cd ./app/ && npm run storybook)"
   }
 }

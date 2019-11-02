@@ -28,7 +28,7 @@ So, to have it installed and running [follow the instruction](/docs/MongoDB.md).
 
 First you'll need to unpack your bundle:
 
-`tar -xzvf meteor-react-js.tar.gz`
+`tar -xzvf app.tar.gz`
 
 As result you got a directory called `./bundle`
 
