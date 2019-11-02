@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/boonya/dumb-home#readme",
   "scripts": {
-    "install": "(cd ./app/ && npm run install)",
+    "install": "(cd ./app/ && meteor npm install)",
     "start": "(cd ./app/ && npm start)",
     "build": "(cd ./app/ && npm run build)",
     "mongo": "(cd ./app/ && npm run mongo)",
