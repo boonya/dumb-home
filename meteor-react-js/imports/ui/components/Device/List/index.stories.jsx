@@ -5,8 +5,8 @@ import { action } from "@storybook/addon-actions";
 
 import Chance from "chance";
 
-import DEVICES from "../../imports/ui/devices";
-import DeviceList from "../../imports/ui/components/Device/List";
+import DEVICES from "../../../devices";
+import DeviceList from ".";
 
 const chance = new Chance();
 const ITEMS = chance.n(

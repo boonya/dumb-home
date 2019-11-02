@@ -16,8 +16,7 @@ addDecorator(fn => (
 ));
 
 function loadStories() {
-  // Automatically import all js files in ../stories/ directory
-  const req = require.context("../stories", true, /.jsx?$/);
+  const req = require.context("../imports/ui/components", true, /\.stories\.jsx?$/);
   req.keys().forEach(req);
 }
 

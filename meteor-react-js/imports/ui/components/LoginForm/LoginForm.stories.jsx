@@ -3,10 +3,9 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { radios } from "@storybook/addon-knobs";
 
-import LoginForm, { FORM_STATES } from "../imports/ui/components/LoginForm";
+import LoginForm, { FORM_STATES } from ".";
 
 storiesOf("Components|Forms", module).add("LoginForm", () => {
-  const state = radios("state", [null, ...Object.values(FORM_STATES)], null);
-
-  return <LoginForm state={state} handleSubmit={action("handleSubmit")} />;
+  const state = radios("state", ["Default", ...Object.values(FORM_STATES)], "Default");
+  return <LoginForm state={state !== "Default" ? state : null} handleSubmit={action("handleSubmit")} />;
 });

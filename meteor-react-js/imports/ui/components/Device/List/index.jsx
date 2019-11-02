@@ -12,9 +12,9 @@ import Typography from "@material-ui/core/Typography";
 
 import DeleteIcon from "@material-ui/icons/Delete";
 
-import DEVICES from "../../devices";
+import DEVICES from "../../../devices";
 
-import Preloader from "../Preloader";
+import Preloader from "../../Preloader";
 
 const ITEM_TYPE = PropTypes.shape({
   _id: PropTypes.string.isRequired,

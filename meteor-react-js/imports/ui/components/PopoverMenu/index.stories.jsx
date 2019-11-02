@@ -2,9 +2,9 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-import PopoverMenu from "../imports/ui/components/PopoverMenu";
+import PopoverMenu from ".";
 
-import DEVICES from "../imports/ui/devices";
+import DEVICES from "../../devices";
 
 storiesOf("Components|Menus", module).add("PopoverMenu", () => {
   const items = Object.keys(DEVICES).map(key => ({ key: key.toLowerCase(), ...DEVICES[key] }));

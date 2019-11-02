@@ -6,14 +6,7 @@ import Button from "@material-ui/core/Fab";
 import Icon from "@material-ui/icons/Add";
 import Popover from "@material-ui/core/Popover";
 
-class CreateButton extends PureComponent {
-  static propsTypes = {
-    id: PropTypes.string.isRequired,
-    children: PropTypes.element.isRequired,
-    ButtonProps: PropTypes.object,
-    PopoverProps: PropTypes.object
-  };
-
+export class CreateButton extends PureComponent {
   state = { anchorEl: null };
 
   render() {
@@ -39,11 +32,11 @@ class CreateButton extends PureComponent {
           onClose={this.handleClose}
           anchorOrigin={{
             vertical: "top",
-            horizontal: "left"
+            horizontal: "left",
           }}
           transformOrigin={{
             vertical: "bottom",
-            horizontal: "right"
+            horizontal: "right",
           }}
           className={classes.popover}
           {...PopoverProps}
@@ -65,12 +58,27 @@ class CreateButton extends PureComponent {
   };
 }
 
-export default withStyles({
+CreateButton.propTypes = {
+  id: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
+  ButtonProps: PropTypes.object,
+  PopoverProps: PropTypes.object,
+};
+
+CreateButton.defaultProps = {
+  ButtonProps: undefined,
+  PopoverProps: undefined,
+};
+
+export const styles = {
   button: {
     position: "fixed",
     right: 10,
-    bottom: 10
+    bottom: 10,
   },
   icon: {},
-  popover: {}
-})(CreateButton);
+  popover: {},
+};
+
+export default withStyles(styles)(CreateButton);

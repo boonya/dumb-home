@@ -7,9 +7,9 @@ import Chance from "chance";
 
 import Typography from "@material-ui/core/Typography";
 
-import Discovery from "../../imports/ui/components/Device/Camera/Discovery";
-import List from "../../imports/ui/components/Device/Camera/List";
-import Form from "../../imports/ui/components/Device/Camera/Form";
+import Discovery from "./Discovery";
+import List from "./List";
+import Form from "./Form";
 
 const chance = new Chance();
 const CAMERA_LIST = chance.n(
