@@ -77,6 +77,7 @@ const addFailure = action$ =>
     ofType(actions.camera.addFailure.toString()),
     map(notifyFailure("Add camera failure"))
   );
+
 const editFailure = action$ =>
   action$.pipe(
     ofType(actions.camera.editFailure.toString()),
