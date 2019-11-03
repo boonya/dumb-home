@@ -68,7 +68,6 @@
     "redux-actions": "^2.6.5",
     "redux-auth-wrapper": "^2.1.0",
     "redux-devtools-extension": "^2.13.8",
-    "redux-logger": "^3.0.6",
     "redux-observable": "^1.2.0",
     "redux-saga": "^1.1.1",
     "reselect": "^4.0.0",
