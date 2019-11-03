@@ -6,11 +6,16 @@ import { withKnobs } from "@storybook/addon-knobs";
 import { CssBaseline } from "@material-ui/core";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 
+import { VIEWPORTS, DEFAULT_VIEWPORT } from "./viewports";
 import theme from "../imports/ui/theme";
 
 addParameters({
   options: {
     theme: themes.dark,
+  },
+  viewport: {
+    viewports: VIEWPORTS,
+    defaultViewport: DEFAULT_VIEWPORT,
   },
 });
 
