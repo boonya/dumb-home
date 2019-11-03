@@ -17,23 +17,25 @@ const mapStateToProps = createSelector(
   [getDevice],
   payload => ({
     loading: isLoading(payload),
-    details: isReady(payload) ? payload : null
+    details: isReady(payload) ? payload : null,
   })
 );
 
 const mapDispatchToProps = dispatch => ({
   handleChange: params => dispatch(actions.camera.edit(params)),
-  handleCancel: id => dispatch(goTo(ROUTES.DeviceDetails, { id }))
+  handleCancel: id => dispatch(goTo(ROUTES.DeviceDetails, { id })),
 });
 
 class EditContainer extends PureComponent {
   static propTypes = {
     loading: PropTypes.bool.isRequired,
-    details: PropTypes.shape({ _id: PropTypes.string.isRequired })
+    details: PropTypes.shape({ _id: PropTypes.string.isRequired }),
+    handleChange: PropTypes.func.isRequired,
+    handleCancel: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    details: null
+    details: null,
   };
 
   render() {

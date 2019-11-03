@@ -3,7 +3,7 @@ import React, { Component } from "react";
 
 class VideoPlayer extends Component {
   static propTypes = {
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
   };
 
   constructor(props) {

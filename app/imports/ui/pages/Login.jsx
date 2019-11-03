@@ -14,12 +14,12 @@ import LoginForm, { FORM_STATES } from "../components/LoginForm";
 const mapStateToProps = createSelector(
   [getMe],
   payload => ({
-    state: isLoading(payload) ? FORM_STATES.LOADING : null
+    state: isLoading(payload) ? FORM_STATES.LOADING : null,
   })
 );
 
 const mapDispatchToProps = dispatch => ({
-  handleLogin: params => dispatch(actions.me.login(params))
+  handleLogin: params => dispatch(actions.me.login(params)),
 });
 
 const LoginPage = ({ state, handleLogin }) => (
@@ -30,7 +30,7 @@ const LoginPage = ({ state, handleLogin }) => (
 
 LoginPage.propTypes = {
   handleLogin: PropTypes.func.isRequired,
-  state: PropTypes.oneOf(Object.values(FORM_STATES))
+  state: PropTypes.oneOf(Object.values(FORM_STATES)),
 };
 
 export default connect(

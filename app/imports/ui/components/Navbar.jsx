@@ -5,7 +5,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Link, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
-const Navbar = ({ classes, title, landingPath, isLoggedIn, logout }) => (
+export const Navbar = ({ classes, title, landingPath, isLoggedIn, logout }) => (
   <AppBar position="relative" className={classes.root}>
     <Toolbar>
       <Typography variant="h1" className={classes.title}>
@@ -26,19 +26,22 @@ Navbar.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.node.isRequired,
   isLoggedIn: PropTypes.bool,
-  logout: PropTypes.func.isRequired
+  logout: PropTypes.func.isRequired,
+  landingPath: PropTypes.string.isRequired,
 };
 
 Navbar.defaulProps = {
-  isLoggedIn: false
+  isLoggedIn: false,
 };
 
-export default withStyles({
+export const styles = {
   root: {
-    flexGrow: 0
+    flexGrow: 0,
   },
   title: {
     flex: 1,
-    fontSize: 25
-  }
-})(Navbar);
+    fontSize: 25,
+  },
+};
+
+export default withStyles(styles)(Navbar);

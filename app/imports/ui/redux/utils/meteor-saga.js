@@ -97,7 +97,14 @@ export function* subscribeReactiveSaga({ src, args, subscribeActions, unsubscrib
   }
 }
 
-export function* subscribeCollectionSaga({ collection, method, args, subscribeActions, unsubscribeActions, updateActions }) {
+export function* subscribeCollectionSaga({
+  collection,
+  method,
+  args,
+  subscribeActions,
+  unsubscribeActions,
+  updateActions,
+}) {
   let channel;
   try {
     channel = yield call(subscribeCollection, collection, method, args);

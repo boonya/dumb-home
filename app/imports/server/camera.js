@@ -39,7 +39,7 @@ const record = url => {
     name: "cam1",
     url,
     // timeLimit: 60, // time in seconds for each segmented video file
-    folder: "/Users/boonya/Documents/SmartHome/dumb-home/"
+    folder: "/Users/boonya/Documents/SmartHome/dumb-home/",
     // folder: "./media"
   });
   // Starts Recording
@@ -75,7 +75,7 @@ const getStream = source => {
       "global_header",
 
       "-bsf:v",
-      "dump_extra"
+      "dump_extra",
     ]);
 };
 

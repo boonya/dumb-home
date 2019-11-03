@@ -17,22 +17,23 @@ const mapStateToProps = createSelector(
   [getDevice],
   payload => ({
     loading: isLoading(payload),
-    details: isReady(payload) ? payload : null
+    details: isReady(payload) ? payload : null,
   })
 );
 
 const mapDispatchToProps = dispatch => ({
-  handleEdit: id => dispatch(goTo(ROUTES.EditDevice, { id }))
+  handleEdit: id => dispatch(goTo(ROUTES.EditDevice, { id })),
 });
 
 class DetailsContainer extends PureComponent {
   static propTypes = {
     loading: PropTypes.bool.isRequired,
-    details: PropTypes.shape({ _id: PropTypes.string.isRequired })
+    handleEdit: PropTypes.func.isRequired,
+    details: PropTypes.shape({ _id: PropTypes.string.isRequired }),
   };
 
   static defaultProps = {
-    details: null
+    details: null,
   };
 
   state = { watch: false };

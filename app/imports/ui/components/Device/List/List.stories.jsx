@@ -13,7 +13,7 @@ const ITEMS = chance.n(
   () => ({
     id: chance.guid(),
     label: chance.city(),
-    type: chance.pickone(Object.keys(DEVICES))
+    type: chance.pickone(Object.keys(DEVICES)),
   }),
   8
 );

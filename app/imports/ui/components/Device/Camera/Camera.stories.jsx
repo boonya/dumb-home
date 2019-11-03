@@ -15,7 +15,7 @@ const chance = new Chance();
 const CAMERA_LIST = chance.n(
   () => ({
     hostname: chance.ip(),
-    otherDetails: "...otherDetails"
+    otherDetails: "...otherDetails",
   }),
   8
 );

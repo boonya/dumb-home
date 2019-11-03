@@ -17,5 +17,5 @@ export default {
   LOGOUT: () => null,
   LOGOUT_EVERYWHERE: () => null,
   LOGOUT_SUCCESS: payload => payload,
-  LOGOUT_FAILURE: payload => payload
+  LOGOUT_FAILURE: payload => payload,
 };

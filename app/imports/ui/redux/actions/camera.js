@@ -11,5 +11,5 @@ export default {
 
   EDIT: params => params,
   EDIT_SUCCESS: id => id,
-  EDIT_FAILURE: err => err
+  EDIT_FAILURE: err => err,
 };

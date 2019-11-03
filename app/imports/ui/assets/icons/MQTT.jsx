@@ -18,9 +18,9 @@ const MQTT = ({ classes, ...props }) => (
 
 export default withStyles({
   root: {
-    height: 13
+    height: 13,
   },
   icon: {
-    transform: "translate(-7px, 0px)"
-  }
+    transform: "translate(-7px, 0px)",
+  },
 })(MQTT);

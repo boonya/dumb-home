@@ -19,30 +19,30 @@ const mapStateToProps = createSelector(
   [getDevice],
   payload => ({
     loading: isLoading(payload),
-    details: isReady(payload) ? payload : null
+    details: isReady(payload) ? payload : null,
   })
 );
 
 const mapDispatchToProps = dispatch => ({
   handleFetch: id => dispatch(actions.device.fetch(id)),
-  handleClear: () => dispatch(actions.device.clear())
+  handleClear: () => dispatch(actions.device.clear()),
 });
 
 class EditDevicePage extends PureComponent {
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({
-        id: PropTypes.string
-      })
+        id: PropTypes.string,
+      }),
     }).isRequired,
     details: PropTypes.shape({ type: PropTypes.oneOf(Object.keys(DEVICES)) }),
     loading: PropTypes.bool.isRequired,
     handleFetch: PropTypes.func.isRequired,
-    handleClear: PropTypes.func.isRequired
+    handleClear: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    details: null
+    details: null,
   };
 
   componentDidMount() {

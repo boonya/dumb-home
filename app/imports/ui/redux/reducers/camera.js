@@ -9,7 +9,7 @@ const discover = handleActions(
     [actions.camera.discover]: state => new LoadingState(state),
     [actions.camera.discoverSuccess]: (_, { payload }) => payload,
     [actions.camera.discoverFailure]: (state, { payload }) => new ErrorState(payload, state),
-    [actions.camera.flushDiscoveryResults]: () => new NoValue()
+    [actions.camera.flushDiscoveryResults]: () => new NoValue(),
   },
   new NoValue()
 );

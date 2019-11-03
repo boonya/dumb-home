@@ -13,7 +13,7 @@ export default handleActions(
 
     [actions.device.delete]: state => new LoadingState(state),
     [actions.device.deleteSuccess]: () => new NoValue(),
-    [actions.device.deleteFailure]: (state, { payload }) => new ErrorState(payload, state)
+    [actions.device.deleteFailure]: (state, { payload }) => new ErrorState(payload, state),
   },
   new NoValue()
 );

@@ -1,7 +1,8 @@
+import { Picker } from "meteor/meteorhacks:picker";
 import handleCameraStream from "./camera";
 
 export default () => {
-  Picker.route("/camera/:id", function(params, request, response, next) {
+  Picker.route("/camera/:id", function(params, request, response) {
     (async () => {
       try {
         const { id } = params;
@@ -14,7 +15,7 @@ export default () => {
         // stream.on("progress", (...args) => console.info("FFMPEG Stream in progress: ", ...args));
         // stream.on("stderr", (...args) => console.error('FFMPEG.stream.on("stderr": ', ...args));
         // stream.on("error", (...args) => console.error('FFMPEG.stream.on("error" : ', ...args));
-        stream.on("error", (...args) => {});
+        stream.on("error", () => {});
         stream.on("end", (...args) => console.info("FFMPEG Stream is ended up: ", ...args));
 
         stream.pipe(response);

@@ -1,11 +1,11 @@
-import { applyMiddleware, compose, createStore } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import { routerMiddleware } from 'connected-react-router';
+import { applyMiddleware, compose, createStore } from "redux";
+import createSagaMiddleware from "redux-saga";
+import { routerMiddleware } from "connected-react-router";
 
-import createSagaMonitor from '@clarketm/saga-monitor';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMonitor from "@clarketm/saga-monitor";
+import { composeWithDevTools } from "redux-devtools-extension";
 
-import { createRootReducer } from './redux';
+import { createRootReducer } from "./redux";
 
 export default function configureStore(initialState = {}, rootSaga, history) {
   let composeEnhancers;
@@ -22,14 +22,13 @@ export default function configureStore(initialState = {}, rootSaga, history) {
     // window.__REDUX_DEVTOOLS_EXTENSION__({
     //   serializeState: true,
     // });
-  }
-  else {
+  } else {
     composeEnhancers = compose;
   }
 
   const sagaMiddleware = createSagaMiddleware({
     sagaMonitor: createSagaMonitor({
-      level: 'debug', // logging level
+      level: "debug", // logging level
       verbose: true, // verbose mode
       effectCancel: true, // show cancelled effects
       actionDispatch: true, // show dispatched actions
@@ -39,12 +38,7 @@ export default function configureStore(initialState = {}, rootSaga, history) {
   const store = createStore(
     createRootReducer({ history }),
     initialState,
-    composeEnhancers(
-      applyMiddleware(
-        routerMiddleware(history),
-        sagaMiddleware,
-      )
-    ),
+    composeEnhancers(applyMiddleware(routerMiddleware(history), sagaMiddleware))
   );
   sagaMiddleware.run(rootSaga);
 

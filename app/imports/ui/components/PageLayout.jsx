@@ -19,15 +19,15 @@ PageLayout.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   NavbarProps: PropTypes.object,
-  ContainerProps: PropTypes.object
+  ContainerProps: PropTypes.object,
 };
 
 export default withStyles({
   root: {
     minHeight: "100%",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   container: {
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 })(PageLayout);

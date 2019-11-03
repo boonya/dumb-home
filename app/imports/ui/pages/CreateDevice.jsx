@@ -15,16 +15,16 @@ class CreateDevicePage extends Component {
     error: PropTypes.object,
     match: PropTypes.shape({
       params: PropTypes.shape({
-        type: PropTypes.string
-      })
-    }).isRequired
+        type: PropTypes.string,
+      }),
+    }).isRequired,
   };
 
   static defaultProps = {
     pending: true,
     loading: false,
     error: null,
-    details: null
+    details: null,
   };
 
   render() {
@@ -48,7 +48,7 @@ class CreateDevicePage extends Component {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = () => ({});
 
 export default connect(
   mapStateToProps,

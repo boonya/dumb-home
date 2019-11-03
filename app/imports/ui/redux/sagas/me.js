@@ -38,21 +38,25 @@ function* subscribeRequest() {
     src: api.fetch,
     subscribeActions: {
       success: actions.me.subscribeSuccess,
-      failure: actions.me.subscribeFailure
+      failure: actions.me.subscribeFailure,
     },
     unsubscribeActions: {
       success: actions.me.unsubscribeSuccess,
-      failure: actions.me.unsubscribeFailure
+      failure: actions.me.unsubscribeFailure,
     },
     updateActions: {
       success: actions.me.updateSuccess,
-      failure: actions.me.updateFailure
-    }
+      failure: actions.me.updateFailure,
+    },
   });
 
-  yield takeLatest(actions.me.unsubscribe.toString(), () => function*() {
-    yield cancel(task);
-  });
+  yield takeLatest(
+    actions.me.unsubscribe.toString(),
+    () =>
+      function*() {
+        yield cancel(task);
+      }
+  );
 }
 
 export default function* watch() {

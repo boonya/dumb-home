@@ -38,7 +38,7 @@ const mapStateToProps = createSelector(
   list => ({ list })
 );
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   handleClose: () => dispatch(actions.notification.close()),
 });
 

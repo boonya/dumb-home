@@ -24,7 +24,7 @@ export const createRootReducer = ({ history }) =>
     me: meReducer,
     deviceList: deviceListReducer,
     device: deviceReducer,
-    camera: cameraReducer
+    camera: cameraReducer,
   });
 
 export function createRootSaga() {

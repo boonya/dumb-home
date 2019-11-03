@@ -9,13 +9,13 @@ import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 
 const CAMERA_TYPE = PropTypes.shape({
-  hostname: PropTypes.string.isRequired
+  hostname: PropTypes.string.isRequired,
 });
 
 export default class CameraList extends PureComponent {
   static propTypes = {
     items: PropTypes.arrayOf(CAMERA_TYPE).isRequired,
-    handleChoose: PropTypes.func.isRequired
+    handleChoose: PropTypes.func.isRequired,
   };
 
   static defaultProps = {};

@@ -7,5 +7,5 @@ export default {
 
   DELETE: id => id,
   DELETE_SUCCESS: () => null,
-  DELETE_FAILURE: err => err
+  DELETE_FAILURE: err => err,
 };

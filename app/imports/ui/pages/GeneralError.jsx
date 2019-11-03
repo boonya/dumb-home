@@ -23,11 +23,11 @@ const GeneralError = ({ error }) => {
 
 GeneralError.propTypes = {
   error: PropTypes.object,
-  retry: PropTypes.func.isRequired
+  retry: PropTypes.func.isRequired,
 };
 
 GeneralError.defaultProps = {
-  error: null
+  error: null,
 };
 
 export default GeneralError;

@@ -16,14 +16,14 @@ const mapStateToProps = createSelector(
   list => ({
     loading: isLoading(list),
     ready: isReady(list),
-    list: isReady(list) ? list : []
+    list: isReady(list) ? list : [],
   })
 );
 
 const mapDispatchToProps = dispatch => ({
   handleDiscovery: () => dispatch(actions.camera.discover()),
   flushDiscoveryResults: () => dispatch(actions.camera.flushDiscoveryResults()),
-  handleCreate: params => dispatch(actions.camera.add(params))
+  handleCreate: params => dispatch(actions.camera.add(params)),
 });
 
 class DiscoveryContainer extends Component {
@@ -31,7 +31,9 @@ class DiscoveryContainer extends Component {
     loading: PropTypes.bool.isRequired,
     ready: PropTypes.bool.isRequired,
     list: PropTypes.array.isRequired,
-    handleDiscovery: PropTypes.func.isRequired
+    handleDiscovery: PropTypes.func.isRequired,
+    flushDiscoveryResults: PropTypes.func.isRequired,
+    handleCreate: PropTypes.func.isRequired,
   };
 
   state = { selected: null };

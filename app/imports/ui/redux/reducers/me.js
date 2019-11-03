@@ -17,7 +17,7 @@ export default handleActions(
     [actions.me.subscribeSuccess]: () => new NoValue(),
     [actions.me.loginSuccess]: (_, { payload }) => payload,
     [actions.me.logoutSuccess]: () => new NoValue(),
-    [actions.me.updateSuccess]: (_, { payload }) => payload
+    [actions.me.updateSuccess]: (_, { payload }) => payload,
   },
   new NoValue()
 );

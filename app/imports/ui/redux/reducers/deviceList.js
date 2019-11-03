@@ -7,7 +7,7 @@ export default handleActions(
   {
     [actions.deviceList.fetch]: state => new LoadingState(state),
     [actions.deviceList.fetchSuccess]: (_, { payload }) => payload,
-    [actions.deviceList.fetchFailure]: (state, { payload }) => new ErrorState(payload, state)
+    [actions.deviceList.fetchFailure]: (state, { payload }) => new ErrorState(payload, state),
   },
   new NoValue()
 );
