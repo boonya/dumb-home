@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { all } from "redux-saga/effects";
 import { connectRouter } from "connected-react-router";
+import { combineEpics } from "redux-observable";
 
 import config from "./reducers/config";
 import locale from "./reducers/locale";
@@ -10,10 +11,11 @@ import deviceListReducer from "./reducers/deviceList";
 import deviceReducer from "./reducers/device";
 import cameraReducer from "./reducers/camera";
 
-import meSaga from "./sagas/me";
 import deviceListSaga from "./sagas/deviceList";
 import deviceSaga from "./sagas/device";
 import cameraSaga from "./sagas/camera";
+
+import meEpic from "./epics/me";
 
 export const createRootReducer = ({ history }) =>
   combineReducers({
@@ -28,9 +30,11 @@ export const createRootReducer = ({ history }) =>
   });
 
 export function createRootSaga() {
-  const sagas = [meSaga(), deviceListSaga(), deviceSaga(), cameraSaga()];
+  const sagas = [deviceListSaga(), deviceSaga(), cameraSaga()];
 
   return function* rootSaga() {
     yield all(sagas);
   };
 }
+
+export const createRootEpic = () => combineEpics(meEpic);

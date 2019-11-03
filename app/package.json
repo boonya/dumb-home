@@ -55,7 +55,6 @@
     "fluent-ffmpeg": "^2.1.2",
     "lodash": "^4.17.15",
     "meteor-node-stubs": "^0.4.1",
-    "meteor-rxjs": "^0.4.14",
     "node-rtsp-recorder": "^1.0.3",
     "onvif": "^0.6.0",
     "prop-types": "^15.7.2",
@@ -70,8 +69,10 @@
     "redux-auth-wrapper": "^2.1.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
+    "redux-observable": "^1.2.0",
     "redux-saga": "^1.1.1",
     "reselect": "^4.0.0",
+    "rxjs": "^6.5.3",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {

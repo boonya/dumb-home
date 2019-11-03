@@ -1,4 +1,6 @@
 import { Meteor } from "meteor/meteor";
+import { Tracker } from "meteor/tracker";
+import { Observable } from "rxjs";
 
 import User from "../models/User";
 
@@ -37,4 +39,16 @@ const logoutEverywhere = () => {
 
 const fetch = () => new User(Meteor.user());
 
-export default { login, logout, logoutEverywhere, fetch };
+const observable = () => {
+  return new Observable(observer => {
+    Tracker.autorun(
+      () => {
+        observer.next(fetch());
+        // observer.complete: () => console.log("completed") // completed
+      },
+      { onError: observer.error }
+    );
+  });
+};
+
+export default { login, logout, logoutEverywhere, fetch, observable };

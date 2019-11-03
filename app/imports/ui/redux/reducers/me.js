@@ -14,7 +14,6 @@ export default handleActions(
     [actions.me.logoutFailure]: (state, { payload }) => new ErrorState(payload, state),
     [actions.me.updateFailure]: (state, { payload }) => new ErrorState(payload, state),
 
-    [actions.me.subscribeSuccess]: () => new NoValue(),
     [actions.me.loginSuccess]: (_, { payload }) => payload,
     [actions.me.logoutSuccess]: () => new NoValue(),
     [actions.me.updateSuccess]: (_, { payload }) => payload,

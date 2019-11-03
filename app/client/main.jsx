@@ -3,12 +3,12 @@ import { Meteor } from "meteor/meteor";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "../imports/ui/App";
+import App, { store } from "../imports/ui/App";
+import actions from "../imports/ui/redux/actions";
 
 function Main() {
   React.useEffect(() => {
     const jssStyles = document.getElementById("#jss-server-side");
-    // const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
@@ -18,5 +18,6 @@ function Main() {
 }
 
 Meteor.startup(() => {
+  store.dispatch(actions.me.subscribe());
   ReactDOM.render(<Main />, document.getElementById("viewport-root"));
 });

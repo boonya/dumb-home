@@ -1,11 +1,5 @@
 export default {
   SUBSCRIBE: () => null,
-  SUBSCRIBE_SUCCESS: channel => channel,
-  SUBSCRIBE_FAILURE: channel => channel,
-
-  UNSUBSCRIBE: () => null,
-  UNSUBSCRIBE_SUCCESS: payload => payload,
-  UNSUBSCRIBE_FAILURE: payload => payload,
 
   UPDATE_SUCCESS: payload => payload,
   UPDATE_FAILURE: payload => payload,
