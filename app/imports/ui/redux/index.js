@@ -13,9 +13,9 @@ import cameraReducer from "./reducers/camera";
 
 import deviceListSaga from "./sagas/deviceList";
 import deviceSaga from "./sagas/device";
-import cameraSaga from "./sagas/camera";
 
 import meEpic from "./epics/me";
+import cameraEpic from "./epics/camera";
 
 export const createRootReducer = ({ history }) =>
   combineReducers({
@@ -30,11 +30,11 @@ export const createRootReducer = ({ history }) =>
   });
 
 export function createRootSaga() {
-  const sagas = [deviceListSaga(), deviceSaga(), cameraSaga()];
+  const sagas = [deviceListSaga(), deviceSaga()];
 
   return function* rootSaga() {
     yield all(sagas);
   };
 }
 
-export const createRootEpic = () => combineEpics(meEpic);
+export const createRootEpic = () => combineEpics(meEpic, cameraEpic);
