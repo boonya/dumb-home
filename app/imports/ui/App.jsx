@@ -17,7 +17,7 @@ import theme from "./theme";
 import ROUTES from "./routes";
 import loadable from "./loadable";
 import { authOnly, noAuthOnly } from "./auth";
-import { createRootSaga, createRootEpic } from "./redux";
+import { createRootEpic } from "./redux";
 import configureStore from "./configureStore";
 
 import Notifications from "./containers/Notifications";
@@ -28,9 +28,8 @@ const locale = "en";
 const initialState = { config, locale };
 
 const history = createHistory({ basename: config.appPrefix.slice(0, -1) });
-const rootSaga = createRootSaga();
 const rootEpic = createRootEpic();
-export const store = configureStore(initialState, rootSaga, rootEpic, history);
+export const store = configureStore(initialState, rootEpic, history);
 
 const Login = loadable(() => import(/* webpackChunkName: "Login"*/ "./pages/Login"));
 const Dashboard = loadable(() => import(/* webpackChunkName: "Dashboard"*/ "./pages/Dashboard"));

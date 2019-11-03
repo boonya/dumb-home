@@ -1,14 +1,12 @@
 import { applyMiddleware, compose, createStore } from "redux";
-import createSagaMiddleware from "redux-saga";
 import { routerMiddleware } from "connected-react-router";
 import { createEpicMiddleware } from "redux-observable";
 
-import createSagaMonitor from "@clarketm/saga-monitor";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import { createRootReducer } from "./redux";
 
-export default function configureStore(initialState = {}, rootSaga, rootEpic, history) {
+export default function configureStore(initialState = {}, rootEpic, history) {
   let composeEnhancers;
 
   // TODO:: fix before release
@@ -27,23 +25,14 @@ export default function configureStore(initialState = {}, rootSaga, rootEpic, hi
     composeEnhancers = compose;
   }
 
-  const sagaMiddleware = createSagaMiddleware({
-    sagaMonitor: createSagaMonitor({
-      level: "debug", // logging level
-      verbose: true, // verbose mode
-      effectCancel: true, // show cancelled effects
-      actionDispatch: true, // show dispatched actions
-    }),
-  });
-
   const epicMiddleware = createEpicMiddleware();
 
   const store = createStore(
     createRootReducer({ history }),
     initialState,
-    composeEnhancers(applyMiddleware(routerMiddleware(history), sagaMiddleware, epicMiddleware))
+    composeEnhancers(applyMiddleware(routerMiddleware(history), epicMiddleware))
   );
-  sagaMiddleware.run(rootSaga);
+
   epicMiddleware.run(rootEpic);
 
   return store;

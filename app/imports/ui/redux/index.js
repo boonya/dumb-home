@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import { all } from "redux-saga/effects";
 import { connectRouter } from "connected-react-router";
 import { combineEpics } from "redux-observable";
 
@@ -27,13 +26,5 @@ export const createRootReducer = ({ history }) =>
     device: deviceReducer,
     camera: cameraReducer,
   });
-
-export function createRootSaga() {
-  const sagas = [];
-
-  return function* rootSaga() {
-    yield all(sagas);
-  };
-}
 
 export const createRootEpic = () => combineEpics(meEpic, deviceEpic, deviceListEpic, cameraEpic);
