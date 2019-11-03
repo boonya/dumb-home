@@ -3,7 +3,7 @@ import actions from "../actions";
 
 import api from "../../../api/devices";
 
-import { notifyFailure } from "./notification";
+import { notifyFailure } from "../utils/notification";
 
 function* fetch() {
   try {

@@ -3,7 +3,8 @@ import { put, call, takeEvery } from "redux-saga/effects";
 import { discover, add, edit } from "../../../api/camera";
 import ROUTES, { goTo } from "../../routes";
 import actions from "../actions";
-import { notifyFailure } from "./notification";
+
+import { notifyFailure } from "../utils/notification";
 
 function* addCamera({ payload }) {
   try {
