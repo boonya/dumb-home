@@ -70,6 +70,10 @@ No configuration needed
 You'll need a proxy server to forward requests from the standard web port to specific one.
 So, I recommend to install NGINX [follow the instruction](/docs/Nginx.md).
 
+## Samba to share files on your server (optional)
+
+[Read the doc](/docs/Samba.md)
+
 ## Firewall
 
 When you have haproxy configured, you need to disable ports except of standarts by using `ufw` tool.
@@ -80,6 +84,10 @@ Also you need to add firewall rule below to allow onvif discovery process (findi
 
 `sudo ufw allow proto udp from 192.168.0.0/16`
 
+If you have a samba server is running you’ll need to allow incoming UDP connections on ports 137 and 138 and TCP connections on ports 139 and 445. You can open the ports by enabling the ‘Samba’ profile:
+
+`sudo ufw allow 'Samba'`
+
 ## Dependecies
 
 - [nginx](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04-quickstart)
@@ -87,3 +95,4 @@ Also you need to add firewall rule below to allow onvif discovery process (findi
 - [pm2 (optional)](https://pm2.io/doc/en/runtime/quick-start/#installation)
 - [mongodb](https://medium.com/@mhagemann/how-to-install-mongodb-3-6-on-ubuntu-17-10-ac0bc225e648)
 - [ffmpeg](https://ffmpeg.org/download.html#build-linux)
+- [samba (optional)](https://linuxize.com/post/how-to-install-and-configure-samba-on-ubuntu-18-04/)
