@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - 8.12.0
+arch:
+  - amd64
+os: linux
+before_install:
+  - curl https://install.meteor.com | /bin/sh
+install:
+  - npm install
+script:
+  - npm run build
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file_glob: true
+  file:
+    - build/app.tar.gz
+    - build/installDeps.sh
+  skip_cleanup: true
+  draft: true
