@@ -1,3 +1,4 @@
+/* eslint max-classes-per-file: 0 */
 import PropTypes from 'prop-types';
 import { castArray } from 'lodash';
 
@@ -9,7 +10,7 @@ export class ErrorState {
    * @param {*} previousValue - A reference to the previous value.
    */
   constructor(error, previousValue) {
-    this.__type__ = this.constructor.name;
+    this.type = this.constructor.name;
 
     if (error === null || typeof error !== 'object') {
       this.error = new Error('Invalid error instance passed to ErrorState');
@@ -27,7 +28,7 @@ export class LoadingState {
    * @param {*} previousValue - A reference to the previous value.
    */
   constructor(previousValue) {
-    this.__type__ = this.constructor.name;
+    this.type = this.constructor.name;
     this.previousValue = previousValue;
   }
 }
@@ -37,7 +38,7 @@ export class NoValue {
    * Create a new no value state.
    */
   constructor() {
-    this.__type__ = this.constructor.name;
+    this.type = this.constructor.name;
   }
 }
 
@@ -53,12 +54,7 @@ export const noValuePropType = PropTypes.instanceOf(NoValue);
  */
 export function stateValueTypePropType(dataTypes = []) {
   const types = castArray(dataTypes);
-  return PropTypes.oneOfType([
-    errorValuePropType,
-    loadingValuePropType,
-    noValuePropType,
-    ...types,
-  ]);
+  return PropTypes.oneOfType([errorValuePropType, loadingValuePropType, noValuePropType, ...types]);
 }
 
 /**
@@ -98,12 +94,7 @@ export function isError(value) {
  * @returns {boolean} True if is error, else false.
  */
 export function isAnyError(...values) {
-  for (const value of values) {
-    if (isError(value)) {
-      return true;
-    }
-  }
-  return false;
+  return values.some((value) => isError(value));
 }
 
 /**
@@ -133,12 +124,7 @@ export function isPending(value) {
  * @returns {boolean} True if is pending, else false.
  */
 export function isAnyPending(...values) {
-  for (const value of values) {
-    if (isPending(value)) {
-      return true;
-    }
-  }
-  return false;
+  return values.some((value) => isPending(value));
 }
 
 /**
@@ -158,10 +144,5 @@ export function isReady(value) {
  * @returns {boolean} True if has a value, else false.
  */
 export function isAllReady(...values) {
-  for (const value of values) {
-    if (!isReady(value)) {
-      return false;
-    }
-  }
-  return true;
+  return values.every((value) => isReady(value));
 }

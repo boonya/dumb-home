@@ -1,12 +1,12 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import CameraIcon from "@material-ui/icons/CameraAlt";
+import CameraIcon from '@material-ui/icons/CameraAlt';
 
-import DEVICES from "../devices";
+import DEVICES from '../devices';
 
-import CameraDiscovery from "./containers/Device/Camera/Discovery";
-import CameraDetails from "./containers/Device/Camera/Details";
-import CameraEdit from "./containers/Device/Camera/Edit";
+import CameraDiscovery from './containers/Device/Camera/Discovery';
+import CameraDetails from './containers/Device/Camera/Details';
+import CameraEdit from './containers/Device/Camera/Edit';
 
 export const CAMERA_TYPE = PropTypes.shape({
   _id: PropTypes.string,
@@ -19,7 +19,7 @@ export const CAMERA_TYPE = PropTypes.shape({
 
 export default {
   [DEVICES.CAMERA]: {
-    label: "Camera",
+    label: 'Camera',
     Icon: CameraIcon,
     CreateFlow: CameraDiscovery,
     DetailsFlow: CameraDetails,

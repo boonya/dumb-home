@@ -1,12 +1,12 @@
-import { push } from "connected-react-router";
+import { push } from 'connected-react-router';
 
 const ROUTES = {
-  Landing: "/",
-  Dashboard: "/",
-  Login: "/login",
-  DeviceDetails: "/device/:id",
-  CreateDevice: "/create-device/:type",
-  EditDevice: "/edit-device/:id",
+  Landing: '/',
+  Dashboard: '/',
+  Login: '/login',
+  DeviceDetails: '/device/:id',
+  CreateDevice: '/create-device/:type',
+  EditDevice: '/edit-device/:id',
 };
 
 export const goTo = (route, params) => {

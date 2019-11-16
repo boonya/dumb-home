@@ -1,12 +1,12 @@
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import { boolean } from "@storybook/addon-knobs";
-import { action } from "@storybook/addon-actions";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { boolean } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 
-import Chance from "chance";
+import Chance from 'chance';
 
-import DEVICES from "../../../devices";
-import DeviceList from ".";
+import DEVICES from '../../../devices';
+import DeviceList from '.';
 
 const chance = new Chance();
 const ITEMS = chance.n(
@@ -15,11 +15,11 @@ const ITEMS = chance.n(
     label: chance.city(),
     type: chance.pickone(Object.keys(DEVICES)),
   }),
-  8
+  8,
 );
 
-storiesOf("Components|Device", module).add("List", () => {
-  const loading = boolean("loading", false);
+storiesOf('Components|Device', module).add('List', () => {
+  const loading = boolean('loading', false);
 
-  return <DeviceList list={ITEMS} loading={loading} onSelect={action("onSelect")} onDelete={action("onDelete")} />;
+  return <DeviceList list={ITEMS} loading={loading} onSelect={action('onSelect')} onDelete={action('onDelete')} />;
 });

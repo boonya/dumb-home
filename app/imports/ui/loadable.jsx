@@ -1,13 +1,11 @@
-import PropTypes from "prop-types";
-import React from "react";
-import Loadable from "react-loadable";
+import PropTypes from 'prop-types';
+import React from 'react';
+import Loadable from 'react-loadable';
 
-import Preloader from "./components/Preloader";
-import GeneralError from "./pages/GeneralError";
+import Preloader from './components/Preloader';
+import GeneralError from './pages/GeneralError';
 
-const loading = props => {
-  const { pastDelay, timedOut, error, retry } = props;
-
+const Loading = ({ pastDelay, timedOut, error, retry }) => {
   if (error) {
     return <GeneralError error={error} retry={retry} />;
   }
@@ -20,17 +18,20 @@ const loading = props => {
   return null;
 };
 
-loading.propTypes = {
+Loading.propTypes = {
   pastDelay: PropTypes.bool.isRequired,
   timedOut: PropTypes.bool.isRequired,
-  error: PropTypes.object,
   retry: PropTypes.func.isRequired,
+  error: PropTypes.instanceOf(Error),
 };
 
-export default loader =>
-  Loadable({
-    loader,
-    loading,
-    delay: 300, // 0.3 seconds
-    timeout: 10000, // 10 seconds
-  });
+Loading.defaultProps = {
+  error: null,
+};
+
+export default (loader) => Loadable({
+  loader,
+  loading: Loading,
+  delay: 300, // 0.3 seconds
+  timeout: 10000, // 10 seconds
+});

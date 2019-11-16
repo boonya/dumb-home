@@ -1,13 +1,13 @@
-import PropTypes from "prop-types";
-import React from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
-import Preloader from "../../../components/Preloader";
-import VideoPlayer from "../../../components/Device/Camera/VideoPlayer";
+import Preloader from '../../Preloader';
+import VideoPlayer from './VideoPlayer';
 
-export const Watch = ({ id, loading, handleDetails }) => (
+const Watch = ({ id, loading, handleDetails }) => (
   <Grid>
     {loading && <Preloader />}
     <Button onClick={handleDetails}>See properties</Button>

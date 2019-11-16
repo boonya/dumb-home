@@ -1,42 +1,42 @@
-import "typeface-roboto";
+import 'typeface-roboto';
 
-import React from "react";
-import { Provider } from "react-redux";
+import React from 'react';
+import { Provider } from 'react-redux';
 
-import createHistory from "history/createBrowserHistory";
-import { ConnectedRouter } from "connected-react-router";
-import { Switch, Route } from "react-router-dom";
+import { createBrowserHistory as createHistory } from 'history';
+import { ConnectedRouter } from 'connected-react-router';
+import { Switch, Route } from 'react-router-dom';
 
-import { Helmet } from "react-helmet";
+import { Helmet } from 'react-helmet';
 
-import { CssBaseline } from "@material-ui/core";
-import { MuiThemeProvider } from "@material-ui/core/styles";
+import { CssBaseline } from '@material-ui/core';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import Config from "../config";
-import theme from "./theme";
-import ROUTES from "./routes";
-import loadable from "./loadable";
-import { authOnly, noAuthOnly } from "./auth";
-import { createRootEpic } from "./redux";
-import configureStore from "./configureStore";
+import Config from '../config';
+import theme from './theme';
+import ROUTES from './routes';
+import loadable from './loadable';
+import { authOnly, noAuthOnly } from './auth';
+import { createRootEpic } from './redux';
+import configureStore from './configureStore';
 
-import Notifications from "./containers/Notifications";
+import Notifications from './containers/Notifications';
 
 const title = Config.APP_TITLE;
-const config = { appPrefix: "", title };
-const locale = "en";
+const config = { appPrefix: '', title };
+const locale = 'en';
 const initialState = { config, locale };
 
 const history = createHistory({ basename: config.appPrefix.slice(0, -1) });
 const rootEpic = createRootEpic();
 export const store = configureStore(initialState, rootEpic, history);
 
-const Login = loadable(() => import(/* webpackChunkName: "Login"*/ "./pages/Login"));
-const Dashboard = loadable(() => import(/* webpackChunkName: "Dashboard"*/ "./pages/Dashboard"));
-const CreateDevice = loadable(() => import(/* webpackChunkName: "CreateDevice"*/ "./pages/CreateDevice"));
-const DeviceDetails = loadable(() => import(/* webpackChunkName: "DeviceDetails"*/ "./pages/DeviceDetails"));
-const EditDevice = loadable(() => import(/* webpackChunkName: "EditDevice"*/ "./pages/EditDevice"));
-const NotFound404 = loadable(() => import(/* webpackChunkName: "NotFound404"*/ "./pages/NotFound404"));
+const Login = loadable(() => import(/* webpackChunkName: "Login" */ './pages/Login'));
+const Dashboard = loadable(() => import(/* webpackChunkName: "Dashboard" */ './pages/Dashboard'));
+const CreateDevice = loadable(() => import(/* webpackChunkName: "CreateDevice" */ './pages/CreateDevice'));
+const DeviceDetails = loadable(() => import(/* webpackChunkName: "DeviceDetails" */ './pages/DeviceDetails'));
+const EditDevice = loadable(() => import(/* webpackChunkName: "EditDevice" */ './pages/EditDevice'));
+const NotFound404 = loadable(() => import(/* webpackChunkName: "NotFound404" */ './pages/NotFound404'));
 
 const App = () => (
   <Provider store={store}>

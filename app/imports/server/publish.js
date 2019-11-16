@@ -1,7 +1,7 @@
-import { Meteor } from "meteor/meteor";
+import { Meteor } from 'meteor/meteor';
 
-import Devices from "../collections/devices";
+import Devices from '../collections/devices';
 
 export default () => {
-  Meteor.publish("devices", (...args) => Devices.find(...args));
+  Meteor.publish('devices', (...args) => Devices.find(...args));
 };

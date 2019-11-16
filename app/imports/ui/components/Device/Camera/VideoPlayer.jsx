@@ -1,11 +1,7 @@
-import PropTypes from "prop-types";
-import React, { Component } from "react";
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 class VideoPlayer extends Component {
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-  };
-
   constructor(props) {
     super(props);
     this.video = React.createRef();
@@ -17,7 +13,7 @@ class VideoPlayer extends Component {
      * https://stackoverflow.com/questions/3258587/how-to-properly-unload-destroy-a-video-element?answertab=votes#tab-top
      */
     this.video.current.pause();
-    this.video.current.removeAttribute("src");
+    this.video.current.removeAttribute('src');
     this.video.current.load();
   }
 
@@ -29,8 +25,8 @@ class VideoPlayer extends Component {
         ref={this.video}
         width="100%"
         preload="none"
-        autoPlay={true}
-        controls={true}
+        autoPlay
+        controls
         src={`/camera/${id}`}
         type="video/mp4"
       >
@@ -39,5 +35,9 @@ class VideoPlayer extends Component {
     );
   }
 }
+
+VideoPlayer.propTypes = {
+  id: PropTypes.string.isRequired,
+};
 
 export default VideoPlayer;

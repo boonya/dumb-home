@@ -1,23 +1,20 @@
-import PropTypes from "prop-types";
-import React, { Component } from "react";
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-import { FormControl, TextField } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
+import { FormControl, TextField } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 export const FORM_STATES = {
-  DISABLED: "DISABLED",
-  LOADING: "LOADING",
+  DISABLED: 'DISABLED',
+  LOADING: 'LOADING',
 };
 
 class Form extends Component {
-  static propTypes = {
-    classes: PropTypes.object.isRequired,
-    state: PropTypes.oneOf([...Object.values(FORM_STATES), null]),
-    handleSubmit: PropTypes.func.isRequired,
-  };
-
-  state = { email: "", password: "" };
+  constructor(props) {
+    super(props);
+    this.state = { email: '', password: '' };
+  }
 
   render() {
     const { classes } = this.props;
@@ -25,34 +22,34 @@ class Form extends Component {
 
     return (
       <form className={classes.form} noValidate={false} onSubmit={this.handleSubmit}>
-        <FormControl margin={"dense"}>
+        <FormControl margin="dense">
           <TextField
             label="Email"
             type="email"
             className={classes.textField}
             value={email}
-            onChange={this.handleChange("email")}
+            onChange={this.handleChange('email')}
             disabled={this.isDisabled()}
             error={false}
-            required={true}
+            required
           />
         </FormControl>
 
-        <FormControl margin={"dense"}>
+        <FormControl margin="dense">
           <TextField
             label="Password"
             type="password"
             className={classes.textField}
             value={password}
-            onChange={this.handleChange("password")}
+            onChange={this.handleChange('password')}
             disabled={this.isDisabled()}
             error={false}
-            required={true}
+            required
           />
         </FormControl>
 
-        <FormControl margin={"dense"}>
-          <Button type={"submit"} disabled={this.isDisabled()}>
+        <FormControl margin="dense">
+          <Button type="submit" disabled={this.isDisabled()}>
             Submit
           </Button>
         </FormControl>
@@ -60,23 +57,37 @@ class Form extends Component {
     );
   }
 
-  isDisabled = () => [FORM_STATES.DISABLED, FORM_STATES.LOADING].includes(this.props.state);
+  isDisabled = () => {
+    const { state } = this.props;
+    return [FORM_STATES.DISABLED, FORM_STATES.LOADING].includes(state);
+  };
 
-  handleChange = name => ({ target }) => this.setState({ [name]: target.value });
+  handleChange = (name) => ({ target }) => this.setState({ [name]: target.value });
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     if (this.isDisabled()) {
       return;
     }
-    this.props.handleSubmit(this.state);
+    const { handleSubmit } = this.props;
+    handleSubmit(this.state);
   };
 }
 
+Form.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  state: PropTypes.oneOf([...Object.values(FORM_STATES), null]),
+};
+
+Form.defaultProps = {
+  state: null,
+};
+
 export const styles = ({ spacing }) => ({
   form: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     width: 400,
   },
   textField: {

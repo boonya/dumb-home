@@ -1,19 +1,12 @@
-import PropTypes from "prop-types";
-import React, { PureComponent } from "react";
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
-import Preloader from "../../Preloader";
+import Preloader from '../../Preloader';
 
 class Discovery extends PureComponent {
-  static propTypes = {
-    loading: PropTypes.bool.isRequired,
-    ready: PropTypes.bool.isRequired,
-    List: PropTypes.node.isRequired,
-    handleDiscovery: PropTypes.func.isRequired,
-  };
-
   render() {
     const { loading, ready, List } = this.props;
 
@@ -31,8 +24,16 @@ class Discovery extends PureComponent {
   }
 
   handleDiscovery = () => {
-    this.props.handleDiscovery();
+    const { handleDiscovery } = this.props;
+    handleDiscovery();
   };
 }
+
+Discovery.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  ready: PropTypes.bool.isRequired,
+  List: PropTypes.node.isRequired,
+  handleDiscovery: PropTypes.func.isRequired,
+};
 
 export default Discovery;

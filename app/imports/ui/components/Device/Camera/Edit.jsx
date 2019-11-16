@@ -1,10 +1,24 @@
-import PropTypes from "prop-types";
-import React, { PureComponent } from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import Grid from "@material-ui/core/Grid";
+import Grid from '@material-ui/core/Grid';
 
-import Preloader from "../../../components/Preloader";
-import CameraFrom from "../../../components/Device/Camera/Form";
+import Preloader from '../../Preloader';
+import CameraForm from './Form';
+
+const Edit = ({ loading, details: { label, username, password, details }, handleChange, handleCancel }) => (
+  <Grid>
+    {loading && <Preloader />}
+    <CameraForm
+      label={label}
+      username={username}
+      password={password}
+      details={details}
+      handleSubmit={handleChange}
+      handleCancel={handleCancel}
+    />
+  </Grid>
+);
 
 export const CAMERA_TYPE = PropTypes.shape({
   label: PropTypes.string.isRequired,
@@ -13,34 +27,11 @@ export const CAMERA_TYPE = PropTypes.shape({
   details: PropTypes.shape({ hostname: PropTypes.string.isRequired }).isRequired,
 });
 
-export class Edit extends PureComponent {
-  static propTypes = {
-    details: CAMERA_TYPE.isRequired,
-    loading: PropTypes.bool.isRequired,
-    handleChange: PropTypes.func.isRequired,
-    handleCancel: PropTypes.func.isRequired,
-  };
-
-  state = { watchingStream: false, editing: false };
-
-  render() {
-    const { loading } = this.props;
-    const { label, username, password, details } = this.props.details;
-
-    return (
-      <Grid>
-        {loading && <Preloader />}
-        <CameraFrom
-          label={label}
-          username={username}
-          password={password}
-          details={details}
-          handleSubmit={this.props.handleChange}
-          handleCancel={this.props.handleCancel}
-        />
-      </Grid>
-    );
-  }
-}
+Edit.propTypes = {
+  details: CAMERA_TYPE.isRequired,
+  loading: PropTypes.bool.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+};
 
 export default Edit;

@@ -1,11 +1,20 @@
-import PropTypes from "prop-types";
-import React from "react";
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 
-import Preloader from "../../../components/Preloader";
-import CameraFrom from "../../../components/Device/Camera/Form";
+import Preloader from '../../Preloader';
+import CameraFrom from './Form';
+
+const Details = ({ loading, handleWatch, handleEdit, details: { label, username, password, details } }) => (
+  <Grid>
+    {loading && <Preloader />}
+    <Button onClick={handleWatch}>Watch stream</Button>
+    <Button onClick={handleEdit}>Edit</Button>
+    <CameraFrom readOnly label={label} username={username} password={password} details={details} />
+  </Grid>
+);
 
 export const CAMERA_TYPE = PropTypes.shape({
   label: PropTypes.string.isRequired,
@@ -13,18 +22,6 @@ export const CAMERA_TYPE = PropTypes.shape({
   password: PropTypes.string.isRequired,
   details: PropTypes.shape({ hostname: PropTypes.string.isRequired }).isRequired,
 });
-
-export const Details = ({ loading, handleWatch, handleEdit, ...props }) => {
-  const { label, username, password, details } = props.details;
-  return (
-    <Grid>
-      {loading && <Preloader />}
-      <Button onClick={handleWatch}>Watch stream</Button>
-      <Button onClick={handleEdit}>Edit</Button>
-      <CameraFrom readOnly label={label} username={username} password={password} details={details} />
-    </Grid>
-  );
-};
 
 Details.propTypes = {
   details: CAMERA_TYPE.isRequired,

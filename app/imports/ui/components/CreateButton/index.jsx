@@ -1,13 +1,16 @@
-import PropTypes from "prop-types";
-import React, { PureComponent } from "react";
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Fab";
-import Icon from "@material-ui/icons/Add";
-import Popover from "@material-ui/core/Popover";
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Fab';
+import Icon from '@material-ui/icons/Add';
+import Popover from '@material-ui/core/Popover';
 
-export class CreateButton extends PureComponent {
-  state = { anchorEl: null };
+class CreateButton extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = { anchorEl: null };
+  }
 
   render() {
     const { classes, id, children, ButtonProps, PopoverProps } = this.props;
@@ -31,12 +34,12 @@ export class CreateButton extends PureComponent {
           anchorEl={anchorEl}
           onClose={this.handleClose}
           anchorOrigin={{
-            vertical: "top",
-            horizontal: "left",
+            vertical: 'top',
+            horizontal: 'left',
           }}
           transformOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
+            vertical: 'bottom',
+            horizontal: 'right',
           }}
           className={classes.popover}
           {...PopoverProps}
@@ -47,7 +50,10 @@ export class CreateButton extends PureComponent {
     );
   }
 
-  isOpened = () => Boolean(this.state.anchorEl);
+  isOpened = () => {
+    const { anchorEl } = this.state;
+    return Boolean(anchorEl);
+  };
 
   handlePopover = ({ currentTarget }) => {
     this.setState(({ anchorEl }) => ({ anchorEl: anchorEl ? null : currentTarget }));
@@ -60,9 +66,11 @@ export class CreateButton extends PureComponent {
 
 CreateButton.propTypes = {
   id: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   ButtonProps: PropTypes.object,
+  // eslint-disable-next-line react/forbid-prop-types
   PopoverProps: PropTypes.object,
 };
 
@@ -73,7 +81,7 @@ CreateButton.defaultProps = {
 
 export const styles = {
   button: {
-    position: "fixed",
+    position: 'fixed',
     right: 10,
     bottom: 10,
   },

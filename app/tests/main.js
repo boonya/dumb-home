@@ -1,8 +1,9 @@
+import { Meteor } from 'meteor/meteor';
 import assert from 'assert';
 
 describe('app', () => {
   it('package.json has correct name', async () => {
-    const { name } = await import('../package.json.js');
+    const { name } = await import('../package.json');
     assert.strictEqual(name, 'home');
   });
 

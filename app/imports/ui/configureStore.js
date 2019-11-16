@@ -1,10 +1,10 @@
-import { applyMiddleware, compose, createStore } from "redux";
-import { routerMiddleware } from "connected-react-router";
-import { createEpicMiddleware } from "redux-observable";
+import { applyMiddleware, compose, createStore } from 'redux';
+import { routerMiddleware } from 'connected-react-router';
+import { createEpicMiddleware } from 'redux-observable';
 
-import { composeWithDevTools } from "redux-devtools-extension";
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import { createRootReducer } from "./redux";
+import { createRootReducer } from './redux';
 
 export default function configureStore(initialState = {}, rootEpic, history) {
   let composeEnhancers;
@@ -30,7 +30,7 @@ export default function configureStore(initialState = {}, rootEpic, history) {
   const store = createStore(
     createRootReducer({ history }),
     initialState,
-    composeEnhancers(applyMiddleware(routerMiddleware(history), epicMiddleware))
+    composeEnhancers(applyMiddleware(routerMiddleware(history), epicMiddleware)),
   );
 
   epicMiddleware.run(rootEpic);

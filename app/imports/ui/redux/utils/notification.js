@@ -1,7 +1,8 @@
-import actions from "../actions";
-import { NOTIFICATION_TYPES } from "../../components/Notification";
+/* eslint import/prefer-default-export: 0 */
+import actions from '../actions';
+import { NOTIFICATION_TYPES } from '../../components/Notification';
 
-export const notifyFailure = message => err => {
-  console.error("Failure: ", { message, err });
+export const notifyFailure = (message) => (err) => {
+  console.error('Failure: ', { message, err });
   return actions.notification.show({ type: NOTIFICATION_TYPES.ERROR, message });
 };

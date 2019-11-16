@@ -1,30 +1,11 @@
-import PropTypes from "prop-types";
-import React, { PureComponent } from "react";
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
-export default class CameraForm extends PureComponent {
-  static propTypes = {
-    label: PropTypes.string,
-    username: PropTypes.string,
-    password: PropTypes.string,
-    details: PropTypes.shape({ hostname: PropTypes.string.isRequired }).isRequired,
-    readOnly: PropTypes.bool,
-    handleSubmit: PropTypes.func,
-    handleCancel: PropTypes.func,
-  };
-
-  static defaultProps = {
-    label: "",
-    username: "",
-    password: "",
-    readOnly: false,
-    handleSubmit: () => null,
-    handleCancel: undefined,
-  };
-
+class CameraForm extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -39,8 +20,8 @@ export default class CameraForm extends PureComponent {
   }
 
   render() {
-    const { readOnly } = this.props;
-    const { hostname } = this.props.details;
+    const { readOnly, details } = this.props;
+    const { hostname } = details;
     const { label, username, password } = this.state;
 
     return (
@@ -96,37 +77,60 @@ export default class CameraForm extends PureComponent {
     );
   }
 
-  renderButtons = () => {
-    return (
-      <Grid item xs={12} container justify="center">
-        <Grid item xs={4} container justify="space-between">
-          {this.isCancelable() && (
-            <Button variant="contained" color="default" onClick={this.handleCancel}>
-              Cancel
-            </Button>
-          )}
-          <Button type="submit" variant="contained" color="primary">
-            Submit
+  renderButtons = () => (
+    <Grid item xs={12} container justify="center">
+      <Grid item xs={4} container justify="space-between">
+        {this.isCancelable() && (
+          <Button variant="contained" color="default" onClick={this.handleCancel}>
+            Cancel
           </Button>
-        </Grid>
+        )}
+        <Button type="submit" variant="contained" color="primary">
+          Submit
+        </Button>
       </Grid>
-    );
-  };
+    </Grid>
+  );
 
-  isCancelable = () => Boolean(this.props.handleCancel);
+  isCancelable = () => {
+    const { handleCancel } = this.props;
+    return Boolean(handleCancel);
+  };
 
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({ [name]: value.trim() });
   };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
-    const { details } = this.props;
-    this.props.handleSubmit({ ...this.state, details });
+    const { details, handleSubmit } = this.props;
+    handleSubmit({ ...this.state, details });
   };
 
   handleCancel = () => {
-    this.props.handleCancel();
+    const { handleCancel } = this.props;
+    handleCancel();
   };
 }
+
+CameraForm.propTypes = {
+  label: PropTypes.string,
+  username: PropTypes.string,
+  password: PropTypes.string,
+  details: PropTypes.shape({ hostname: PropTypes.string.isRequired }).isRequired,
+  readOnly: PropTypes.bool,
+  handleSubmit: PropTypes.func,
+  handleCancel: PropTypes.func,
+};
+
+CameraForm.defaultProps = {
+  label: '',
+  username: '',
+  password: '',
+  readOnly: false,
+  handleSubmit: () => null,
+  handleCancel: undefined,
+};
+
+export default CameraForm;

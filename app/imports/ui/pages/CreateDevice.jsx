@@ -1,36 +1,21 @@
-import PropTypes from "prop-types";
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
-import { Typography } from "@material-ui/core";
+import { Typography } from '@material-ui/core';
 
-import DEVICES from "../devices";
+import DEVICES from '../devices';
 
-import Layout from "../containers/PageLayout";
+import Layout from '../containers/PageLayout';
 
 class CreateDevicePage extends Component {
-  static propTypes = {
-    pending: PropTypes.bool,
-    loading: PropTypes.bool,
-    error: PropTypes.object,
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        type: PropTypes.string,
-      }),
-    }).isRequired,
-  };
-
-  static defaultProps = {
-    pending: true,
-    loading: false,
-    error: null,
-    details: null,
-  };
-
   render() {
     return (
       <Layout withNavbar>
-        <Typography variant="h1">Create {this.getDeviceType()} Device</Typography>
+        <Typography variant="h1">
+          Create
+          {this.getDeviceType()}
+          Device
+        </Typography>
         {this.renderCreateFlow()}
       </Layout>
     );
@@ -42,15 +27,17 @@ class CreateDevicePage extends Component {
   };
 
   getDeviceType = () => {
-    return this.props.match.params.type;
+    const { match } = this.props;
+    return match.params.type;
   };
 }
 
-const mapStateToProps = () => ({});
+CreateDevicePage.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      type: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
-const mapDispatchToProps = () => ({});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateDevicePage);
+export default CreateDevicePage;

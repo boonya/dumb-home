@@ -1,18 +1,18 @@
 export default {
   FETCH: () => null,
-  FETCH_SUCCESS: payload => payload,
-  FETCH_FAILURE: payload => payload,
+  FETCH_SUCCESS: (payload) => payload,
+  FETCH_FAILURE: (payload) => payload,
 
   SUBSCRIBE: () => null,
-  SUBSCRIBE_SUCCESS: payload => payload,
-  SUBSCRIBE_FAILURE: error => error,
+  SUBSCRIBE_SUCCESS: (payload) => payload,
+  SUBSCRIBE_FAILURE: (error) => error,
 
   UNSUBSCRIBE: () => null,
-  UNSUBSCRIBE_SUCCESS: payload => payload,
-  UNSUBSCRIBE_FAILURE: error => error,
+  UNSUBSCRIBE_SUCCESS: (payload) => payload,
+  UNSUBSCRIBE_FAILURE: (error) => error,
 
-  UPDATE_SUCCESS: payload => payload,
-  UPDATE_FAILURE: payload => payload,
+  UPDATE_SUCCESS: (payload) => payload,
+  UPDATE_FAILURE: (payload) => payload,
 
   // LIST: () => null,
   // LIST_SUCCESS: (payload) => payload,
@@ -36,7 +36,7 @@ export default {
 };
 
 export const SCREEN_TYPE = {
-  LIST: "LIST",
-  SELECTOR: "SELECTOR",
-  CREATE: "CREATE",
+  LIST: 'LIST',
+  SELECTOR: 'SELECTOR',
+  CREATE: 'CREATE',
 };

@@ -1,9 +1,9 @@
-import { combineEpics, ofType } from "redux-observable";
-import { switchMap, map } from "rxjs/operators";
+import { combineEpics, ofType } from 'redux-observable';
+import { switchMap, map } from 'rxjs/operators';
 
-import api from "../../../api/devices";
-import actions from "../actions";
-import { notifyFailure } from "../utils/notification";
+import api from '../../../api/devices';
+import actions from '../actions';
+import { notifyFailure } from '../utils/notification';
 
 async function fetchList() {
   try {
@@ -14,16 +14,14 @@ async function fetchList() {
   }
 }
 
-const fetch = action$ =>
-  action$.pipe(
-    ofType(actions.deviceList.fetch.toString()),
-    switchMap(fetchList)
-  );
+const fetch = (action$) => action$.pipe(
+  ofType(actions.deviceList.fetch.toString()),
+  switchMap(fetchList),
+);
 
-const fetchFailure = action$ =>
-  action$.pipe(
-    ofType(actions.deviceList.fetchFailure.toString()),
-    map(notifyFailure("DeviceList fetch failure"))
-  );
+const fetchFailure = (action$) => action$.pipe(
+  ofType(actions.deviceList.fetchFailure.toString()),
+  map(notifyFailure('DeviceList fetch failure')),
+);
 
 export default combineEpics(fetch, fetchFailure);

@@ -1,10 +1,10 @@
-import { combineEpics, ofType } from "redux-observable";
-import { switchMap, map } from "rxjs/operators";
+import { combineEpics, ofType } from 'redux-observable';
+import { switchMap, map } from 'rxjs/operators';
 
-import api from "../../../api/me";
+import api from '../../../api/me';
 
-import actions from "../actions";
-import { notifyFailure } from "../utils/notification";
+import actions from '../actions';
+import { notifyFailure } from '../utils/notification';
 
 async function loginRequest({ payload }) {
   try {
@@ -33,41 +33,35 @@ async function logoutEverywhereRequest() {
   }
 }
 
-const login = action$ =>
-  action$.pipe(
-    ofType(actions.me.login.toString()),
-    switchMap(loginRequest)
-  );
+const login = (action$) => action$.pipe(
+  ofType(actions.me.login.toString()),
+  switchMap(loginRequest),
+);
 
-const logout = action$ =>
-  action$.pipe(
-    ofType(actions.me.logout.toString()),
-    switchMap(logoutRequest)
-  );
+const logout = (action$) => action$.pipe(
+  ofType(actions.me.logout.toString()),
+  switchMap(logoutRequest),
+);
 
-const logoutEverywhere = action$ =>
-  action$.pipe(
-    ofType(actions.me.logoutEverywhere.toString()),
-    switchMap(logoutEverywhereRequest)
-  );
+const logoutEverywhere = (action$) => action$.pipe(
+  ofType(actions.me.logoutEverywhere.toString()),
+  switchMap(logoutEverywhereRequest),
+);
 
-const notifyLoginFailure = action$ =>
-  action$.pipe(
-    ofType(actions.me.loginFailure.toString()),
-    map(notifyFailure("Login failure"))
-  );
+const notifyLoginFailure = (action$) => action$.pipe(
+  ofType(actions.me.loginFailure.toString()),
+  map(notifyFailure('Login failure')),
+);
 
-const notifyLogoutFailure = action$ =>
-  action$.pipe(
-    ofType(actions.me.logoutFailure.toString()),
-    map(notifyFailure("Logout failure"))
-  );
+const notifyLogoutFailure = (action$) => action$.pipe(
+  ofType(actions.me.logoutFailure.toString()),
+  map(notifyFailure('Logout failure')),
+);
 
-const subscribe = action$ =>
-  action$.pipe(
-    ofType(actions.me.subscribe.toString()),
-    switchMap(api.observable),
-    map(actions.me.updateSuccess)
-  );
+const subscribe = (action$) => action$.pipe(
+  ofType(actions.me.subscribe.toString()),
+  switchMap(api.observable),
+  map(actions.me.updateSuccess),
+);
 
 export default combineEpics(subscribe, login, logout, logoutEverywhere, notifyLoginFailure, notifyLogoutFailure);

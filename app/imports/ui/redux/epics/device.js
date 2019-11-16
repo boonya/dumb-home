@@ -1,9 +1,9 @@
-import { combineEpics, ofType } from "redux-observable";
-import { switchMap, map } from "rxjs/operators";
+import { combineEpics, ofType } from 'redux-observable';
+import { switchMap, map } from 'rxjs/operators';
 
-import api from "../../../api/devices";
-import actions from "../actions";
-import { notifyFailure } from "../utils/notification";
+import api from '../../../api/devices';
+import actions from '../actions';
+import { notifyFailure } from '../utils/notification';
 
 async function fetchDeviceDetails({ payload }) {
   try {
@@ -23,34 +23,29 @@ async function removeDevice({ payload }) {
   }
 }
 
-const fetch = action$ =>
-  action$.pipe(
-    ofType(actions.device.fetch.toString()),
-    switchMap(fetchDeviceDetails)
-  );
+const fetch = (action$) => action$.pipe(
+  ofType(actions.device.fetch.toString()),
+  switchMap(fetchDeviceDetails),
+);
 
-const fetchFailure = action$ =>
-  action$.pipe(
-    ofType(actions.device.fetchFailure.toString()),
-    map(notifyFailure("Failed to fetch device details"))
-  );
+const fetchFailure = (action$) => action$.pipe(
+  ofType(actions.device.fetchFailure.toString()),
+  map(notifyFailure('Failed to fetch device details')),
+);
 
-const remove = action$ =>
-  action$.pipe(
-    ofType(actions.device.delete.toString()),
-    switchMap(removeDevice)
-  );
+const remove = (action$) => action$.pipe(
+  ofType(actions.device.delete.toString()),
+  switchMap(removeDevice),
+);
 
-const removeSuccess = action$ =>
-  action$.pipe(
-    ofType(actions.device.deleteSuccess.toString()),
-    map(() => actions.deviceList.fetch())
-  );
+const removeSuccess = (action$) => action$.pipe(
+  ofType(actions.device.deleteSuccess.toString()),
+  map(() => actions.deviceList.fetch()),
+);
 
-const removeFailure = action$ =>
-  action$.pipe(
-    ofType(actions.device.deleteFailure.toString()),
-    map(notifyFailure("Failed to delete device"))
-  );
+const removeFailure = (action$) => action$.pipe(
+  ofType(actions.device.deleteFailure.toString()),
+  map(notifyFailure('Failed to delete device')),
+);
 
 export default combineEpics(fetch, fetchFailure, remove, removeSuccess, removeFailure);

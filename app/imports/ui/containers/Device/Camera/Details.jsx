@@ -1,42 +1,32 @@
-import PropTypes from "prop-types";
-import React, { PureComponent } from "react";
-import { createSelector } from "reselect";
-import { connect } from "react-redux";
+import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+import { createSelector } from 'reselect';
+import { connect } from 'react-redux';
 
-import Typography from "@material-ui/core/Typography";
+import Typography from '@material-ui/core/Typography';
 
-import ROUTES, { goTo } from "../../../routes";
+import ROUTES, { goTo } from '../../../routes';
 
-import { getDevice } from "../../../redux/reducers/device";
-import { isLoading, isReady } from "../../../redux/utils/state";
+import { getDevice } from '../../../redux/reducers/device';
+import { isLoading, isReady } from '../../../redux/utils/state';
 
-import Details from "../../../components/Device/Camera/Details";
-import Watch from "../../../components/Device/Camera/Watch";
+import Details from '../../../components/Device/Camera/Details';
+import Watch from '../../../components/Device/Camera/Watch';
 
-const mapStateToProps = createSelector(
-  [getDevice],
-  payload => ({
-    loading: isLoading(payload),
-    details: isReady(payload) ? payload : null,
-  })
-);
+const mapStateToProps = createSelector([getDevice], (payload) => ({
+  loading: isLoading(payload),
+  details: isReady(payload) ? payload : null,
+}));
 
-const mapDispatchToProps = dispatch => ({
-  handleEdit: id => dispatch(goTo(ROUTES.EditDevice, { id })),
+const mapDispatchToProps = (dispatch) => ({
+  handleEdit: (id) => dispatch(goTo(ROUTES.EditDevice, { id })),
 });
 
 class DetailsContainer extends PureComponent {
-  static propTypes = {
-    loading: PropTypes.bool.isRequired,
-    handleEdit: PropTypes.func.isRequired,
-    details: PropTypes.shape({ _id: PropTypes.string.isRequired }),
-  };
-
-  static defaultProps = {
-    details: null,
-  };
-
-  state = { watch: false };
+  constructor(props) {
+    super(props);
+    this.state = { watch: false };
+  }
 
   render() {
     const { loading, details } = this.props;
@@ -45,7 +35,9 @@ class DetailsContainer extends PureComponent {
       return !loading && <Typography>Something went wrong</Typography>;
     }
 
-    return this.state.watch ? this.renderWatch() : this.renderDetails();
+    const { watch } = this.state;
+
+    return watch ? this.renderWatch() : this.renderDetails();
   }
 
   renderDetails = () => {
@@ -55,14 +47,14 @@ class DetailsContainer extends PureComponent {
   };
 
   renderWatch = () => {
-    const { loading } = this.props;
-    const id = this.props.details._id;
+    const { loading, details } = this.props;
 
-    return <Watch id={id} loading={loading} handleDetails={this.handleDetails} />;
+    return <Watch id={details._id} loading={loading} handleDetails={this.handleDetails} />;
   };
 
   handleEdit = () => {
-    this.props.handleEdit(this.props.details._id);
+    const { handleEdit, details } = this.props;
+    handleEdit(details._id);
   };
 
   handleWatch = () => {
@@ -74,7 +66,14 @@ class DetailsContainer extends PureComponent {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DetailsContainer);
+DetailsContainer.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  details: PropTypes.shape({ _id: PropTypes.string.isRequired }),
+};
+
+DetailsContainer.defaultProps = {
+  details: null,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsContainer);

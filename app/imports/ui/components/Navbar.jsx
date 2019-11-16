@@ -1,11 +1,15 @@
-import PropTypes from "prop-types";
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
-import { AppBar, Toolbar, Typography, Link, Button } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
-export const Navbar = ({ classes, title, landingPath, isLoggedIn, logout }) => (
+const Navbar = ({ classes, title, landingPath, isLoggedIn, logout }) => (
   <AppBar position="relative" className={classes.root}>
     <Toolbar>
       <Typography variant="h1" className={classes.title}>
@@ -23,14 +27,14 @@ export const Navbar = ({ classes, title, landingPath, isLoggedIn, logout }) => (
 );
 
 Navbar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   title: PropTypes.node.isRequired,
-  isLoggedIn: PropTypes.bool,
   logout: PropTypes.func.isRequired,
   landingPath: PropTypes.string.isRequired,
+  isLoggedIn: PropTypes.bool,
 };
 
-Navbar.defaulProps = {
+Navbar.defaultProps = {
   isLoggedIn: false,
 };
 

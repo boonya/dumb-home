@@ -1,12 +1,12 @@
-import { handleActions } from "redux-actions";
+import { handleActions } from 'redux-actions';
 
-import actions from "../actions";
+import actions from '../actions';
 
 export default handleActions(
   {
     [actions.locale.change]: (_, { payload }) => payload,
   },
-  null
+  null,
 );
 
 export const getLocale = ({ locale }) => locale;

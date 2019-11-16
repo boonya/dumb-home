@@ -1,8 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable react/prop-types */
-import React from "react";
-import { withStyles } from "@material-ui/core";
-import SvgIcon from "@material-ui/core/SvgIcon";
+import React from 'react';
+import { withStyles } from '@material-ui/core';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 const MQTT = ({ classes, ...props }) => (
   <SvgIcon className={classes.root} {...props}>
@@ -21,6 +21,6 @@ export default withStyles({
     height: 13,
   },
   icon: {
-    transform: "translate(-7px, 0px)",
+    transform: 'translate(-7px, 0px)',
   },
 })(MQTT);
