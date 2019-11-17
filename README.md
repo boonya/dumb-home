@@ -1,6 +1,7 @@
 # SmartHome web application which is actually quite dumb
 
 [![Build Status](https://travis-ci.com/boonya/dumb-home.svg?branch=master)](https://travis-ci.com/boonya/dumb-home)
+[![Maintainability](https://api.codeclimate.com/v1/badges/edcd02095eb128226954/maintainability)](https://codeclimate.com/github/boonya/dumb-home/maintainability)
 
 ## OS
 
