@@ -24,7 +24,7 @@ export const getStreamUri = ({ hostname, port, username, password = '' }) => new
         username,
         password,
       },
-      (err) => {
+      function (err) {
         if (err) throw new Error(err);
         // eslint-disable-next-line no-shadow
         this.getStreamUri({ protocol: 'RTSP' }, (err, stream) => {
