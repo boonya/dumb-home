@@ -12,12 +12,12 @@ install:
   - npm install
 jobs:
   include:
-    - stage: "Lint & Test"
-      script: npm run lint
-      script: npm run test
+    - stage: 'Lint & Test'
+    - script: npm run lint
+    - script: npm run test
     - stage: Build
       script: npm run build
-    - stage: "GitHub Release"
+    - stage: 'GitHub Release'
       script: skip
       deploy:
         provider: releases
