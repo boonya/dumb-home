@@ -11,42 +11,43 @@ You can write an image to SD card using [balena etcher](https://www.balena.io/et
 
 Connect to you raspi with ubuntu server on board using predefined ubuntu user like so:
 
-```ssh ubuntu@IP```
+`ssh ubuntu@IP`
 
 password is `ubuntu` also.
 
 ## Change hostname permanently (optional)
 
 Execute next to set new hostname:
-```sudo hostnamectl set-hostname {your-new-hostname}```
+`sudo hostnamectl set-hostname {your-new-hostname}`
 
 Run to recheck:
-```hostnamectl```
+`hostnamectl`
 
 SRC:
+
 - https://www.cyberciti.biz/faq/ubuntu-18-04-lts-change-hostname-permanently/
 
 ## Locale (optional)
 
-```sudo dpkg-reconfigure locales```
+`sudo dpkg-reconfigure locales`
 
 ## Timezone
 
-```sudo timedatectl set-timezone Europe/Kiev```
+`sudo timedatectl set-timezone Europe/Kiev`
 
 ## Create your own sudo user
 
-```sudo adduser {username}```
+`sudo adduser {username}`
 
-```sudo usermod -aG sudo {username}```
+`sudo usermod -aG sudo {username}`
 
-```su - {username}```
+`su - {username}`
 
-```mkdir ~/.ssh```
+`mkdir ~/.ssh`
 
-```echo "{your-public-key}" > ~/.ssh/authorized_keys```
+`echo "{your-public-key}" > ~/.ssh/authorized_keys`
 or execute from machine you are going to connect via ssh
-```scp ~/.ssh/id_rsa.pub {hostname}:.ssh/authorized_keys```
+`scp ~/.ssh/id_rsa.pub {hostname}:.ssh/authorized_keys`
 
 ```sh
 chmod 700 ~/.ssh
@@ -54,22 +55,23 @@ chmod 600 ~/.ssh/authorized_keys
 ```
 
 SRC:
+
 - https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart
 
 ## Change Prompt (optional)
 
 Open:
-```vim ~/.bashrc```
+`vim ~/.bashrc`
 
 Replace all occurrences of `\h` to `\H`
 
 ## Reboot
 
-```sudo reboot```
+`sudo reboot`
 
 ## Delete default ubuntu user
 
-```sudo deluser ubuntu```
+`sudo deluser ubuntu`
 
 ## Install useful (optional)
 
@@ -78,40 +80,27 @@ sudo apt-get update
 sudo apt-get install -y wget curl mc htop screen vim
 ```
 
-## Generate OVPN client cert (if your VPN server running on [kylemanna docker openvpn](https://github.com/kylemanna/docker-openvpn))
+## Automount of USB HDD
 
-Pick a name for the $OVPN_DATA data volume container
+Run the following command to see the name of your drive, its UUID(Universal Unique Identifier) and file system type.
 
-```OVPN_DATA={absolute-path-to-volume}```
+`sudo blkid`
 
-Generate a client certificate without a passphrase
+Make or choose a mount point for your drive. Usually it is somewhere inside `/mnt` directory.
+And then modify your `/etc/fstab` file to append one line of code at the end of the file. The format of this line of code is as follows:
 
-```docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm -it kylemanna/openvpn easyrsa build-client-full CLIENTNAME nopass```
+```txt
+UUID=<uuid-of-your-drive> <mount-point> <file-system-type> <mount-option> <dump> <pass>
+```
 
-Retrieve the client configuration with embedded certificates
+Note that you need to separate these items with Tab key. For example, I added the following line to the end of `/etc/fstab`.
 
-```docker run -v $OVPN_DATA:/etc/openvpn --log-driver=none --rm kylemanna/openvpn ovpn_getclient CLIENTNAME > CLIENTNAME.ovpn```
+```txt
+UUID=0fc19bcb-0929-4d0c-9740-89b73214b4ef	/mnt	ext4	defaults	0	2
+```
 
-SRC:
-- https://www.digitalocean.com/community/tutorials/how-to-run-openvpn-in-a-docker-container-on-ubuntu-14-04
-- https://hub.docker.com/r/kylemanna/openvpn/
-- https://github.com/kylemanna/docker-openvpn
-
-## Install and configure openvpn client
-
-Install OpenVPN
-```sudo apt install openvpn```
-
-Copy the client configuration file from the server and set secure permissions:
-```sudo install -o root -m 400 CLIENTNAME.ovpn /etc/openvpn/CLIENTNAME.conf```
-
-Configure the init scripts to autostart all configurations matching /etc/openvpn/*.conf:
-
-```sudo systemctl enable openvpn```
-
-Restart the OpenVPN client's server process:
-
-```sudo systemctl start openvpn```
+Then reboot and wait.
 
 SRC:
-- https://www.digitalocean.com/community/tutorials/how-to-run-openvpn-in-a-docker-container-on-ubuntu-14-04
+
+- https://www.linuxbabe.com/desktop-linux/how-to-automount-file-systems-on-linux
