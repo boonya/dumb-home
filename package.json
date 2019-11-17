@@ -1,41 +1,9 @@
 {
-  "name": "dumb-home",
-  "version": "1.0.0",
-  "description": "SmartHome web application which is actually quite dumb",
-  "directories": {
-    "doc": "docs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/boonya/dumb-home.git"
-  },
-  "keywords": [
-    "SmartHome",
-    "home",
-    "IoT",
-    "WebCAM",
-    "video",
-    "node",
-    "meteor",
-    "reactjs",
-    "control",
-    "raspberry",
-    "pi",
-    "raspi"
-  ],
-  "author": "Serhii [boonya] Buinytskyi",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/boonya/dumb-home/issues"
-  },
-  "homepage": "https://github.com/boonya/dumb-home#readme",
   "scripts": {
     "install": "(cd ./app/ && meteor npm install)",
-    "start": "(cd ./app/ && npm start)",
+    "start": "(cd ./app/ && npm run start)",
     "lint": "(cd ./app/ && npm run lint)",
-    "build": "(cd ./app/ && npm run build)",
-    "mongo": "(cd ./app/ && npm run mongo)",
-    "shell": "(cd ./app/ && npm run shell)",
-    "storybook": "(cd ./app/ && npm run storybook)"
+    "test": "(cd ./app/ && npm run test)",
+    "build": "(cd ./app/ && npm run build)"
   }
 }

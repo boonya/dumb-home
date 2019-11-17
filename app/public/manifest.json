@@ -1,7 +1,11 @@
 {
   "short_name": "Dumb Home",
   "name": "Dumb Home Application",
-  "icons": [{
+  "description": "SmartHome Web Application which is actually quite dumb",
+  "version": "1.0.0",
+  "author": "Serhii [boonya] Buinytskyi",
+  "icons": [
+    {
       "src": "/assets/favicon/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
@@ -14,6 +18,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#1B267C",
+  "theme_color": "#3f51b5",
   "background_color": "#303030"
 }
