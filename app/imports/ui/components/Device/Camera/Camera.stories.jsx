@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 
 import Chance from 'chance';
@@ -37,22 +37,16 @@ storiesOf('Components|Device/Camera', module)
     const password = text('password', '');
     const readOnly = boolean('readOnly', false);
 
-    const ComponentWrapper = () => (
+    return (
       <Form
-        key={JSON.stringify({
-          label,
-          username,
-          password,
-          readOnly,
-        })}
+        key={JSON.stringify({ label, username, password, readOnly })}
         label={label}
         username={username}
         password={password}
         details={{ hostname: HOSTNAME }}
         readOnly={readOnly}
-        onAdd={action('onAdd')}
+        handleSubmit={action('handleSubmit')}
+        handleCancel={action('handleCancel')}
       />
     );
-
-    return <ComponentWrapper />;
   });

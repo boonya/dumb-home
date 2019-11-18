@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
 class DetailsContainer extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = { watch: false };
+    this.state = { watch: true };
   }
 
   render() {

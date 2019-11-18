@@ -5,13 +5,13 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
 import Preloader from '../../Preloader';
-import VideoPlayer from './VideoPlayer';
+import VideoPlayer from '../../VideoPlayer/StreamPlayer';
 
 const Watch = ({ id, loading, handleDetails }) => (
   <Grid>
     {loading && <Preloader />}
     <Button onClick={handleDetails}>See properties</Button>
-    <VideoPlayer id={id} />
+    <VideoPlayer src={`/camera/${id}`} />
   </Grid>
 );
 
