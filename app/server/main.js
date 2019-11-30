@@ -7,7 +7,7 @@ import Routes from '../imports/server/routes';
 
 Meteor.startup(() => {
   SSR('viewport-root');
-  // Accounts.createSuperUser();
+  Accounts.createSuperUser();
   Accounts.onCreateHook();
   Meteor.methods(Methods);
   Publish();

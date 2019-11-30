@@ -1,12 +1,9 @@
 apps:
-  - name: "DumbHome"
+  - name: dumb-home
     script: ./bundle/main.js
     watch: true
     env:
-      NODE_ENV: development
       MONGO_URL: mongodb://meteor:password@localhost:27017/DumbHome
       ROOT_URL: http://dumb.home
       PORT: 3000
-      SUPERUSER_USERNAME: "admin"
-      SUPERUSER_EMAIL: "admin@admin"
-      SUPERUSER_PASSWORD: "123"
+      NODE_ENV: development

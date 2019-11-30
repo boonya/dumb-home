@@ -10,13 +10,17 @@ PM2 Runtime is a Production Process Manager for Node.js applications with a buil
 
 First you have to copy _application configuration file_ to your appliance:
 
-`scp ./pm2-config.yml your-appliance:`
+`scp ./build/pm2.yml your-appliance:`
 
 Make sure that this file contains all instruction that you need.
 
 To start up the application run command below on your appliance:
 
-`sudo pm2 start ./pm2-config.yml`
+`sudo pm2 start pm2.yml`
+
+But if you want to create a superuser you must prepend commant above by appropriate env. vars. Like so:
+
+`SUPERUSER_NAME="username" SUPERUSER_EMAIL="email@email" SUPERUSER_PASSWORD="password" sudo pm2 start pm2.yml`
 
 ## Autostart
 
@@ -28,7 +32,7 @@ Add pm2 service to system autostart:
 
 If you want to see logs you may execute:
 
-`pm2 logs DumbHome` or `pm2 logs -f DumbHome`
+`pm2 logs dumb-home` or `pm2 logs -f dumb-home`
 
 To see just current status pm2 deamon run:
 

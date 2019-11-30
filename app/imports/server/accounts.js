@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts as MeteorAccounts } from 'meteor/accounts-base';
 import { Roles } from 'meteor/alanning:roles';
-import { SUPERUSER_USERNAME, SUPERUSER_EMAIL, SUPERUSER_PASSWORD } from '../env';
+import { SUPERUSER } from '../env';
 
 export default {
   onCreateHook() {
@@ -13,28 +13,27 @@ export default {
   },
 
   createSuperUser() {
+    if (!SUPERUSER.NAME || !SUPERUSER.EMAIL || !SUPERUSER.PASSWORD) {
+      console.info('SUPERUSER env. vars is not defined. Skip.');
+      return;
+    }
+
     if (Meteor.users.find().count()) {
-      console.info('Users collection already exists');
+      console.info('Users collection already exists. Skip.');
       return;
     }
-    if (!SUPERUSER_USERNAME || !SUPERUSER_EMAIL || !SUPERUSER_PASSWORD) {
-      console.info('Some of SUPERUSER env. vars is not defined: ', {
-        SUPERUSER_USERNAME,
-        SUPERUSER_EMAIL,
-        SUPERUSER_PASSWORD,
-      });
-      return;
-    }
+
     const userId = MeteorAccounts.createUser({
-      username: SUPERUSER_USERNAME,
-      email: SUPERUSER_EMAIL,
-      password: SUPERUSER_PASSWORD,
+      username: SUPERUSER.NAME,
+      email: SUPERUSER.EMAIL,
+      password: SUPERUSER.PASSWORD,
     });
     Roles.addUsersToRoles(userId, ['user', 'superuser'], Roles.GLOBAL_GROUP);
+
     console.info('Superuser account created: ', {
       id: userId,
-      username: SUPERUSER_USERNAME,
-      email: SUPERUSER_EMAIL,
+      username: SUPERUSER.NAME,
+      email: SUPERUSER.EMAIL,
     });
   },
 };
