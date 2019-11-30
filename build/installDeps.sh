@@ -50,8 +50,8 @@ info () {
 }
 
 info "Dependencies to build up meteor application"
-apt-get update
-apt-get install -y \
+sudo apt-get update
+sudo apt-get install -y \
   gcc \
   g++ \
   make \
@@ -68,30 +68,34 @@ sudo apt-get install -y \
   vim
 
 info "OpenVPN"
-apt-get install -y openvpn
+sudo apt-get install -y openvpn
 
 info "NodeJS 8"
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-apt-get install -y nodejs
+sudo apt-get install -y nodejs
 
 info "MongoDB 3.6"
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
-echo "deb [ arch=arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list
-apt-get update
-apt-get install -y mongodb-org
-systemctl start mongod
-systemctl enable mongod
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+echo "deb [ arch=arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+sudo systemctl start mongod
+sudo systemctl enable mongod
 
 info "FFMPEG"
-apt-get update
-apt-get install -y ffmpeg
+sudo apt-get update
+sudo apt-get install -y ffmpeg
 
 info "NGINX"
-apt-get update
-apt-get install -y nginx
-systemctl start nginx
-systemctl enable nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
 
 info "Samba"
-apt-get update
-apt-get install -y samba
+sudo apt-get update
+sudo apt-get install -y samba
+
+info "Mosquitto"
+sudo apt-get update
+sudo apt-get install -y mosquitto
