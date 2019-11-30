@@ -57,6 +57,7 @@ Overlay.propTypes = {
   waiting: PropTypes.bool,
   error: PropTypes.bool,
   title: PropTypes.string,
+  thumb: PropTypes.string,
   description: PropTypes.string,
 };
 
@@ -65,7 +66,9 @@ Overlay.defaultProps = {
   onFullScreen: null,
   recording: false,
   waiting: false,
+  error: false,
   description: null,
+  thumb: null,
   title: null,
 };
 

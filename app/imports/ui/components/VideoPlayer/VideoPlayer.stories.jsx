@@ -24,12 +24,13 @@ const getMediaProps = () => {
     description,
     thumb,
     title,
+  // eslint-disable-next-line no-shadow
   } = MediaJson.find(({ title }) => title === selected) || MediaJson[0];
 
   return {
     src,
     description,
-    thumb: src.replace(/\/[^\/]+$/g, `/${thumb}`),
+    thumb: src.replace(/\/[^/]+$/g, `/${thumb}`),
     title,
   };
 };
@@ -88,6 +89,4 @@ storiesOf('Components|VideoPlayer', module)
     const error = boolean('error', false);
     return <Info {...{ title, description, recording, error }} />;
   })
-  .add('RecordingLable', () => {
-    return <RecordingLable />;
-  });
+  .add('RecordingLable', () => <RecordingLable />);

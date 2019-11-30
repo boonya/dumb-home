@@ -17,12 +17,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+// eslint-disable-next-line no-unused-vars
 const Info = ({ className, title, description, recording, error }) => {
   const classes = useStyles();
 
   return (
     <Grid className={classnames(className, classes.root)} container justify="space-between">
-      <Grid container container justify="space-between" wrap="nowrap">
+      <Grid container justify="space-between" wrap="nowrap">
         <Grid className={classes.title}>{title && <Typography noWrap>{title}</Typography>}</Grid>
         <Grid>{recording && <RecordingLabel />}</Grid>
       </Grid>
@@ -42,6 +43,7 @@ Info.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   recording: PropTypes.bool,
+  error: PropTypes.bool,
 };
 
 Info.defaultProps = {
@@ -49,6 +51,7 @@ Info.defaultProps = {
   title: null,
   description: null,
   recording: false,
+  error: false,
 };
 
 export default Info;

@@ -29,7 +29,7 @@
   "scripts": {
     "start": "meteor run",
     "start:prod-like": "meteor run --production",
-    "lint": "eslint client imports server tests -c .eslintrc.js --ext js,jsx",
+    "lint": "eslint . -c .eslintrc.js --ext js,jsx",
     "lint:fix": "eslint client imports server tests -c .eslintrc.js --ext js,jsx --fix",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
@@ -88,12 +88,14 @@
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "chance": "^1.1.3",
-    "eslint": "^6.6.0",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-import-resolver-meteor": "^0.4.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-react-hooks": "^1.7.0"
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "prettier-eslint": "^9.0.1"
   }
 }

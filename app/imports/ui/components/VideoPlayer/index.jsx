@@ -63,7 +63,9 @@ const handleOnFullScreen = ({ videoRef, onFullScreen }) => () => {
   } else if (video.webkitRequestFullscreen) {
     video.webkitRequestFullscreen(); // Chrome and Safari
   }
-  onFullScreen && onFullScreen();
+  if (onFullScreen) {
+    onFullScreen();
+  }
 };
 
 const onClick = (event) => event.preventDefault();
@@ -101,12 +103,20 @@ VideoPlayer.propTypes = {
   onFullScreen: PropTypes.func,
   recording: PropTypes.bool,
   waiting: PropTypes.bool,
+  thumb: PropTypes.string,
+  error: PropTypes.bool,
+  title: PropTypes.string,
+  description: PropTypes.string,
 };
 
 VideoPlayer.defaultProps = {
   onFullScreen: null,
   recording: false,
   waiting: false,
+  thumb: null,
+  error: false,
+  title: null,
+  description: null,
 };
 
 export default VideoPlayer;

@@ -24,7 +24,7 @@ module.exports = {
       meteor: true,
     },
   },
-  plugins: ['react'],
+  plugins: ['react', 'prettier'],
   rules: {
     'max-len': [
       'warn',
