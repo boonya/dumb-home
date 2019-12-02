@@ -16,43 +16,37 @@ import Preloader from '../components/Preloader';
 
 const mapStateToProps = createSelector([getDevice], (payload) => ({
   loading: isLoading(payload),
-  details: isReady(payload) ? payload : null,
+  device: isReady(payload) ? payload : null,
 }));
 
 const mapDispatchToProps = (dispatch) => ({
-  handleFetch: (id) => dispatch(actions.device.fetch(id)),
-  handleClear: () => dispatch(actions.device.clear()),
+  subscribe: (id) => dispatch(actions.device.subscribe(id)),
+  unsubscribe: (id) => dispatch(actions.device.unsubscribe(id)),
 });
 
 class DeviceDetailsPage extends PureComponent {
   componentDidMount() {
-    const { handleFetch } = this.props;
-    const { match } = this.props;
-    handleFetch(match.params.id);
+    const { subscribe, match } = this.props;
+    subscribe(match.params.id);
   }
 
   componentWillUnmount() {
-    const { handleClear } = this.props;
-    handleClear();
+    const { unsubscribe, match } = this.props;
+    unsubscribe(match.params.id);
   }
 
   render() {
-    const { loading, details } = this.props;
+    const { loading, device } = this.props;
+    const { DetailsFlow } = device ? DEVICES[device.type] : { DetailsFlow: () => null };
 
     return (
       <Layout withNavbar>
         {loading && <Preloader />}
         <Typography variant="h1">Device Details</Typography>
-        {details && this.renderDetails()}
+        <DetailsFlow />
       </Layout>
     );
   }
-
-  renderDetails = () => {
-    const { details } = this.props;
-    const { DetailsFlow } = DEVICES[details.type];
-    return <DetailsFlow />;
-  };
 }
 
 DeviceDetailsPage.propTypes = {
@@ -61,14 +55,14 @@ DeviceDetailsPage.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
-  details: PropTypes.shape({ type: PropTypes.oneOf(Object.keys(DEVICES)) }),
+  device: PropTypes.shape({ type: PropTypes.string }),
   loading: PropTypes.bool.isRequired,
-  handleFetch: PropTypes.func.isRequired,
-  handleClear: PropTypes.func.isRequired,
+  subscribe: PropTypes.func.isRequired,
+  unsubscribe: PropTypes.func.isRequired,
 };
 
 DeviceDetailsPage.defaultProps = {
-  details: null,
+  device: null,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceDetailsPage);

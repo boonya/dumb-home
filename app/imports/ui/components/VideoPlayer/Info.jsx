@@ -42,8 +42,8 @@ Info.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
-  recording: PropTypes.bool,
   error: PropTypes.bool,
+  recording: PropTypes.bool,
 };
 
 Info.defaultProps = {

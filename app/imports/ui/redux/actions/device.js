@@ -1,9 +1,13 @@
 export default {
+  SUBSCRIBE: (payload) => payload,
+  UNSUBSCRIBE: (payload) => payload,
+
+  UPDATE_SUCCESS: (payload) => payload,
+  UPDATE_FAILURE: (payload) => payload,
+
   FETCH: (id) => id,
   FETCH_SUCCESS: (payload) => payload,
   FETCH_FAILURE: (err) => err,
-
-  CLEAR: () => null,
 
   DELETE: (id) => id,
   DELETE_SUCCESS: () => null,

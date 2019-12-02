@@ -3,9 +3,13 @@ import React, { PureComponent } from 'react';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import ROUTES, { goTo } from '../../../routes';
+
+import actions from '../../../redux/actions';
 
 import { getDevice } from '../../../redux/reducers/device';
 import { isLoading, isReady } from '../../../redux/utils/state';
@@ -20,6 +24,7 @@ const mapStateToProps = createSelector([getDevice], (payload) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleEdit: (id) => dispatch(goTo(ROUTES.EditDevice, { id })),
+  handleRecord: (payload) => dispatch(actions.camera.record(payload)),
 });
 
 class DetailsContainer extends PureComponent {
@@ -31,13 +36,20 @@ class DetailsContainer extends PureComponent {
   render() {
     const { loading, details } = this.props;
 
-    if (!details) {
-      return !loading && <Typography>Something went wrong</Typography>;
+    if (!details && !loading) {
+      return <Typography>Something went wrong</Typography>;
     }
 
     const { watch } = this.state;
 
-    return watch ? this.renderWatch() : this.renderDetails();
+    return (
+      <Grid>
+        {watch ? this.renderWatch() : this.renderDetails()}
+        <Button onClick={this.handleRecord}>
+          {details.recording ? 'Stop Record' : 'Start Record'}
+        </Button>
+      </Grid>
+    );
   }
 
   renderDetails = () => {
@@ -48,8 +60,19 @@ class DetailsContainer extends PureComponent {
 
   renderWatch = () => {
     const { loading, details } = this.props;
+    const { _id, label, description, icon, recording } = details;
 
-    return <Watch id={details._id} loading={loading} handleDetails={this.handleDetails} />;
+    return (
+      <Watch
+        id={_id}
+        title={label}
+        description={description}
+        poster={icon}
+        recording={recording}
+        loading={loading}
+        handleDetails={this.handleDetails}
+      />
+    );
   };
 
   handleEdit = () => {
@@ -64,16 +87,27 @@ class DetailsContainer extends PureComponent {
   handleDetails = () => {
     this.setState({ watch: false });
   };
+
+  handleRecord = () => {
+    const { handleRecord, details } = this.props;
+    const { _id, recording } = details;
+    handleRecord({ _id, recording: !recording });
+  };
 }
+
+const DETAILS_TYPE = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  icon: PropTypes.string,
+  recording: PropTypes.bool,
+});
 
 DetailsContainer.propTypes = {
   loading: PropTypes.bool.isRequired,
+  handleRecord: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
-  details: PropTypes.shape({ _id: PropTypes.string.isRequired }),
-};
-
-DetailsContainer.defaultProps = {
-  details: null,
+  details: DETAILS_TYPE.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsContainer);

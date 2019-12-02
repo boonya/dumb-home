@@ -7,11 +7,11 @@ import Button from '@material-ui/core/Button';
 import Preloader from '../../Preloader';
 import VideoPlayer from '../../VideoPlayer/StreamPlayer';
 
-const Watch = ({ id, loading, handleDetails }) => (
+const Watch = ({ id, loading, handleDetails, ...props }) => (
   <Grid>
     {loading && <Preloader />}
     <Button onClick={handleDetails}>See properties</Button>
-    <VideoPlayer src={`/camera/${id}`} />
+    <VideoPlayer src={`/camera/${id}`} {...props} />
   </Grid>
 );
 

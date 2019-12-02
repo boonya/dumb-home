@@ -13,8 +13,8 @@ import Info from './Info';
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%',
-    // background: ({ thumb }) => (thumb ? `no-repeat center url(${thumb})` : null),
-    // backgroundSize: ({ thumb }) => (thumb ? 'cover' : null),
+    // background: ({ poster }) => (poster ? `no-repeat center url(${poster})` : null),
+    // backgroundSize: ({ poster }) => (poster ? 'cover' : null),
   },
   grow: {
     flexGrow: 1,
@@ -29,8 +29,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Overlay = ({ className, waiting, error, recording, onFullScreen, description, title, thumb }) => {
-  const classes = useStyles({ thumb });
+const Overlay = ({ className, waiting, error, recording, onFullScreen, description, title, poster }) => {
+  const classes = useStyles({ poster });
 
   return (
     <Grid className={classnames(className, classes.root)} container direction="column">
@@ -57,8 +57,8 @@ Overlay.propTypes = {
   waiting: PropTypes.bool,
   error: PropTypes.bool,
   title: PropTypes.string,
-  thumb: PropTypes.string,
   description: PropTypes.string,
+  poster: PropTypes.string,
 };
 
 Overlay.defaultProps = {
@@ -68,8 +68,8 @@ Overlay.defaultProps = {
   waiting: false,
   error: false,
   description: null,
-  thumb: null,
   title: null,
+  poster: null,
 };
 
 export default Overlay;

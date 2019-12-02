@@ -1,12 +1,12 @@
 import { Picker } from 'meteor/meteorhacks:picker';
-import handleCameraStream from './camera';
+import Camera from './camera';
 
 export default () => {
   Picker.route('/camera/:id', (params, request, response) => {
     (async () => {
       try {
         const { id } = params;
-        const stream = await handleCameraStream(id);
+        const stream = await Camera.handleStream(id);
 
         stream.on('start', (...args) => {
           console.info('FFMPEG Stream has started: ', ...args);

@@ -12,4 +12,8 @@ export default {
   EDIT: (params) => params,
   EDIT_SUCCESS: (id) => id,
   EDIT_FAILURE: (err) => err,
+
+  RECORD: (payload) => payload,
+  RECORD_SUCCESS: () => null,
+  RECORD_FAILURE: (err) => err,
 };

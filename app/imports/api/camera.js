@@ -19,7 +19,10 @@ const discover = () => new Promise((resolve, reject) => {
 const add = async (params) => {
   const { hostname, port } = params.details;
   return Devices.insert({
-    ...params, details: { hostname, port }, type: DEVICES.CAMERA, owner: Meteor.userId(),
+    ...params,
+    details: { hostname, port },
+    type: DEVICES.CAMERA,
+    owner: Meteor.userId(),
   });
 };
 
@@ -27,4 +30,37 @@ const edit = async ({ _id, label, username, password }) => (
   Devices.update({ _id }, { $set: { label, username, password } })
 );
 
-export default { discover, add, edit };
+const startRecord = (id, name, uri) => new Promise((resolve, reject) => {
+  Meteor.call(METHODS.CAMERA_RECORD_START, { id, name, uri }, (err, response) => {
+    if (err) return reject(err);
+    Devices.update({ _id: id }, { $set: { recording: true } });
+    resolve(response);
+  });
+});
+
+const stopRecord = (id) => new Promise((resolve, reject) => {
+  Meteor.call(METHODS.CAMERA_RECORD_STOP, { id }, (err, response) => {
+    if (err) return reject(err);
+    Devices.update({ _id: id }, { $set: { recording: false } });
+    resolve(response);
+  });
+});
+
+const getStreamUri = (hostname, port, username, password) => new Promise((resolve, reject) => {
+  Meteor.call(METHODS.CAMERA_GET_STREAM_URI, { hostname, port, username, password }, (err, uri) => {
+    if (err) return reject(err);
+    resolve(uri);
+  });
+});
+
+const record = async ({ _id, recording }) => {
+  if (!recording) {
+    await stopRecord(_id);
+    return;
+  }
+  const { label, details: { hostname, port }, username, password } = Devices.findOne({ _id });
+  const uri = await getStreamUri(hostname, port, username, password);
+  await startRecord(_id, label, uri);
+};
+
+export default { discover, add, edit, record };
