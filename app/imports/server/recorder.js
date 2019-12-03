@@ -1,6 +1,6 @@
 import { Recorder as RtspRecorder } from 'node-rtsp-recorder';
 
-import CONFIG from '../config';
+import { RECORDER } from '../config';
 import DEVICES from '../devices';
 import Devices from '../collections/devices';
 import api from '../api/camera';
@@ -8,7 +8,7 @@ import api from '../api/camera';
 class Recorder {
   constructor({ name, uri }) {
     try {
-      const { FOLDER, CHUNK_DURATION, DIRECTORY_PATH_FORMAT, FILENAME_FORMAT } = CONFIG.RECORDER;
+      const { FOLDER, CHUNK_DURATION, DIRECTORY_PATH_FORMAT, FILENAME_FORMAT } = RECORDER;
 
       if (!FOLDER) {
         console.error("Recorder destination folder hasn't been set.");

@@ -27,6 +27,6 @@ jobs:
           - build/installDeps.sh
         skip_cleanup: true
         draft: true
-      branches:
-        only:
-          - master
+branches:
+  only:
+    - master
