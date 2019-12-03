@@ -16,10 +16,10 @@ jobs:
       script: npm run lint
     - script: npm run test
     - stage: Build
-      if: branch = master
+      if: branch = master && type != pull_request
       script: npm run build
     - stage: "GitHub Release"
-      if: branch = master
+      if: branch = master && type != pull_request
       script: skip
       deploy:
         provider: releases
