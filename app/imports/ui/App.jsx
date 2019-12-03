@@ -12,7 +12,7 @@ import { Helmet } from 'react-helmet';
 import { CssBaseline } from '@material-ui/core';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import Config from '../config';
+import { APP as APP_CONFIG } from '../config';
 import theme from './theme';
 import ROUTES from './routes';
 import loadable from './loadable';
@@ -22,7 +22,7 @@ import configureStore from './configureStore';
 
 import Notifications from './containers/Notifications';
 
-const title = Config.APP_TITLE;
+const title = APP_CONFIG.TITLE;
 const config = { appPrefix: '', title };
 const locale = 'en';
 const initialState = { config, locale };

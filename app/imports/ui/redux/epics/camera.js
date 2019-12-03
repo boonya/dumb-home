@@ -36,20 +36,22 @@ async function editCamera({ payload }) {
   }
 }
 
-const discover = (action$) => action$.pipe(
-  ofType(actions.camera.discover.toString()),
-  switchMap(discoverCamera),
-);
+async function recordCamera({ payload }) {
+  try {
+    await api.record(payload);
+    return actions.camera.recordSuccess(payload._id);
+  } catch (err) {
+    return actions.camera.recordFailure(err);
+  }
+}
 
-const add = (action$) => action$.pipe(
-  ofType(actions.camera.add.toString()),
-  switchMap(addCamera),
-);
+const discover = (action$) => action$.pipe(ofType(actions.camera.discover.toString()), switchMap(discoverCamera));
 
-const edit = (action$) => action$.pipe(
-  ofType(actions.camera.edit.toString()),
-  switchMap(editCamera),
-);
+const add = (action$) => action$.pipe(ofType(actions.camera.add.toString()), switchMap(addCamera));
+
+const edit = (action$) => action$.pipe(ofType(actions.camera.edit.toString()), switchMap(editCamera));
+
+const record = (action$) => action$.pipe(ofType(actions.camera.record.toString()), switchMap(recordCamera));
 
 const addSuccess = (action$) => action$.pipe(
   ofType(actions.camera.addSuccess.toString()),
@@ -76,4 +78,14 @@ const editFailure = (action$) => action$.pipe(
   map(notifyFailure('Edit camera failure')),
 );
 
-export default combineEpics(discover, add, edit, addSuccess, editSuccess, discoverFailure, addFailure, editFailure);
+export default combineEpics(
+  discover,
+  add,
+  edit,
+  addSuccess,
+  editSuccess,
+  discoverFailure,
+  addFailure,
+  editFailure,
+  record,
+);

@@ -3,7 +3,7 @@ import { Discovery, Cam } from 'onvif';
 
 import Devices from '../api/devices';
 
-export const discover = () => new Promise((resolve, reject) => {
+const discover = () => new Promise((resolve, reject) => {
   try {
     Discovery.probe((err, cams) => {
       if (err) throw new Error(err);
@@ -14,7 +14,7 @@ export const discover = () => new Promise((resolve, reject) => {
   }
 });
 
-export const getStreamUri = ({ hostname, port, username, password = '' }) => new Promise((resolve, reject) => {
+const getStreamUri = ({ hostname, port, username, password = '' }) => new Promise((resolve, reject) => {
   try {
     // eslint-disable-next-line no-new
     new Cam(
@@ -62,7 +62,7 @@ const getStream = (source) => ffmpeg(source, { logger: console })
     'dump_extra',
   ]);
 
-export default async (_id) => {
+const handleStream = async (_id) => {
   const { details, username, password } = await Devices.findOne({ _id });
   const { hostname, port } = details;
   const streamUri = await getStreamUri({
@@ -73,3 +73,5 @@ export default async (_id) => {
   });
   return getStream(streamUri);
 };
+
+export default { discover, getStreamUri, handleStream };

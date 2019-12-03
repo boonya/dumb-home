@@ -23,6 +23,17 @@ async function removeDevice({ payload }) {
   }
 }
 
+const subscribe = (action$) => action$.pipe(
+  ofType(actions.device.subscribe.toString()),
+  switchMap(api.observableDevice.subscribe),
+  map(actions.device.updateSuccess),
+);
+
+const unsubscribe = (action$) => action$.pipe(
+  ofType(actions.device.unsubscribe.toString()),
+  switchMap(api.observableDevice.unsubscribe),
+);
+
 const fetch = (action$) => action$.pipe(
   ofType(actions.device.fetch.toString()),
   switchMap(fetchDeviceDetails),
@@ -48,4 +59,4 @@ const removeFailure = (action$) => action$.pipe(
   map(notifyFailure('Failed to delete device')),
 );
 
-export default combineEpics(fetch, fetchFailure, remove, removeSuccess, removeFailure);
+export default combineEpics(subscribe, unsubscribe, fetch, fetchFailure, remove, removeSuccess, removeFailure);

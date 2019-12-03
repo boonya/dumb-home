@@ -10,7 +10,7 @@ export class ErrorState {
    * @param {*} previousValue - A reference to the previous value.
    */
   constructor(error, previousValue) {
-    this.type = this.constructor.name;
+    this.objectType = this.constructor.name;
 
     if (error === null || typeof error !== 'object') {
       this.error = new Error('Invalid error instance passed to ErrorState');
@@ -28,7 +28,7 @@ export class LoadingState {
    * @param {*} previousValue - A reference to the previous value.
    */
   constructor(previousValue) {
-    this.type = this.constructor.name;
+    this.objectType = this.constructor.name;
     this.previousValue = previousValue;
   }
 }
@@ -38,7 +38,7 @@ export class NoValue {
    * Create a new no value state.
    */
   constructor() {
-    this.type = this.constructor.name;
+    this.objectType = this.constructor.name;
   }
 }
 

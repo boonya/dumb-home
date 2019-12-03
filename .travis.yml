@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - 8.15.1
+  - 8.16.2
 arch:
   - amd64
 os: linux
@@ -12,12 +12,14 @@ install:
   - npm install
 jobs:
   include:
-    - stage: 'Lint & Test'
+    - stage: "Lint & Test"
       script: npm run lint
     - script: npm run test
     - stage: Build
+      if: branch = master && type != pull_request
       script: npm run build
-    - stage: 'GitHub Release'
+    - stage: "GitHub Release"
+      if: branch = master && type != pull_request
       script: skip
       deploy:
         provider: releases
@@ -27,3 +29,6 @@ jobs:
           - build/installDeps.sh
         skip_cleanup: true
         draft: true
+branches:
+  only:
+    - master

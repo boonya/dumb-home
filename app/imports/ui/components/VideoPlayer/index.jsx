@@ -68,16 +68,14 @@ const handleOnFullScreen = ({ videoRef, onFullScreen }) => () => {
   }
 };
 
-const onClick = (event) => event.preventDefault();
-
 const VideoPlayer = ({
   waiting: waitingProp,
   error: errorProp,
   recording,
-  onFullScreen,
-  description,
-  thumb,
   title,
+  description,
+  poster,
+  onFullScreen,
   ...props
 }) => {
   const classes = useStyles();
@@ -87,12 +85,14 @@ const VideoPlayer = ({
   const waiting = state.waiting || waitingProp;
   const error = state.error || errorProp;
 
+  const preventStopVideo = (event) => event.preventDefault();
+
   return (
     <Grid className={classes.root} container>
-      <video ref={videoRef} className={classes.video} onClick={onClick} {...props} />
+      <video ref={videoRef} className={classes.video} onClick={preventStopVideo} {...props} />
       <Overlay
         className={classes.overlay}
-        {...{ description, title, thumb, waiting, error }}
+        {...{ description, title, poster, recording, waiting, error }}
         onFullScreen={handleOnFullScreen({ videoRef, onFullScreen })}
       />
     </Grid>
@@ -101,20 +101,20 @@ const VideoPlayer = ({
 
 VideoPlayer.propTypes = {
   onFullScreen: PropTypes.func,
-  recording: PropTypes.bool,
   waiting: PropTypes.bool,
-  thumb: PropTypes.string,
+  poster: PropTypes.string,
   error: PropTypes.bool,
+  recording: PropTypes.bool,
   title: PropTypes.string,
   description: PropTypes.string,
 };
 
 VideoPlayer.defaultProps = {
   onFullScreen: null,
-  recording: false,
   waiting: false,
-  thumb: null,
+  poster: null,
   error: false,
+  recording: false,
   title: null,
   description: null,
 };

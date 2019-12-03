@@ -5,11 +5,14 @@ import actions from '../actions';
 
 export default handleActions(
   {
-    [actions.device.clear]: () => new NoValue(),
-
     [actions.device.fetch]: (state) => new LoadingState(state),
     [actions.device.fetchSuccess]: (_, { payload }) => payload,
     [actions.device.fetchFailure]: (state, { payload }) => new ErrorState(payload, state),
+
+    [actions.device.subscribe]: (state) => new LoadingState(state),
+    [actions.device.unsubscribe]: () => new NoValue(),
+    [actions.device.updateSuccess]: (_, { payload }) => payload,
+    [actions.device.updateFailure]: (state, { payload }) => new ErrorState(payload, state),
 
     [actions.device.delete]: (state) => new LoadingState(state),
     [actions.device.deleteSuccess]: () => new NoValue(),
