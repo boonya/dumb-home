@@ -8,11 +8,17 @@ import api from '../api/camera';
 class Recorder {
   constructor({ name, uri }) {
     try {
-      const { FOLDER, TIME_LIMIT, DIRECTORY_PATH_FORMAT, FILENAME_FORMAT } = CONFIG.RECORDER;
+      const { FOLDER, CHUNK_DURATION, DIRECTORY_PATH_FORMAT, FILENAME_FORMAT } = CONFIG.RECORDER;
+
+      if (!FOLDER) {
+        console.error("Recorder destination folder hasn't been set.");
+        return;
+      }
+
       this.process = new RtspRecorder({
         name,
         url: uri,
-        timeLimit: TIME_LIMIT,
+        timeLimit: CHUNK_DURATION,
         folder: FOLDER,
         directoryPathFormat: DIRECTORY_PATH_FORMAT,
         fileNameFormat: FILENAME_FORMAT,
@@ -46,7 +52,6 @@ const start = async ({ id, name, uri }) => {
   const recorder = new Recorder({ name, uri });
   recorder.start();
   Registry[id] = recorder;
-  console.log('server/recorder.js start -> ', { id, name, uri });
 };
 
 const stop = async ({ id }) => {
@@ -54,7 +59,6 @@ const stop = async ({ id }) => {
   if (recorder) {
     recorder.stop();
   }
-  console.log('server/recorder.js stop -> ', { id });
 };
 
 const startup = () => {

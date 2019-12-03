@@ -7,3 +7,4 @@ apps:
       ROOT_URL: http://dumb.home
       PORT: 3000
       NODE_ENV: development
+      RECORDER_FOLDER: "/mnt/Recorder"
