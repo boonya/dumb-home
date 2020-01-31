@@ -141,7 +141,7 @@ class CameraForm extends PureComponent {
         Submit
       </Button>
     </Grid>
-);
+  );
 }
 
 CameraForm.propTypes = PROP_TYPES;

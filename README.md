@@ -1,7 +1,8 @@
 # SmartHome web application which is actually quite dumb
 
-[![Build Status](https://travis-ci.com/boonya/dumb-home.svg?branch=master)](https://travis-ci.com/boonya/dumb-home)
-[![Maintainability](https://api.codeclimate.com/v1/badges/edcd02095eb128226954/maintainability)](https://codeclimate.com/github/boonya/dumb-home/maintainability)
+[![build](https://img.shields.io/travis/com/boonya/dumb-home)](https://travis-ci.com/boonya/dumb-home)
+[![maintainability](https://img.shields.io/codeclimate/maintainability-percentage/boonya/dumb-home)](https://codeclimate.com/github/boonya/dumb-home/maintainability)
+![dependencies](https://img.shields.io/david/boonya/dumb-home)
 
 ## OS
 
