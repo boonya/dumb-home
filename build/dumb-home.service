@@ -1,0 +1,19 @@
+[Unit]
+Description=DumbHome Application Service
+Documentation=https://github.com/boonya/dumb-home#smarthome-web-application-which-is-actually-quite-dumb
+Requires=docker.service
+After=docker.service
+After=network.target
+
+[Service]
+WorkingDirectory=/home/boonya/dumb-home
+
+ExecStart=/usr/local/bin/docker-compose up
+ExecStop=/usr/local/bin/docker-compose down
+ExecReload=/usr/local/bin/docker-compose restart
+
+TimeoutStartSec=30
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

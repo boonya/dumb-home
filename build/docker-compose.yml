@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:1.17
+    container_name: nginx
+    depends_on:
+      - web-app
+    network_mode: service:web-app
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+      - ./nginx/services.d/:/etc/nginx/services.d/:ro
+      # - ./nginx/certs/:/etc/nginx/certs/:ro
+      # - ./nginx/html/:/etc/nginx/html/:ro
+    environment:
+      TZ: "Europe/Kiev"
+    restart: unless-stopped
+
+  web-app:
+    build: ./web-app
+    container_name: web-app
+    depends_on:
+      - mongo
+    network_mode: host
+    volumes:
+      - ./Recorder/:/media/Recorder/:rw
+    environment:
+      MONGO_URL: mongodb://dumb-home:hEBRv5gs22HbLXp8@localhost:27017/DumbHome
+      ROOT_URL: http://home.boonya.info
+      # NODE_ENV: production
+      NODE_ENV: development
+      PORT: 3000
+      SUPERUSER_NAME: "boonya"
+      SUPERUSER_EMAIL: "boonya41@gmail.com"
+      SUPERUSER_PASSWORD: "kaktuszshiv11"
+      RECORDER_FOLDER: "/media/Recorder"
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:4.0
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo/initdb.d/:/docker-entrypoint-initdb.d/:ro
+      - mongo-configdb:/data/configdb
+      - mongo-db:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: boonya
+      MONGO_INITDB_ROOT_PASSWORD: kaktuszshiv11
+      MONGO_USERNAME: "dumb-home"
+      MONGO_PASSWORD: "hEBRv5gs22HbLXp8"
+      MONGO_DB: "DumbHome"
+    restart: unless-stopped
+
+volumes:
+  mongo-configdb:
+  mongo-db:

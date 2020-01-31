@@ -1,0 +1,3 @@
+apps:
+  - name: dumb-home
+    script: ./bundle/main.js

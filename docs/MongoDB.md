@@ -1,20 +1,24 @@
 # MongoDB
 
-## Install MongoDB 3.6 to you applicance
+## Install MongoDB 4.2 to you applicance
 
 ### Import the public key used by the package management system
 
-The Ubuntu package management tools (i.e. `dpkg` and `apt`) ensure package consistency and authenticity by requiring that distributors sign packages with GPG keys.
+From a terminal, issue the following command to import the MongoDB public GPG Key from https://www.mongodb.org/static/pgp/server-4.2.asc:
 
-Issue the following command to import the [MongoDB public GPG Key](https://www.mongodb.org/static/pgp/server-3.6.asc):
-
-`sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5`
+```bash
+wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+```
 
 ### Create a list file for MongoDB
 
-Create the `/etc/apt/sources.list.d/mongodb-org-3.6.list` list file using the command below:
+Create the list file `/etc/apt/sources.list.d/mongodb-org-4.2.list` for your version of Ubuntu.
 
-`echo "deb [ arch=arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list`
+Click on the appropriate tab for your version of Ubuntu. If you are unsure of what Ubuntu version the host is running, open a terminal or shell on the host and execute `lsb_release -dc`.
+
+```bash
+echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+```
 
 ### Reload local package database and install MongoDB
 
@@ -39,15 +43,15 @@ You can also use `systemctl` to check that the service has started properly.
 The output is likely going to look something like this:
 
 ```txt
-● mongod.service - High-performance, schema-free document-oriented database
-   Loaded: loaded (/lib/systemd/system/mongod.service; disabled; vendor preset: enabled)
-   Active: active (running) since Thu 2019-04-11 08:44:46 UTC; 5s ago
+● mongod.service - MongoDB Database Server
+   Loaded: loaded (/lib/systemd/system/mongod.service; enabled; vendor preset: enabled)
+   Active: active (running) since Tue 2020-01-07 14:08:13 EET; 17min ago
      Docs: https://docs.mongodb.org/manual
- Main PID: 11547 (mongod)
+ Main PID: 7716 (mongod)
    CGroup: /system.slice/mongod.service
-           └─11547 /usr/bin/mongod --config /etc/mongod.conf
+           └─7716 /usr/bin/mongod --config /etc/mongod.conf
 
-Apr 11 08:44:46 raspi.home systemd[1]: Started High-performance, schema-free document-oriented database.
+Jan 07 14:08:13 raspi.mama systemd[1]: Started MongoDB Database Server.
 ```
 
 If the previous status check command runs into any errors, check if `mongod.service` exists in the system’s services directory by using `ls /lib/systemd/system`
@@ -63,24 +67,41 @@ The MongoDB server is now installed and running. You can manage the MongoDB serv
 If you were to run the `mongo` command in the terminal, you will most likely notice a warning looking something like this:
 
 ```txt
-MongoDB shell version v3.6.12
-connecting to: mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb
-Implicit session: session { "id" : UUID("d6ae52fe-2fd0-47a4-b490-df020b688694") }
-MongoDB server version: 3.6.12
-Welcome to the MongoDB shell.
-For interactive help, type "help".
-For more comprehensive documentation, see
-  http://docs.mongodb.org/
-Questions? Try the support group
-  http://groups.google.com/group/mongodb-user
+MongoDB shell version v4.2.1
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("99a93578-f787-41d1-b38d-ca43bf6ff0b6") }
+MongoDB server version: 4.2.1
 Server has startup warnings:
-2019-04-11T08:44:46.585+0000 I STORAGE  [initandlisten]
-2019-04-11T08:44:46.586+0000 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
-2019-04-11T08:44:46.586+0000 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
-2019-04-11T08:44:47.973+0000 I CONTROL  [initandlisten]
-2019-04-11T08:44:47.974+0000 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
-2019-04-11T08:44:47.974+0000 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
-2019-04-11T08:44:47.974+0000 I CONTROL  [initandlisten]
+2020-01-07T14:08:13.913+0200 I  STORAGE  [initandlisten]
+2020-01-07T14:08:13.913+0200 I  STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2020-01-07T14:08:13.913+0200 I  STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2020-01-07T14:08:15.615+0200 I  CONTROL  [initandlisten]
+2020-01-07T14:08:15.615+0200 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2020-01-07T14:08:15.615+0200 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2020-01-07T14:08:15.615+0200 I  CONTROL  [initandlisten]
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+
+
+
+
+
+
+
+
+
+
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
 >
 ```
 
@@ -118,17 +139,11 @@ Now your database is secured with username and password and the warning message 
 
 Congratulations! You have now installed and secured your MongoDB service. To add individual users and privileges to a MongoDB database, [follow this tutorial](https://blog.gatemill.com/how-to-add-a-new-user-to-a-mongodb-database/).
 
-_NOTE:_
-
-Everything in this instruction has been stolen from [this article](https://medium.com/@mhagemann/how-to-install-mongodb-3-6-on-ubuntu-17-10-ac0bc225e648)
-
-Thank you, *Matthew Hagemann*, a lot!
-
-I have it tested on *Ubuntu server 18.04.02 arm64* running on *Raspberry PI 3*.
-
 ## Create meteor user account
 
 ```js
 use DumbHome
 db.createUser({user: "meteor", pwd: "password", roles: [{role: "readWrite", db: "DumbHome"}]})
 ```
+
+src: https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/

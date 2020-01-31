@@ -3,7 +3,7 @@
 ## Run mongodb instance
 
 ```bash
-docker run --name dumb-home-mongo -p 27017:27017 -d mongo:3.6
+docker run --name dumb-home-mongo -p 27017:27017 -d mongo:4.2
 mongo
 ```
 
