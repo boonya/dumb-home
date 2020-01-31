@@ -21,6 +21,7 @@ jobs:
     - stage: "GitHub Release"
       if: branch = master && type != pull_request
       script: skip
+      skip_cleanup: true
       deploy:
         provider: releases
         api_key: $GITHUB_OAUTH_TOKEN

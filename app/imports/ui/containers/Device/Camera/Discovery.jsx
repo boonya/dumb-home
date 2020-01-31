@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import { createSelector } from 'reselect';
 import { connect } from 'react-redux';
 
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
 import actions from '../../../redux/actions';
 import { isLoading, isReady } from '../../../redux/utils/state';
 import { getDiscoveredCameras } from '../../../redux/reducers/camera';
@@ -39,29 +42,80 @@ class DiscoveryContainer extends Component {
     return selected ? this.renderForm() : this.renderDiscovery();
   }
 
+  onCreate = () => {
+    this.setState({
+      selected: {
+        label: null,
+        hostname: null,
+        port: null,
+        username: null,
+        password: null,
+      },
+    });
+  };
+
+  onCancel = () => {
+    this.setState({ selected: null });
+  };
+
+  onChoose = ({ hostname, port }) => {
+    this.setState({
+      selected: {
+        label: null,
+        hostname,
+        port: Number(port),
+        username: null,
+        password: null,
+      },
+    });
+  };
+
+  onSubmit = ({ label, username, password, hostname, port }) => {
+    const { handleCreate } = this.props;
+
+    handleCreate({
+      label,
+      username,
+      password,
+      details: {
+        hostname,
+        port,
+      },
+    });
+  };
+
   renderDiscovery = () => {
     const { loading, ready, handleDiscovery } = this.props;
 
     return (
-      <Discovery loading={loading} ready={ready} List={this.renderDiscoveredList()} handleDiscovery={handleDiscovery} />
+      <Grid container direction="column" spacing={1}>
+        <Grid item>
+          <Discovery
+            loading={loading}
+            ready={ready}
+            List={this.renderDiscoveredList()}
+            handleDiscovery={handleDiscovery}
+          />
+        </Grid>
+        <Grid item>
+          <Button variant="contained" onClick={this.onCreate}>
+            Create your own
+          </Button>
+        </Grid>
+      </Grid>
     );
   };
 
   renderDiscoveredList = () => {
     const { list } = this.props;
 
-    return <List items={list} handleChoose={this.handleChoose} />;
+    return <List items={list} handleChoose={this.onChoose} />;
   };
 
   renderForm = () => {
     const { selected } = this.state;
-    const { handleCreate } = this.props;
 
-    return <Form details={selected} handleSubmit={handleCreate} />;
-  };
-
-  handleChoose = (selected) => {
-    this.setState({ selected });
+    return <Form {...selected} onSubmit={this.onSubmit} onCancel={this.onCancel} />;
   };
 }
 

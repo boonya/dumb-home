@@ -5,132 +5,146 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+const PROP_TYPES = {
+  label: PropTypes.string,
+  hostname: PropTypes.string,
+  port: PropTypes.number,
+  username: PropTypes.string,
+  password: PropTypes.string,
+  readOnly: PropTypes.bool,
+  onSubmit: PropTypes.func,
+  onCancel: PropTypes.func,
+};
+
+const DEFAULT_PROPS = {
+  label: null,
+  hostname: null,
+  port: null,
+  username: null,
+  password: null,
+  readOnly: false,
+  onSubmit: () => null,
+  onCancel: undefined,
+};
+
 class CameraForm extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    const { label, username, password } = props;
-    const { hostname } = props.details;
-
-    this.state = {
-      label: label || hostname,
-      username,
-      password,
-    };
-  }
-
   render() {
-    const { readOnly, details } = this.props;
-    const { hostname } = details;
-    const { label, username, password } = this.state;
+    const { label, hostname, port, username, password, readOnly } = this.props;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <Grid container spacing={1}>
-          <Grid item xs={12} container justify="center">
-            <Grid item xs={12} sm={10} md={8} lg={6}>
-              <TextField name="hostname" label="hostname" value={hostname} disabled fullWidth />
+      <form onSubmit={this.onSubmit}>
+        <Grid container justify="space-around">
+          <Grid item xs={12} sm={10} md={8} lg={6}>
+            <Grid container direction="column" spacing={1}>
+              <Grid item>
+                <TextField
+                  name="label"
+                  label="label"
+                  defaultValue={label}
+                  required
+                  InputProps={{ readOnly }}
+                  fullWidth
+                />
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  name="hostname"
+                  label="hostname"
+                  defaultValue={hostname}
+                  required
+                  disabled={Boolean(hostname && hostname.trim().length)}
+                  fullWidth
+                />
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  name="port"
+                  label="port"
+                  type="number"
+                  defaultValue={port}
+                  required
+                  disabled={Boolean(port)}
+                  fullWidth
+                />
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  name="username"
+                  label="username"
+                  defaultValue={username}
+                  required
+                  InputProps={{ readOnly }}
+                  fullWidth
+                />
+              </Grid>
+
+              <Grid item>
+                <TextField
+                  name="password"
+                  label="password"
+                  type="password"
+                  defaultValue={password}
+                  InputProps={{ readOnly }}
+                  fullWidth
+                />
+              </Grid>
+
+              {!readOnly && (
+                <Grid item>
+                  {this.renderButtons()}
+                </Grid>
+              )}
             </Grid>
           </Grid>
-          <Grid item xs={12} container justify="center">
-            <Grid item xs={12} sm={10} md={8} lg={6}>
-              <TextField
-                name="label"
-                label="label"
-                value={label}
-                required
-                onChange={this.handleChange}
-                InputProps={{ readOnly }}
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-          <Grid item xs={12} container justify="center">
-            <Grid item xs={12} sm={10} md={8} lg={6}>
-              <TextField
-                name="username"
-                label="username"
-                value={username}
-                required
-                onChange={this.handleChange}
-                InputProps={{ readOnly }}
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-          <Grid item xs={12} container justify="center">
-            <Grid item xs={12} sm={10} md={8} lg={6}>
-              <TextField
-                name="password"
-                label="password"
-                type="password"
-                value={password}
-                onChange={this.handleChange}
-                InputProps={{ readOnly }}
-                fullWidth
-              />
-            </Grid>
-          </Grid>
-          {!readOnly && this.renderButtons()}
         </Grid>
       </form>
     );
   }
 
-  renderButtons = () => (
-    <Grid item xs={12} container justify="center">
-      <Grid item xs={4} container justify="space-between">
-        {this.isCancelable() && (
-          <Button variant="contained" color="default" onClick={this.handleCancel}>
-            Cancel
-          </Button>
-        )}
-        <Button type="submit" variant="contained" color="primary">
-          Submit
-        </Button>
-      </Grid>
-    </Grid>
-  );
-
   isCancelable = () => {
-    const { handleCancel } = this.props;
-    return Boolean(handleCancel);
+    const { onCancel } = this.props;
+    return Boolean(onCancel);
   };
 
-  handleChange = ({ target }) => {
-    const { name, value } = target;
-    this.setState({ [name]: value.trim() });
-  };
+  getValue = (formElement, key) => formElement.elements[key].value.trim();
 
-  handleSubmit = (event) => {
+  onSubmit = (event) => {
     event.preventDefault();
-    const { details, handleSubmit } = this.props;
-    handleSubmit({ ...this.state, details });
+
+    const label = this.getValue(event.target, 'label');
+    const hostname = this.getValue(event.target, 'hostname');
+    const port = Number(this.getValue(event.target, 'port'));
+    const username = this.getValue(event.target, 'username');
+    const password = this.getValue(event.target, 'password');
+
+    const { onSubmit } = this.props;
+
+    onSubmit({ label, hostname, port, username, password });
   };
 
-  handleCancel = () => {
-    const { handleCancel } = this.props;
-    handleCancel();
+  onCancel = () => {
+    const { onCancel } = this.props;
+    onCancel();
   };
+
+  renderButtons = () => (
+    <Grid container justify="space-between">
+      {this.isCancelable() && (
+        <Button variant="contained" color="default" onClick={this.onCancel}>
+          Cancel
+        </Button>
+      )}
+      <Button type="submit" variant="contained" color="primary">
+        Submit
+      </Button>
+    </Grid>
+);
 }
 
-CameraForm.propTypes = {
-  label: PropTypes.string,
-  username: PropTypes.string,
-  password: PropTypes.string,
-  details: PropTypes.shape({ hostname: PropTypes.string.isRequired }).isRequired,
-  readOnly: PropTypes.bool,
-  handleSubmit: PropTypes.func,
-  handleCancel: PropTypes.func,
-};
-
-CameraForm.defaultProps = {
-  label: '',
-  username: '',
-  password: '',
-  readOnly: false,
-  handleSubmit: () => null,
-  handleCancel: undefined,
-};
+CameraForm.propTypes = PROP_TYPES;
+CameraForm.defaultProps = DEFAULT_PROPS;
 
 export default CameraForm;

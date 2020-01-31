@@ -12,7 +12,14 @@ const Details = ({ loading, handleWatch, handleEdit, details: { label, username,
     {loading && <Preloader />}
     <Button onClick={handleWatch}>Watch stream</Button>
     <Button onClick={handleEdit}>Edit</Button>
-    <CameraFrom readOnly label={label} username={username} password={password} details={details} />
+    <CameraFrom
+      readOnly
+      label={label}
+      username={username}
+      password={password}
+      hostname={details.hostname}
+      port={details.port}
+    />
   </Grid>
 );
 

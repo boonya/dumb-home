@@ -13,7 +13,9 @@ class CreateDevicePage extends Component {
       <Layout withNavbar>
         <Typography variant="h1">
           Create
+          {' '}
           {this.getDeviceType()}
+          {' '}
           Device
         </Typography>
         {this.renderCreateFlow()}
