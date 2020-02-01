@@ -9,18 +9,10 @@ import { createRootReducer } from './redux';
 export default function configureStore(initialState = {}, rootEpic, history) {
   let composeEnhancers;
 
-  // TODO:: fix before release
+  // TODO: Use ENV VAR in this place somehow
   const isDevelopment = true;
-
-  if (
-    isDevelopment
-    // && typeof window === 'object'
-    // && window.__REDUX_DEVTOOLS_EXTENSION__
-  ) {
+  if (isDevelopment) {
     composeEnhancers = composeWithDevTools;
-    // window.__REDUX_DEVTOOLS_EXTENSION__({
-    //   serializeState: true,
-    // });
   } else {
     composeEnhancers = compose;
   }

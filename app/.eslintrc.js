@@ -34,6 +34,7 @@ module.exports = {
         ignoreComments: true,
       },
     ],
+    'no-warning-comments': 'warn',
     'react/sort-comp': [
       1,
       {
