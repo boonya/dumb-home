@@ -1,4 +1,4 @@
-FROM node:8.17.0-alpine
+FROM node:12.14.1-alpine
 
 RUN apk add python make g++ ffmpeg
 RUN npm install pm2 -g
