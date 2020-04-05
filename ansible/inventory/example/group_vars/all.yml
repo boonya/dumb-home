@@ -1,0 +1,17 @@
+ansible_connection: ssh
+ansible_python_interpreter: /usr/bin/env python3
+remote_user: linux username on remote machine
+
+TIMEZONE: Europe/Kiev
+
+SUPERUSER_NAME: the name of superuser of dumb-home web application
+SUPERUSER_EMAIL: email of superuser
+SUPERUSER_PASSWORD: password of superuser
+
+MONGO_INITDB_ROOT_USERNAME: Mongo DB root username
+MONGO_INITDB_ROOT_PASSWORD: Mongo DB root password
+MONGO_USERNAME: Mongo DB application username
+MONGO_PASSWORD: Mongo DB application password
+MONGO_DB: DumbHome
+
+WORKING_DIRECTORY: A path to the directory your application is going to be deployed

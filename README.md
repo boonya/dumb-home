@@ -84,6 +84,13 @@ When you have haproxy configured, you need to disable ports except of standarts 
 
 `sudo ufw enable`
 
+Add some firewall rules to allow ssh & http connections
+
+```bash
+sudo ufw allow ssh
+sudo ufw allow http
+```
+
 Also you need to add firewall rule below to allow onvif discovery process (finding of ip cameras on the local network).
 
 `sudo ufw allow proto udp from 192.168.0.0/16`
@@ -97,6 +104,7 @@ If you have a samba server is running you’ll need to allow incoming UDP connec
 - [nginx](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04-quickstart)
 - [nodejs](https://github.com/nodesource/distributions/blob/master/README.md#debinstall)
 - [pm2 (optional)](https://pm2.io/doc/en/runtime/quick-start/#installation)
+- [mongodb](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
 - [mongodb](https://medium.com/@mhagemann/how-to-install-mongodb-3-6-on-ubuntu-17-10-ac0bc225e648)
 - [ffmpeg](https://ffmpeg.org/download.html#build-linux)
 - [samba (optional)](https://linuxize.com/post/how-to-install-and-configure-samba-on-ubuntu-18-04/)

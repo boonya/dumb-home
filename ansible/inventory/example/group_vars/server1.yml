@@ -1,0 +1,4 @@
+HOSTNAME: server1
+
+APP_HOSTNAME: server1.com
+ROOT_URL: http://server2.com

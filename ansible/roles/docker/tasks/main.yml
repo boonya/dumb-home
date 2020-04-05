@@ -1,0 +1,57 @@
+- include: docker.yml
+- include: compose.yml
+
+- name: Ensure directories exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - "{{ WORKING_DIRECTORY }}"
+    - "{{ WORKING_DIRECTORY }}/nginx/conf.d"
+    - "{{ WORKING_DIRECTORY }}/nginx/services.d"
+    - "{{ WORKING_DIRECTORY }}/mongo/initdb.d"
+    - "{{ WORKING_DIRECTORY }}/web-app"
+  tags:
+    - dumb-home
+
+- name: Copy service template
+  template:
+    src: dumb-home.service
+    dest: /etc/systemd/system/dumb-home.service
+  become: true
+  tags:
+    - dumb-home
+
+- name: Copy templates
+  template:
+    src: "{{ item }}"
+    dest: "{{ WORKING_DIRECTORY }}/{{ item }}"
+  with_items:
+    - docker-compose.yml
+    - nginx/conf.d/services.conf
+    - nginx/services.d/server.conf
+  tags:
+    - dumb-home
+
+- name: Copy other files
+  copy:
+    src: "{{ item }}"
+    dest: "{{ WORKING_DIRECTORY }}/{{ item }}"
+  with_items:
+    - mongo/initdb.d/1-create-db-and-user.sh
+    - web-app/Dockerfile
+    - web-app/pm2.yml
+    - web-app/app.tar.gz
+  tags:
+    - dumb-home
+
+- name: Start & enable dumb-home service
+  systemd:
+    name: dumb-home
+    state: started
+    enabled: true
+    daemon_reload: true
+  become: true
+  tags:
+    - dumb-home

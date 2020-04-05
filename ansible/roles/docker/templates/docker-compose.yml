@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:1.17
+    container_name: nginx
+    depends_on:
+      - web-app
+    network_mode: service:web-app
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d/:ro
+      - ./nginx/services.d/:/etc/nginx/services.d/:ro
+      # - ./nginx/certs/:/etc/nginx/certs/:ro
+      # - ./nginx/html/:/etc/nginx/html/:ro
+    environment:
+      TZ: "{{TIMEZONE}}"
+    restart: unless-stopped
+
+  web-app:
+    build: ./web-app
+    container_name: web-app
+    depends_on:
+      - mongo
+    network_mode: host
+    volumes:
+      - ./Recorder/:/media/Recorder/:rw
+    environment:
+      ROOT_URL: "{{ROOT_URL}}"
+      # NODE_ENV: production
+      NODE_ENV: development
+      PORT: 3000
+      RECORDER_FOLDER: "/media/Recorder"
+      MONGO_URL: mongodb://{{MONGO_USERNAME}}:{{MONGO_PASSWORD}}@localhost:27017/{{MONGO_DB}}
+      SUPERUSER_NAME: "{{SUPERUSER_NAME}}"
+      SUPERUSER_EMAIL: "{{SUPERUSER_EMAIL}}"
+      SUPERUSER_PASSWORD: "{{SUPERUSER_PASSWORD}}"
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:4.0
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo/initdb.d/:/docker-entrypoint-initdb.d/:ro
+      - mongo-configdb:/data/configdb
+      - mongo-db:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "{{MONGO_INITDB_ROOT_USERNAME}}"
+      MONGO_INITDB_ROOT_PASSWORD: "{{MONGO_INITDB_ROOT_PASSWORD}}"
+      MONGO_USERNAME: "{{MONGO_USERNAME}}"
+      MONGO_PASSWORD: "{{MONGO_PASSWORD}}"
+      MONGO_DB: "{{MONGO_DB}}"
+    restart: unless-stopped
+
+volumes:
+  mongo-configdb:
+  mongo-db:

@@ -1,0 +1,44 @@
+- name: Install packages that docker service depends on
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    update_cache: yes
+  become: true
+  tags:
+    - docker
+
+- name: Add docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  become: true
+  tags:
+    - docker
+
+- name: Add docker repository into sources list
+  apt_repository:
+    repo: deb [arch=arm64] https://download.docker.com/linux/ubuntu bionic stable
+    state: present
+  become: true
+  tags:
+    - docker
+
+- name: Finally install docker-ce package
+  apt:
+    name: docker-ce
+    update_cache: yes
+  become: true
+  tags:
+    - docker
+
+- name: Add your user to the docker group
+  user:
+    name: "{{ remote_user }}"
+    append: yes
+    groups: docker
+  become: true
+  tags:
+    - docker

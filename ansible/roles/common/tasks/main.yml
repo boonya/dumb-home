@@ -1,0 +1,39 @@
+- name: "Set timezone to {{ TIMEZONE }}"
+  timezone:
+    name: "{{ TIMEZONE }}"
+  become: true
+  tags:
+    - config
+
+- name: Set hostname
+  hostname:
+    name: "{{ HOSTNAME }}"
+  become: true
+  tags:
+    - config
+
+- name: Install useful (optional)
+  apt:
+    name:
+      - wget
+      - curl
+      - mc
+      - htop
+      - tmux
+      - vim
+    update_cache: yes
+  become: true
+  tags:
+    - config
+    - optional
+
+- name: Copy dot files (optional)
+  copy:
+    src: dotfiles/
+    dest: ~/
+  tags:
+    - config
+    - optional
+
+- include: ufw.yml
+- include: openvpn.yml
