@@ -1,7 +1,7 @@
 FROM node:12.14.1-alpine
 
 RUN apk add python make g++ ffmpeg
-RUN npm install pm2 -g
+RUN npm install -g pm2
 
 COPY app.tar.gz app.tar.gz
 COPY pm2.yml pm2.yml

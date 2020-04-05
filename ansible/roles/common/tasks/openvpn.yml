@@ -1,0 +1,27 @@
+- name: Install OpenVPN
+  apt:
+    name: openvpn
+    update_cache: true
+  become: true
+  tags:
+    - openvpn
+
+- name: Copy OpenVPN cliet key file
+  copy:
+    src: "openvpn-keys/{{ HOSTNAME }}.ovpn"
+    dest: "/etc/openvpn/{{ HOSTNAME }}.conf"
+    owner: root
+    group: root
+    mode: 400
+  become: true
+  tags:
+    - openvpn
+
+- name: Start & enable openvpn service
+  systemd:
+    name: openvpn
+    state: started
+    enabled: true
+  become: true
+  tags:
+    - openvpn

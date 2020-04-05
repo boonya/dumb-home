@@ -1,0 +1,38 @@
+- name: Set UFW logging
+  ufw:
+    logging: "on"
+  become: true
+  tags:
+    - ufw
+
+- name: UFW allow ssh
+  ufw:
+    port: ssh
+    rule: allow
+  become: true
+  tags:
+    - ufw
+
+- name: UFW allow http
+  ufw:
+    port: http
+    rule: allow
+  become: true
+  tags:
+    - ufw
+
+- name: UFW allow udp from 192.168.0.0/16
+  ufw:
+    proto: udp
+    from_ip: 192.168.0.0/16
+    rule: allow
+  become: true
+  tags:
+    - ufw
+
+- name: Enable UFW
+  ufw:
+    state: enabled
+  become: true
+  tags:
+    - ufw

@@ -1,0 +1,6 @@
+- name: Provision Docker based variant
+  hosts: all
+
+  roles:
+    - common
+    - docker

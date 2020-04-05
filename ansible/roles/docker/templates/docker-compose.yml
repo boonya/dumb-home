@@ -13,7 +13,7 @@ services:
       # - ./nginx/certs/:/etc/nginx/certs/:ro
       # - ./nginx/html/:/etc/nginx/html/:ro
     environment:
-      TZ: "Europe/Kiev"
+      TZ: "{{TIMEZONE}}"
     restart: unless-stopped
 
   web-app:
@@ -25,15 +25,15 @@ services:
     volumes:
       - ./Recorder/:/media/Recorder/:rw
     environment:
-      MONGO_URL: mongodb://dumb-home:hEBRv5gs22HbLXp8@localhost:27017/DumbHome
-      ROOT_URL: http://home.boonya.info
+      ROOT_URL: "{{ROOT_URL}}"
       # NODE_ENV: production
       NODE_ENV: development
       PORT: 3000
-      SUPERUSER_NAME: "boonya"
-      SUPERUSER_EMAIL: "boonya41@gmail.com"
-      SUPERUSER_PASSWORD: "kaktuszshiv11"
       RECORDER_FOLDER: "/media/Recorder"
+      MONGO_URL: mongodb://{{MONGO_USERNAME}}:{{MONGO_PASSWORD}}@localhost:27017/{{MONGO_DB}}
+      SUPERUSER_NAME: "{{SUPERUSER_NAME}}"
+      SUPERUSER_EMAIL: "{{SUPERUSER_EMAIL}}"
+      SUPERUSER_PASSWORD: "{{SUPERUSER_PASSWORD}}"
     restart: unless-stopped
 
   mongo:
@@ -46,11 +46,11 @@ services:
       - mongo-configdb:/data/configdb
       - mongo-db:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: boonya
-      MONGO_INITDB_ROOT_PASSWORD: kaktuszshiv11
-      MONGO_USERNAME: "dumb-home"
-      MONGO_PASSWORD: "hEBRv5gs22HbLXp8"
-      MONGO_DB: "DumbHome"
+      MONGO_INITDB_ROOT_USERNAME: "{{MONGO_INITDB_ROOT_USERNAME}}"
+      MONGO_INITDB_ROOT_PASSWORD: "{{MONGO_INITDB_ROOT_PASSWORD}}"
+      MONGO_USERNAME: "{{MONGO_USERNAME}}"
+      MONGO_PASSWORD: "{{MONGO_PASSWORD}}"
+      MONGO_DB: "{{MONGO_DB}}"
     restart: unless-stopped
 
 volumes:
