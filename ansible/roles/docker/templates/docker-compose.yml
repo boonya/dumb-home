@@ -25,6 +25,7 @@ services:
     volumes:
       - ./Recorder/:/media/Recorder/:rw
     environment:
+      TZ: "{{TIMEZONE}}"
       ROOT_URL: "{{ROOT_URL}}"
       # NODE_ENV: production
       NODE_ENV: development
@@ -47,6 +48,7 @@ services:
       - mongo-configdb:/data/configdb
       - mongo-db:/data/db
     environment:
+      TZ: "{{TIMEZONE}}"
       MONGO_INITDB_ROOT_USERNAME: "{{MONGO_INITDB_ROOT_USERNAME}}"
       MONGO_INITDB_ROOT_PASSWORD: "{{MONGO_INITDB_ROOT_PASSWORD}}"
       MONGO_USERNAME: "{{MONGO_USERNAME}}"

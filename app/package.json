@@ -35,7 +35,7 @@
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
     "storybook": "./node_modules/.bin/start-storybook -p 6006 --ci",
-    "build": "meteor build ../build/web-app",
+    "build": "meteor build ../build",
     "mongo": "meteor mongo",
     "shell": "meteor shell"
   },

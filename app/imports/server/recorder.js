@@ -7,6 +7,9 @@ import api from '../api/camera';
 const Registry = {};
 
 const getRecorderInstance = (id, uri, name) => {
+  const stackLimit = 100;
+  const progressStack = [];
+
   const { FOLDER, SEGMENT_TIME, DIR_SIZE_THRESHOLD, AUTO_CLEAR } = RECORDER;
 
   const recorder = new Recorder(uri, FOLDER, {
@@ -23,6 +26,18 @@ const getRecorderInstance = (id, uri, name) => {
 
   recorder.on(RecorderEvents.STOPPED, (...args) => {
     console.log(`Recorder stopped "${name}": `, ...args);
+
+    console.log(`\n/** *********************** */\n`);
+    console.log(`These are last ${progressStack.length} progress events of camera "${name}": \n`);
+    progressStack.forEach((item) => console.log(item));
+    console.log(`\n/** *********************** */\n`);
+  });
+
+  recorder.on(RecorderEvents.PROGRESS, (buffer) => {
+    progressStack.push(buffer.toString());
+    if (progressStack.length > stackLimit) {
+      progressStack.splice(progressStack.length - stackLimit);
+    }
   });
 
   recorder.on(RecorderEvents.ERROR, (...args) => {
