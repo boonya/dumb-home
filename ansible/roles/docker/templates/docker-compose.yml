@@ -30,6 +30,7 @@ services:
       NODE_ENV: development
       PORT: 3000
       RECORDER_FOLDER: "/media/Recorder"
+      RECORDER_DIR_SIZE_THRESHOLD: "{{RECORDER_DIR_SIZE_THRESHOLD}}"
       MONGO_URL: mongodb://{{MONGO_USERNAME}}:{{MONGO_PASSWORD}}@localhost:27017/{{MONGO_DB}}
       SUPERUSER_NAME: "{{SUPERUSER_NAME}}"
       SUPERUSER_EMAIL: "{{SUPERUSER_EMAIL}}"

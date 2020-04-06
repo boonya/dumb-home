@@ -1,57 +1,62 @@
-import { Recorder as RtspRecorder } from 'node-rtsp-recorder';
-
+import Recorder, { RecorderEvents } from 'rtsp-video-recorder';
 import { RECORDER } from '../config';
 import DEVICES from '../devices';
 import Devices from '../collections/devices';
 import api from '../api/camera';
 
-class Recorder {
-  constructor({ name, uri }) {
-    try {
-      const { FOLDER, CHUNK_DURATION, DIRECTORY_PATH_FORMAT, FILENAME_FORMAT } = RECORDER;
-
-      if (!FOLDER) {
-        console.error("Recorder destination folder hasn't been set.");
-        return;
-      }
-
-      this.process = new RtspRecorder({
-        name,
-        url: uri,
-        timeLimit: CHUNK_DURATION,
-        folder: FOLDER,
-        directoryPathFormat: DIRECTORY_PATH_FORMAT,
-        fileNameFormat: FILENAME_FORMAT,
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  start = () => {
-    if (this.process) {
-      this.process.startRecording();
-    } else {
-      console.error('Can\'t start record because of recorder isn\'t configured yet.');
-    }
-  };
-
-  stop = () => {
-    if (this.process) {
-      this.process.stopRecording();
-      this.process = null;
-    } else {
-      console.error('Can\'t stop record because of recorder isn\'t configured yet.');
-    }
-  };
-}
-
 const Registry = {};
 
+const getRecorderInstance = (id, uri, name) => {
+  const { FOLDER, SEGMENT_TIME, DIR_SIZE_THRESHOLD, AUTO_CLEAR } = RECORDER;
+
+  const recorder = new Recorder(uri, FOLDER, {
+    title: name,
+    filenamePattern: `%H.%M.%S-${name.replace(/%/g, '%%')}`,
+    segmentTime: SEGMENT_TIME,
+    dirSizeThreshold: DIR_SIZE_THRESHOLD,
+    autoClear: AUTO_CLEAR,
+  });
+
+  recorder.on(RecorderEvents.STARTED, (...args) => {
+    console.log(`Recorder started "${name}": `, ...args);
+  });
+
+  recorder.on(RecorderEvents.STOPPED, (...args) => {
+    console.log(`Recorder stopped "${name}": `, ...args);
+  });
+
+  recorder.on(RecorderEvents.ERROR, (...args) => {
+    console.log(`Recorder error "${name}": `, ...args);
+  });
+
+  recorder.on(RecorderEvents.SEGMENT_STARTED, (...args) => {
+    console.log(`Recorder segment started "${name}": `, ...args);
+  });
+
+  recorder.on(RecorderEvents.DIRECTORY_CREATED, (...args) => {
+    console.log(`Recorder directory created "${name}": `, ...args);
+  });
+
+  recorder.on(RecorderEvents.FILE_CREATED, (...args) => {
+    console.log(`Recorder file created "${name}": `, ...args);
+  });
+
+  recorder.on(RecorderEvents.SPACE_FULL, (...args) => {
+    console.log(`Recorder space full "${name}": `, ...args);
+  });
+
+  recorder.on(RecorderEvents.SPACE_WIPED, (...args) => {
+    console.log(`Recorder space wiped "${name}": `, ...args);
+  });
+
+  return recorder;
+};
+
 const start = async ({ id, name, uri }) => {
-  const recorder = new Recorder({ name, uri });
+  const recorder = getRecorderInstance(id, uri, name);
   recorder.start();
   Registry[id] = recorder;
+  return recorder;
 };
 
 const stop = async ({ id }) => {
@@ -66,4 +71,8 @@ const startup = () => {
   Promise.all(cameras.map(({ _id, recording }) => api.record({ _id, recording })));
 };
 
-export default { start, stop, startup };
+export default {
+  start,
+  stop,
+  startup,
+};

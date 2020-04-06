@@ -54,13 +54,18 @@ const getStreamUri = (hostname, port, username, password) => new Promise((resolv
 });
 
 const record = async ({ _id, recording }) => {
-  if (!recording) {
-    await stopRecord(_id);
-    return;
+  try {
+    if (!recording) {
+      return await stopRecord(_id);
+    }
+    const { label, details: { hostname, port }, username, password } = Devices.findOne({ _id });
+    const uri = await getStreamUri(hostname, port, username, password);
+    return await startRecord(_id, label, uri);
+  } catch (err) {
+    Devices.update({ _id }, { $set: { recording: false } });
+    console.error('Recording stopped. An error occurred: ', err);
+    throw err;
   }
-  const { label, details: { hostname, port }, username, password } = Devices.findOne({ _id });
-  const uri = await getStreamUri(hostname, port, username, password);
-  await startRecord(_id, label, uri);
 };
 
 export default { discover, add, edit, record };
