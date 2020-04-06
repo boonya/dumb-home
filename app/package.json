@@ -58,7 +58,6 @@
     "history": "^4.10.1",
     "lodash": "^4.17.15",
     "meteor-node-stubs": "^1.0.0",
-    "node-rtsp-recorder": "^1.0.3",
     "onvif": "^0.6.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
@@ -74,6 +73,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-observable": "^1.2.0",
     "reselect": "^4.0.0",
+    "rtsp-video-recorder": "^1.2.0-alpha.3",
     "rxjs": "^6.5.5",
     "typeface-roboto": "0.0.75"
   },

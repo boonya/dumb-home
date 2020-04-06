@@ -78,6 +78,11 @@ const editFailure = (action$) => action$.pipe(
   map(notifyFailure('Edit camera failure')),
 );
 
+const recordFailure = (action$) => action$.pipe(
+  ofType(actions.camera.recordFailure.toString()),
+  map(notifyFailure('Record failure')),
+);
+
 export default combineEpics(
   discover,
   add,
@@ -88,4 +93,5 @@ export default combineEpics(
   addFailure,
   editFailure,
   record,
+  recordFailure,
 );
