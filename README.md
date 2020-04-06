@@ -16,7 +16,7 @@ To get an instruction [follow the link](/docs/Build.md)
 
 ## NodeJS
 
-Meteor application depends on NodeJS engine version 8. For installation execute:
+Meteor application depends on NodeJS engine version 12. For installation execute:
 
 ```bash
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
