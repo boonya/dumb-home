@@ -19,7 +19,7 @@ To get an instruction [follow the link](/docs/Build.md)
 Meteor application depends on NodeJS engine version 8. For installation execute:
 
 ```bash
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
@@ -105,6 +105,5 @@ If you have a samba server is running you’ll need to allow incoming UDP connec
 - [nodejs](https://github.com/nodesource/distributions/blob/master/README.md#debinstall)
 - [pm2 (optional)](https://pm2.io/doc/en/runtime/quick-start/#installation)
 - [mongodb](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
-- [mongodb](https://medium.com/@mhagemann/how-to-install-mongodb-3-6-on-ubuntu-17-10-ac0bc225e648)
 - [ffmpeg](https://ffmpeg.org/download.html#build-linux)
 - [samba (optional)](https://linuxize.com/post/how-to-install-and-configure-samba-on-ubuntu-18-04/)
