@@ -27,10 +27,10 @@ const getRecorderInstance = (id, uri, name) => {
   recorder.on(RecorderEvents.STOPPED, (...args) => {
     console.log(`Recorder stopped "${name}": `, ...args);
 
-    console.log(`\n/** *********************** */\n`);
+    console.log('\n/** *********************** */\n');
     console.log(`These are last ${progressStack.length} progress events of camera "${name}": \n`);
     progressStack.forEach((item) => console.log(item));
-    console.log(`\n/** *********************** */\n`);
+    console.log('\n/** *********************** */\n');
   });
 
   recorder.on(RecorderEvents.PROGRESS, (buffer) => {
