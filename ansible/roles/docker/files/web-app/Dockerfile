@@ -1,6 +1,6 @@
 FROM node:12.14.1-alpine
 
-RUN apk add python make g++ ffmpeg
+RUN apk add tzdata python make g++ ffmpeg
 RUN npm install -g pm2
 
 COPY app.tar.gz app.tar.gz
