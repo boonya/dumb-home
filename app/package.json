@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/boonya/dumb-home#readme",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint client imports server tests -c .eslintrc.js",
+    "lint": "./node_modules/.bin/eslint . .storybook",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
@@ -46,6 +46,7 @@
     "@material-ui/core": "^4.9.9",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/styles": "^4.9.6",
+    "@storybook/theming": "^5.3.18",
     "bcrypt": "^4.0.1",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.8.0",

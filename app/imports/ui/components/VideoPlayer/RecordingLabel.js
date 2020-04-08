@@ -22,8 +22,9 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
 }));
 
-export default () => {
+export default function RecordingLabel() {
   const classes = useStyles();
+
   return (
     <Grid className={classes.root}>
       <Grid className={classes.blink} container justify="center" alignItems="center" wrap="nowrap">
@@ -32,4 +33,4 @@ export default () => {
       </Grid>
     </Grid>
   );
-};
+}
