@@ -27,21 +27,16 @@
   },
   "homepage": "https://github.com/boonya/dumb-home#readme",
   "scripts": {
-    "start": "meteor run",
-    "start:prod-like": "meteor run --production",
-    "lint": "./node_modules/.bin/eslint . -c .eslintrc.js --ext js,jsx",
-    "lint:fix": "./node_modules/.bin/eslint client imports server tests -c .eslintrc.js --ext js,jsx --fix",
+    "lint": "./node_modules/.bin/eslint client imports server tests -c .eslintrc.js",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
     "storybook": "./node_modules/.bin/start-storybook -p 6006 --ci",
-    "build": "meteor build ../build",
-    "mongo": "meteor mongo",
-    "shell": "meteor shell"
+    "build": "meteor build ../build"
   },
   "meteor": {
     "mainModule": {
-      "client": "client/main.jsx",
+      "client": "client/main.js",
       "server": "server/main.js"
     },
     "testModule": "tests/main.js"

@@ -13,9 +13,6 @@ module.exports = {
   },
   parser: 'babel-eslint',
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
     ecmaVersion: 2018,
     sourceType: 'module',
   },
@@ -45,7 +42,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'object-curly-newline': ['warn', { ObjectPattern: { multiline: true } }],
     'no-underscore-dangle': ['error', { allow: ['_id', '_data'] }],
-    'import/no-extraneous-dependencies': ['error', { devDependencies: ['**/*.test.jsx', '**/*.stories.jsx'] }],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: ['**/*.test.js', '**/*.stories.js'] }],
     'no-restricted-globals': [
       'warn',
       {
