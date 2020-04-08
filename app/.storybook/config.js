@@ -28,7 +28,7 @@ addDecorator(fn => (
 ));
 
 function loadStories() {
-  const req = require.context("../imports/ui/components", true, /\.stories\.jsx?$/);
+  const req = require.context("../imports/ui/components", true, /\.stories\.js$/);
   req.keys().forEach(req);
 }
 
