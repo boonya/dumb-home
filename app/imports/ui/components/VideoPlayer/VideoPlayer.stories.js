@@ -10,7 +10,7 @@ import VideoPlayer from '.';
 import StreamPlayer from './StreamPlayer';
 import Overlay from './Overlay';
 import Info from './Info';
-import RecordingLable from './RecordingLable';
+import RecordingLabel from './RecordingLabel';
 
 const chance = new Chance();
 
@@ -89,4 +89,4 @@ storiesOf('Components|VideoPlayer', module)
     const error = boolean('error', false);
     return <Info {...{ title, description, recording, error }} />;
   })
-  .add('RecordingLable', () => <RecordingLable />);
+  .add('RecordingLabel', () => <RecordingLabel />);
