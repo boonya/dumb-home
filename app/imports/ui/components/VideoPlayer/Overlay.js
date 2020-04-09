@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -33,7 +33,7 @@ const Overlay = ({ className, waiting, error, recording, onFullScreen, descripti
   const classes = useStyles({ poster });
 
   return (
-    <Grid className={classnames(className, classes.root)} container direction="column">
+    <Grid className={clsx(className, classes.root)} container direction="column">
       <Grid item className={classes.progress}>
         {waiting && <LinearProgress color="primary" />}
       </Grid>
