@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import classNames from 'classnames';
-
+import clsx from 'clsx';
 import { withStyles, Snackbar } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
 import amber from '@material-ui/core/colors/amber';
@@ -49,7 +48,7 @@ class Notification extends PureComponent {
 
     return (
       <span className={classes.message}>
-        <Icon className={classNames(classes.icon, classes.iconVariant)} />
+        <Icon className={clsx(classes.icon, classes.iconVariant)} />
         {message}
       </span>
     );

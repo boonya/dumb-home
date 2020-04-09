@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -22,7 +22,7 @@ const Info = ({ className, title, description, recording, error }) => {
   const classes = useStyles();
 
   return (
-    <Grid className={classnames(className, classes.root)} container justify="space-between">
+    <Grid className={clsx(className, classes.root)} container justify="space-between">
       <Grid container justify="space-between" wrap="nowrap">
         <Grid className={classes.title}>{title && <Typography noWrap>{title}</Typography>}</Grid>
         <Grid>{recording && <RecordingLabel />}</Grid>
