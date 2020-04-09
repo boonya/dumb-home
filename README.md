@@ -14,7 +14,7 @@
 - `npm run lint -- --fix` - to lint and fix all the fixable issues
 - `npm run storybook` - to build and serve [Storybook](https://storybook.js.org/)
 - `npm run build` - to build a static bundle
-- `SUPERUSER_NAME="..." SUPERUSER_EMAIL="..." SUPERUSER_PASSWORD="..." RECORDER_FOLDER="..." RECORDER=DIR_SIZE_THRESHOLD="..." meteor meteor` - to start dev environment
+- `SUPERUSER_NAME="..." SUPERUSER_EMAIL="..." SUPERUSER_PASSWORD="..." RECORDER_FOLDER="..." RECORDER=DIR_SIZE_THRESHOLD="..." meteor` - to start dev environment
 - `meteor run --production` - to start dev environment in [production like mode](https://guide.meteor.com/deployment.html#never-use-production-flag)
 - `meteor mongo` - to start a minimongo shell
 - `meteor shell` - to start a meteor shell
