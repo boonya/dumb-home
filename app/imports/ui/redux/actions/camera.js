@@ -13,7 +13,11 @@ export default {
   EDIT_SUCCESS: (id) => id,
   EDIT_FAILURE: (err) => err,
 
-  RECORD: (payload) => payload,
-  RECORD_SUCCESS: () => null,
-  RECORD_FAILURE: (err) => err,
+  START_RECORD: (id) => id,
+  START_RECORD_SUCCESS: (id) => id,
+  START_RECORD_FAILURE: (err) => err,
+
+  STOP_RECORD: (id) => id,
+  STOP_RECORD_SUCCESS: (id) => id,
+  STOP_RECORD_FAILURE: (err) => err,
 };

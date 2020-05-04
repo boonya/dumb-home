@@ -24,7 +24,8 @@ const mapStateToProps = createSelector([getDevice], (payload) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleEdit: (id) => dispatch(goTo(ROUTES.EditDevice, { id })),
-  handleRecord: (payload) => dispatch(actions.camera.record(payload)),
+  startRecord: (id) => dispatch(actions.camera.startRecord(id)),
+  stopRecord: (id) => dispatch(actions.camera.stopRecord(id)),
 });
 
 class DetailsContainer extends PureComponent {
@@ -89,9 +90,10 @@ class DetailsContainer extends PureComponent {
   };
 
   handleRecord = () => {
-    const { handleRecord, details } = this.props;
+    const { startRecord, stopRecord, details } = this.props;
     const { _id, recording } = details;
-    handleRecord({ _id, recording: !recording });
+    const method = recording ? stopRecord : startRecord;
+    method(_id);
   };
 }
 
@@ -105,7 +107,8 @@ const DETAILS_TYPE = PropTypes.shape({
 
 DetailsContainer.propTypes = {
   loading: PropTypes.bool.isRequired,
-  handleRecord: PropTypes.func.isRequired,
+  startRecord: PropTypes.func.isRequired,
+  stopRecord: PropTypes.func.isRequired,
   handleEdit: PropTypes.func.isRequired,
   details: DETAILS_TYPE.isRequired,
 };
