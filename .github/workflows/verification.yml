@@ -1,11 +1,25 @@
 name: Lint and test
+
 on: [push]
+
 defaults:
   run:
     shell: bash
     working-directory: app
+
 jobs:
-  push:
+
+  lint:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.16.1
+      - run: npm ci
+      - run: npm run lint
+
+  test:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
@@ -16,5 +30,4 @@ jobs:
         with:
           meteor-release: 1.10.2
       - run: meteor npm install
-      - run: npm run lint
       - run: npm run test
