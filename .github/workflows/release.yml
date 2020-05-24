@@ -1,0 +1,56 @@
+name: "Verify, build and create artifacts"
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+    tags:
+      - '*'
+
+jobs:
+
+  lint:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.16.1
+      - run: (cd app && npm ci)
+      - run: (cd app && npm run lint)
+
+  test:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - uses: meteorengineer/setup-meteor@v1
+        with:
+          meteor-release: 1.10.2
+      - run: (cd app && meteor npm install)
+      - run: (cd app && npm run test)
+
+  deploy:
+    runs-on: ubuntu-18.04
+    needs:
+      - lint
+      - test
+    steps:
+      - uses: actions/checkout@v1
+      - uses: meteorengineer/setup-meteor@v1
+        with:
+          meteor-release: 1.10.2
+      - name: Install dependencies
+        run: (cd app && meteor npm install)
+      - name: Build application
+        run: (cd app && npm run build)
+      - name: Upload application bundle
+        uses: actions/upload-artifact@v2
+        with:
+          name: app.tar.gz
+          path: build/app.tar.gz
+      - name: Upload installDeps.sh
+        uses: actions/upload-artifact@v2
+        with:
+          name: installDeps.sh
+          path: build/installDeps.sh

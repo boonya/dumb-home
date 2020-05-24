@@ -1,6 +1,6 @@
 # SmartHome web application which is actually quite dumb
 
-[![build](https://img.shields.io/travis/com/boonya/dumb-home)](https://travis-ci.com/boonya/dumb-home)
+![Lint and test](https://github.com/boonya/dumb-home/workflows/Lint%20and%20test/badge.svg)
 [![maintainability](https://img.shields.io/codeclimate/maintainability-percentage/boonya/dumb-home)](https://codeclimate.com/github/boonya/dumb-home/maintainability)
 ![dependencies](https://img.shields.io/david/boonya/dumb-home)
 
@@ -10,11 +10,11 @@
 
 - `cd app` - to go into meteor applicaiton directory
 - `meteor npm i` - to install dependencies
-- `npm run lint` - to lint applicaation
+- `npm run lint` - to lint application
 - `npm run lint -- --fix` - to lint and fix all the fixable issues
 - `npm run storybook` - to build and serve [Storybook](https://storybook.js.org/)
 - `npm run build` - to build a static bundle
-- `SUPERUSER_NAME="..." SUPERUSER_EMAIL="..." SUPERUSER_PASSWORD="..." RECORDER_FOLDER="..." RECORDER=DIR_SIZE_THRESHOLD="..." meteor meteor` - to start dev environment
+- `SUPERUSER_NAME="..." SUPERUSER_EMAIL="..." SUPERUSER_PASSWORD="..." RECORDER_FOLDER="..." RECORDER=DIR_SIZE_THRESHOLD="..." meteor` - to start dev environment
 - `meteor run --production` - to start dev environment in [production like mode](https://guide.meteor.com/deployment.html#never-use-production-flag)
 - `meteor mongo` - to start a minimongo shell
 - `meteor shell` - to start a meteor shell
