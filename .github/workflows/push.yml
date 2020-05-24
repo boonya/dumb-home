@@ -14,4 +14,5 @@ jobs:
           meteor-release: 1.10.2
       - run: meteor install
       - run: npm run lint
-      - run: npm run test -- --coverage
+      # - run: npm run test
+      - run: npm run test:meteor
