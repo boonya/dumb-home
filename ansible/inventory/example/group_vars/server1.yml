@@ -2,3 +2,6 @@ HOSTNAME: server1
 
 APP_HOSTNAME: server1.com
 ROOT_URL: http://server2.com
+
+ROUTER_PUBLIC_HOSTNAME: router.server1.com
+ROUTER_LOCAL_URL: http://router.local

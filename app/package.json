@@ -27,11 +27,12 @@
   },
   "homepage": "https://github.com/boonya/dumb-home#readme",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint . .storybook",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
-    "storybook": "./node_modules/.bin/start-storybook -p 6006 --ci",
+    "lint": "eslint . .storybook",
+    "storybook": "start-storybook -p 6006 --ci",
+    "start": "meteor run --exclude-archs web.browser.legacy",
     "build": "meteor build ../build"
   },
   "meteor": {
