@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/boonya/dumb-home#readme",
   "scripts": {
+    "test": "npm run test:meteor",
     "test:meteor": "meteor test --once --driver-package meteortesting:mocha",
     "test:meteor:watch": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer",
