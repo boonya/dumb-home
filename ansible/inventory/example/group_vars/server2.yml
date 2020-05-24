@@ -3,5 +3,5 @@ HOSTNAME: server2
 APP_HOSTNAME: server2.com
 ROOT_URL: http://server2.com
 
-ROUTER_PUBLIC_HOSTNAME: router.yourdoman
+ROUTER_PUBLIC_HOSTNAME: router.server2.com
 ROUTER_LOCAL_URL: http://router.local
