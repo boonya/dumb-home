@@ -1,9 +1,10 @@
 name: Build
 
+# Trigger the workflow on pull request activity
 on:
-  push:
-    tags:
-      - v*
+  release:
+    # Only use the types keyword to narrow down the activity types that will trigger your workflow.
+    types: [published, created, edited]
 
 defaults:
   run:
@@ -11,7 +12,7 @@ defaults:
     working-directory: app
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v1
