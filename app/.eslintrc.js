@@ -23,7 +23,7 @@ module.exports = {
   settings: {
     'import/resolver': {meteor: true},
   },
-  plugins: ['react', 'prettier'],
+  plugins: ['react'],
   rules: {
     'max-len': ['warn', 120, 2, {ignoreComments: true}],
     'no-warning-comments': 'warn',
