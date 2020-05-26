@@ -12,7 +12,7 @@ import DEVICES from '../devices';
 import ROUTES, { goTo } from '../routes';
 import Layout from '../containers/PageLayout';
 
-import DeviceList, { DEVICE_TYPE } from '../components/Device/List';
+import DeviceList from '../components/Device/List';
 import CreateButton from '../components/CreateButton';
 import PopoverMenu from '../components/PopoverMenu';
 
@@ -51,7 +51,7 @@ class DashboardPage extends PureComponent {
 }
 
 DashboardPage.propTypes = {
-  devices: PropTypes.arrayOf(DEVICE_TYPE).isRequired,
+  devices: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetch: PropTypes.func.isRequired,
   handleCreate: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
