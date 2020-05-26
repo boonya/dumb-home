@@ -25,23 +25,21 @@ export default function Item({ id, label, type, recording, onSelect, onDelete })
 
   const Icon = React.useMemo(() => (type && DEVICES[type] ? DEVICES[type].Icon : null), []);
 
-  const primary = React.useMemo(() => {
-    return (
-      <Grid container justify="space-between" alignItems="center">
-        <Grid item>
-          <Typography>{label}</Typography>
-        </Grid>
-        <Grid item>
-          <Grid container alignItems="center">
-            {recording && <RecLabel />}
-            <IconButton onClick={handleDelete}>
-              <DeleteIcon />
-            </IconButton>
-          </Grid>
+  const primary = React.useMemo(() => (
+    <Grid container justify="space-between" alignItems="center">
+      <Grid item>
+        <Typography>{label}</Typography>
+      </Grid>
+      <Grid item>
+        <Grid container alignItems="center">
+          {recording && <RecLabel />}
+          <IconButton onClick={handleDelete}>
+            <DeleteIcon />
+          </IconButton>
         </Grid>
       </Grid>
-    );
-  }, [label, recording, handleDelete]);
+    </Grid>
+  ), [label, recording, handleDelete]);
 
   return (
     <ListItem button onClick={handleSelect}>
