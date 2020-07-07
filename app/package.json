@@ -70,7 +70,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-observable": "^1.2.0",
     "reselect": "^4.0.0",
-    "rtsp-video-recorder": "^1.2.0-alpha.3",
+    "rtsp-video-recorder": "^1.2.0-alpha.4",
     "rxjs": "^6.5.5",
     "typeface-roboto": "0.0.75"
   },
