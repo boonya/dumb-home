@@ -1,8 +1,10 @@
-FROM node:12.14.1-alpine
+# TODO: Compare this line with .nvmrc, "engines" section from package.json and .meteor/local/build/.node_version.txt
+FROM node:12.16.1-alpine
 
 RUN apk add tzdata python make g++ ffmpeg
 RUN npm install -g pm2
 
+# TODO: Downloading from github artifactory if no local file.
 COPY app.tar.gz app.tar.gz
 COPY pm2.yml pm2.yml
 RUN tar -xzvf app.tar.gz

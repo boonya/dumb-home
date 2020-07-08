@@ -15,7 +15,7 @@ import Devices from '../collections/devices';
  * .. and make sure you have Meteor.publish() and Meteor.subscribe() calls
  * for each collection that you want clients to see.
  */
-// TODO: Remove this later
+// TODO: Turn off autopublish by removing the autopublish package
 export default () => {
   Meteor.publish('devices', (...args) => Devices.find(...args));
 };

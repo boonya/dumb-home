@@ -36,6 +36,10 @@
     "start": "meteor run --exclude-archs web.browser.legacy",
     "build": "meteor build"
   },
+  "engines": {
+    "node": "12.16.1",
+    "npm": "6.14.0"
+  },
   "meteor": {
     "mainModule": {
       "client": "client/main.js",

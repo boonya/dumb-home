@@ -1,9 +1,9 @@
-# Ubuntu server 18.04 arm64
+# Ubuntu 20.04 LTS (Focal Fossa) arm64 server
 
 ## Run Ubuntu on Raspberry PI 3
 
-Download official Ubuntu 18.04.02 arm64 server image from resource [http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/](http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/)
-or directly using [this link](http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/ubuntu-18.04.2-preinstalled-server-arm64+raspi3.img.xz)
+Download official Ubuntu 20.04 LTS (Focal Fossa) arm64 server image from resource [http://cdimage.ubuntu.com/ubuntu/releases/20.04/release/](http://cdimage.ubuntu.com/ubuntu/releases/bionic/release/)
+or directly using [this link](http://cdimage.ubuntu.com/ubuntu/releases/20.04/release/ubuntu-20.04-preinstalled-server-arm64+raspi.img.xz)
 
 You can write an image to SD card using [balena etcher](https://www.balena.io/etcher/).
 
