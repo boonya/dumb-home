@@ -1,10 +1,98 @@
 {
+  "name": "dumb-home",
+  "version": "1.0.0",
+  "description": "SmartHome Web Application which is actually quite dumb",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boonya/dumb-home.git"
+  },
+  "keywords": [
+    "SmartHome",
+    "home",
+    "IoT",
+    "WebCAM",
+    "video",
+    "node",
+    "meteor",
+    "reactjs",
+    "control",
+    "raspberry",
+    "pi",
+    "raspi"
+  ],
+  "author": "Serhii [boonya] Buinytskyi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boonya/dumb-home/issues"
+  },
+  "homepage": "https://github.com/boonya/dumb-home#readme",
   "scripts": {
-    "install": "(cd ./app/ && meteor npm install)",
-    "start": "(cd ./app/ && npm run start)",
-    "lint": "(cd ./app/ && npm run lint)",
-    "test": "(cd ./app/ && npm run test)",
-    "build": "(cd ./app/ && npm run build)",
-    "storybook": "(cd ./app/ && npm run storybook)"
+    "test": "npm run test:meteor",
+    "test:meteor": "meteor test --once --driver-package meteortesting:mocha",
+    "test:meteor:watch": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
+    "visualize": "meteor --production --extra-packages bundle-visualizer",
+    "lint": "eslint . .storybook",
+    "storybook": "start-storybook -p 6006 --ci",
+    "start": "meteor run --exclude-archs web.browser.legacy",
+    "build": "meteor build"
+  },
+  "meteor": {
+    "mainModule": {
+      "client": "client/main.js",
+      "server": "server/main.js"
+    },
+    "testModule": "tests/main.js"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.9.2",
+    "@material-ui/core": "^4.9.9",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.9.6",
+    "bcrypt": "^4.0.1",
+    "clsx": "^1.1.0",
+    "connected-react-router": "^6.8.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "history": "^4.10.1",
+    "lodash": "^4.17.15",
+    "meteor-node-stubs": "^1.0.0",
+    "onvif": "^0.6.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-helmet": "^5.2.1",
+    "react-loadable": "^5.5.0",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "reduce-reducers": "^1.0.4",
+    "redux": "^4.0.5",
+    "redux-actions": "^2.6.5",
+    "redux-auth-wrapper": "^3.0.0",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-observable": "^1.2.0",
+    "reselect": "^4.0.0",
+    "rtsp-video-recorder": "^1.2.0-alpha.4",
+    "rxjs": "^6.5.5",
+    "typeface-roboto": "0.0.75"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-knobs": "^5.3.19",
+    "@storybook/addon-notes": "^5.3.19",
+    "@storybook/addon-viewport": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/react": "^5.3.19",
+    "@storybook/theming": "^5.3.19",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "chance": "^1.1.4",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^3.0.0",
+    "storybook-host": "^5.1.0"
   }
 }
