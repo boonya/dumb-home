@@ -8,7 +8,6 @@
 
 ### Setup Commands
 
-- `cd app` - to go into meteor applicaiton directory
 - `meteor npm i` - to install dependencies
 - `npm run lint` - to lint application
 - `npm run lint -- --fix` - to lint and fix all the fixable issues
