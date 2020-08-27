@@ -48,7 +48,7 @@ So, to have it installed and running [follow the instruction](/docs/MongoDB.md).
 
 First you'll need to unpack your bundle:
 
-`tar -xzvf app.tar.gz`
+`tar -xzvf dumb-home.tar.gz`
 
 As result you got a directory called `./bundle`
 

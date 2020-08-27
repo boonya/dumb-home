@@ -5,10 +5,10 @@ RUN apk add tzdata python make g++ ffmpeg
 RUN npm install -g pm2
 
 # TODO: Downloading from github artifactory if no local file.
-COPY app.tar.gz app.tar.gz
+COPY dumb-home.tar.gz dumb-home.tar.gz
 COPY pm2.yml pm2.yml
-RUN tar -xzvf app.tar.gz
-RUN rm app.tar.gz
+RUN tar -xzvf dumb-home.tar.gz
+RUN rm dumb-home.tar.gz
 
 # Install app dependencies
 ENV NPM_CONFIG_LOGLEVEL warn
