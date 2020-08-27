@@ -12,7 +12,7 @@ class Recorder {
 
     const recorder = new RtspRecorder(uri, FOLDER, {
       title: name,
-      filenamePattern: `%H.%M.%S-${name.replace(/%/g, '%%')}`,
+      filePattern: `%Y.%m.%d/%H.%M.%S-${name.replace(/%/g, '%%').replace(/ /g, '_')}`,
       segmentTime: SEGMENT_TIME,
       dirSizeThreshold: DIR_SIZE_THRESHOLD,
       autoClear: AUTO_CLEAR,
@@ -53,10 +53,6 @@ class Recorder {
       console.log(` ${new Date()}; ${RecorderEvents.SEGMENT_STARTED}; "${name}": `, ...args);
     });
 
-    recorder.on(RecorderEvents.DIRECTORY_CREATED, (...args) => {
-      console.log(` ${new Date()}; ${RecorderEvents.DIRECTORY_CREATED}; "${name}": `, ...args);
-    });
-
     recorder.on(RecorderEvents.FILE_CREATED, (...args) => {
       console.log(` ${new Date()}; ${RecorderEvents.FILE_CREATED}; "${name}": `, ...args);
     });
@@ -75,7 +71,7 @@ class Recorder {
   start = ({ id, name, uri }) => {
     const recorder = this.getRecorderInstance(id, uri, name);
     recorder
-      .on('stopped', Meteor.bindEnvironment(() => {
+      .on(RecorderEvents.STOPPED, Meteor.bindEnvironment(() => {
         Devices.update({ _id: id }, { $set: { recording: false } });
       }))
       .start();

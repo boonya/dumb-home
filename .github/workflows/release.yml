@@ -47,8 +47,8 @@ jobs:
       - name: Upload application bundle
         uses: actions/upload-artifact@v2
         with:
-          name: app.tar.gz
-          path: build/app.tar.gz
+          name: dumb-home.tar.gz
+          path: build/dumb-home.tar.gz
       - name: Upload installDeps.sh
         uses: actions/upload-artifact@v2
         with:

@@ -42,7 +42,7 @@
     - mongo/initdb.d/1-create-db-and-user.sh
     - web-app/Dockerfile
     - web-app/pm2.yml
-    - web-app/app.tar.gz
+    - web-app/dumb-home.tar.gz
   tags:
     - dumb-home
 
