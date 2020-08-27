@@ -12,7 +12,7 @@ class Recorder {
 
     const recorder = new RtspRecorder(uri, FOLDER, {
       title: name,
-      filePattern: `%H.%M.%S-${name.replace(/%/g, '%%').replace(/ /g, '_')}`,
+      filePattern: `%Y.%m.%d/%H.%M.%S-${name.replace(/%/g, '%%').replace(/ /g, '_')}`,
       segmentTime: SEGMENT_TIME,
       dirSizeThreshold: DIR_SIZE_THRESHOLD,
       autoClear: AUTO_CLEAR,
